@@ -1,3 +1,31 @@
+@model StreamSurfer.Models.Show
+
 @{
     ViewData["Title"] = "Detail";
 }
+
+<div>
+    <div>
+        <img src=@Html.DisplayFor(model => model.Picture)/>
+    </div>
+
+    <div>
+        <h2>@Html.DisplayFor(model => model.Title)</h2>
+        <h3>Description</h3>
+        <p>@Html.DisplayFor(model => model.Desc)</p>
+    </div>
+</div>
+
+<div>
+    <h2>Available on:</h2>
+    @foreach (var item in Model.Services)
+    {
+        <div class="row">
+            <div class="col-xs-4">
+
+            </div>
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4"></div>
+        </div>
+    }
+</div>

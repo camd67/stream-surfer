@@ -8,7 +8,6 @@ namespace StreamSurfer.Models
 {
     public class Show
     {
-        [Key]
         public int ID { get; set; }
         public string Title { get; set; }
         public string Picture { get; set; }
@@ -16,5 +15,6 @@ namespace StreamSurfer.Models
 
         public List<Synonym> Synonyms { get; set; } 
         public List<Genre> Genres { get; set; }
+        public List<Service> Services { get; set; }
     }
 }
