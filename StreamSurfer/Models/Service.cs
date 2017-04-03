@@ -12,7 +12,6 @@ namespace StreamSurfer.Models
         public string Price { get; set; }
         public string Picture { get; set; }
 
-        public int ShowID { get; set; }
-        public Show ParentShow { get; set; }
+        public ICollection<ShowService> ShowService { get; set; }
     }
 }

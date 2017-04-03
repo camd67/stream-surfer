@@ -1,12 +1,11 @@
 @model StreamSurfer.Models.Show
-
 @{
     ViewData["Title"] = "Detail";
 }
 
 <div>
     <div>
-        <img src=@Html.DisplayFor(model => model.Picture)/>
+        <img src=@Html.DisplayFor(model => model.Picture) />
     </div>
 
     <div>
@@ -18,11 +17,9 @@
 
 <div>
     <h2>Available on:</h2>
-    @for (var i = 0; i < Model.Services.Count; i++)
+    @for (var i = 0; i < 3; i++)
     {
         <div style="display: inline-block">
-            <img src=@Model.Services[i].Picture />
-            <h3>@Model.Services[i].Name</h3>
         </div>
 
         if (i % 3 == 2)

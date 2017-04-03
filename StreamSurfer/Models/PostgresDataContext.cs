@@ -10,5 +10,6 @@ namespace StreamSurfer.Models
         public DbSet<Synonym> Synonyms { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Service> Services { get; set; }
+        public DbSet<ShowService> ShowServices { get; set; }
     }
 }

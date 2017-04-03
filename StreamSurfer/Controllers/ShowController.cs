@@ -28,14 +28,12 @@ namespace StreamSurfer.Controllers
             {
                 return NotFound();
             }
-
             var show = await _context.Shows
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (show == null)
             {
                 return NotFound();
             }
-
             return View(show);
         }
     }
