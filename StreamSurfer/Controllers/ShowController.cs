@@ -28,7 +28,11 @@ namespace StreamSurfer.Controllers
             {
                 return NotFound();
             }
+            var service = await _context.Services
+                .Include(m => m.ShowService)
+                .ToListAsync();
             var show = await _context.Shows
+                .Include(m => m.ShowService)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (show == null)
             {

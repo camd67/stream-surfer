@@ -15,16 +15,17 @@
     </div>
 </div>
 
-<div>
+<div style="overflow: auto">
     <h2>Available on:</h2>
-    @for (var i = 0; i < 3; i++)
-    {
-        <div style="display: inline-block">
-        </div>
-
-        if (i % 3 == 2)
+    @{ 
+        foreach (var service in Model.ShowService.Select(s => s.Service))
         {
-            <br />
+            <div class="col-xs-4">
+                <p>@Html.DisplayFor(name => service.Name)</p>
+                <img src=@Html.DisplayFor(name => service.Picture) />
+                <p>From: @Html.DisplayFor(name => service.Price)</p>
+            </div>
         }
     }
+    <br />
 </div>
