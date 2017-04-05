@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using StreamSurfer.Services;
-using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
+using StreamSurfer.Models;
+using StreamSurfer.Services;
 
 namespace StreamSurfer.Controllers
 {
@@ -22,9 +22,32 @@ namespace StreamSurfer.Controllers
             this.showService = showService;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
+        }
+
+        public async Task<IActionResult> Search()
+        {
+            // build the API request string, and get it
+            var response = await webRequest.Get(showService.ConvertToShowSearch("breaking"));
+            if (!response.IsSuccessStatusCode)
+            {
+                return Error();
+            }
+            // actually download the content
+            var content = await response.Content.ReadAsStringAsync();
+            // convert httpResponse into JSON
+            var json = JObject.Parse(content);
+            // get all the results as a list
+            IList<JToken> results = json["results"].Children().ToList();
+            IList<Show> showResults = new List<Show>();
+            foreach (JToken r in results)
+            {
+                Show showResult = r.ToObject<Show>();
+                showResults.Add(showResult);
+            }
+            return View(showResults);
         }
         
         public IActionResult Error()

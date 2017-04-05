@@ -1,0 +1,11 @@
+@model IEnumerable<StreamSurfer.Models.Show>
+
+<ul>
+    @foreach(var s in Model)
+    {
+    <li>
+        <p>@s.ID</p>
+        <p>@s.Title</p>
+    </li>
+    }
+</ul>
