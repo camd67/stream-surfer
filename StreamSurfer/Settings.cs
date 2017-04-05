@@ -7,5 +7,6 @@
             // Default values
         }
         public string DbConn { get; set; }
+        public string GuideboxKey { get; set; }
     }
 }

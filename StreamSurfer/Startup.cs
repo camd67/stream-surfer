@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using StreamSurfer.Models;
+using StreamSurfer.Services;
 
 namespace StreamSurfer
 {
@@ -34,6 +35,9 @@ namespace StreamSurfer
                 b => b.MigrationsAssembly("StreamSurfer")
                 )
             );
+
+            services.AddSingleton<IWebRequestHandler, HttpClientRequestHandler>();
+            services.AddScoped<IShowService, GuideboxService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
