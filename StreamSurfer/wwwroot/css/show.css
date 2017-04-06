@@ -1,0 +1,64 @@
+﻿@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+body {
+    font-family: "Montserrat", sans-serif;
+}
+
+h2 {
+    margin-top: 0;
+    font-weight: bold;
+    font-size: 32px;
+}
+
+h3 {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.serviceInfo {
+    display: inline-block;
+}
+
+.serviceInfo p {
+    margin-bottom: 0;
+}
+
+.serviceInfo img {
+    max-height: 50px;
+}
+
+.showSpace {
+    height: 50px;
+}
+
+#detailsDiv {
+    color: white;
+    width: 100%;
+}
+
+#infoDiv {
+    overflow: hidden;
+}
+
+#pictureDiv {
+    float: left;
+}
+
+#serviceDiv {
+    overflow: auto;
+    margin-top: 15px;
+}
+
+#serviceDiv h2 {
+    font-weight: normal;
+}
+
+#showDetails {
+    padding-left: 15px;
+    background-color: rgba(33, 147, 156, .8);
+    height: 242px;
+}
+
+#showPicture {
+    height: 342px;
+}

@@ -3,29 +3,40 @@
     ViewData["Title"] = "Detail";
 }
 
-<div>
-    <div>
-        <img src=@Html.DisplayFor(model => model.Picture) />
+@section Styles{
+    <link rel="stylesheet" href="~/css/show.css" />
+}
+
+<div id="detailsDiv" class="row">
+    <div class="showSpace"></div>
+    <div id="pictureDiv">
+        <img id="showPicture" src=@Html.DisplayFor(model => model.Picture) />
     </div>
 
-    <div>
-        <h2>@Html.DisplayFor(model => model.Title)</h2>
-        <h3>Description</h3>
-        <p>@Html.DisplayFor(model => model.Desc)</p>
+    <div id="infoDiv">
+        <div class="showSpace"></div>
+        <div id="showDetails">
+            <h2>@Html.DisplayFor(model => model.Title)</h2>
+            <h3>Description</h3>
+            <p>@Html.DisplayFor(model => model.Desc)</p>
+        </div>
     </div>
 </div>
 
-<div style="overflow: auto">
+<div id="serviceDiv" class="row">
     <h2>Available on:</h2>
     @{ 
         foreach (var service in Model.ShowService.Select(s => s.Service))
         {
             <div class="col-xs-4">
-                <p>@Html.DisplayFor(name => service.Name)</p>
-                <img src=@Html.DisplayFor(name => service.Picture) />
-                <p>From: @Html.DisplayFor(name => service.Price)</p>
+                <div class="serviceInfo">
+                    <img src=@Html.DisplayFor(name => service.Picture) />
+                </div>
+                <div class="serviceInfo">
+                    <p>From: </p>
+                    <p>@Html.DisplayFor(name => service.Price)</p>
+                </div>
             </div>
         }
     }
-    <br />
 </div>
