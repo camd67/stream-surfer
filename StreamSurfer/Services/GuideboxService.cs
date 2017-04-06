@@ -14,10 +14,16 @@ namespace StreamSurfer.Services
         public GuideboxService(IOptions<Settings> settings)
         {
             API_KEY = settings.Value.GuideboxKey;
+
         }
+        private string BuildQuery(string endpoint, string queryParams)
+        {
+            return BASE_URL + endpoint + "?api_key=" + API_KEY + "&" + queryParams;
+        }
+
         public string ConvertToShowSearch(string query)
         {
-            return BASE_URL + "search?api_key=" + API_KEY + "&type=show&query=" + query;
+            return BuildQuery("search", "type=show&query=" + query);
         }
     }
 }

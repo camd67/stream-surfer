@@ -1,3 +1,16 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
+@section Styles{
+    <link rel="stylesheet" href="~/css/home.css"/>
+}
+@section Scripts{
+    <script src="~/js/home.js"></script>
+}
+
+<form asp-action="Search" method="get" id="search-form">
+    <div class="input-group">
+        <i type="submit" class="glyphicon glyphicon-search input-group-addon" id="search-input"></i>
+        <input type="text" id="query" name="query" class="search-box form-control" />
+    </div>
+</form>

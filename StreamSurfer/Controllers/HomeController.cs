@@ -27,10 +27,10 @@ namespace StreamSurfer.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Search()
+        public async Task<IActionResult> Search(string query)
         {
             // build the API request string, and get it
-            var response = await webRequest.Get(showService.ConvertToShowSearch("breaking"));
+            var response = await webRequest.Get(showService.ConvertToShowSearch(query));
             if (!response.IsSuccessStatusCode)
             {
                 return Error();
