@@ -63,20 +63,28 @@ namespace StreamSurfer.Controllers
                 .Children()
                 .Select(x => new Genre() { ShowID = id.Value, Title = x.ToString() })
                 .ToList();
+            var serviceResponse = await webRequest.Get(showService.ConvertToServices(id.Value));
+            var serviceContent = await serviceResponse.Content.ReadAsStringAsync();
+            var serviceJson = JObject.Parse(serviceContent);
             // TODO: support more than just web links (such as ios + android)
-            List<ShowService> services = json["channels"][0]["live_stream"]["web"]
+            List<Service> services = serviceJson["results"]["web"]["episodes"]["all_sources"]
                 .Children()
-                .Select(x => new ShowService() { ShowID = id.Value})
+                .Select(x => new Service() { ID = (int) JObject.Parse(x.ToString())["id"],
+                    Name = (string) JObject.Parse(x.ToString())["display_name"]})
                 .ToList();
+            List<ShowService> showServices = new List<ShowService>();
+            foreach (var service in services) {
+                showServices.Add(new ShowService(id.Value, service.ID, null, service));
+            }
             Show show = new Show()
             {
                 ID = (int)json["id"],
                 Title = (string)json["title"],
-                Picture = (string)json["artwork_448x252"],
+                Picture = (string)json["poster"],
                 Desc = (string)json["overview"],
                 Synonyms = synonyms,
-                Genres = genres
-                //ShowService = services
+                Genres = genres,
+                ShowService = showServices
             };
             return View(show);
         }

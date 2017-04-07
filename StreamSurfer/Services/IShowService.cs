@@ -9,5 +9,6 @@ namespace StreamSurfer.Services
     {
         string ConvertToShowSearch(string query);
         string ConvertToDetail(int id);
+        string ConvertToServices(int id);
     }
 }

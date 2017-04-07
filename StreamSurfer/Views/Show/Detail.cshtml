@@ -29,12 +29,15 @@
         foreach (var service in Model.ShowService.Select(s => s.Service))
         {
             <div class="col-xs-4">
-                <div class="serviceInfo">
+                <!-- <div class="serviceInfo">
                     <img src=@Html.DisplayFor(name => service.Picture) />
                 </div>
                 <div class="serviceInfo">
                     <p>From: </p>
                     <p>@Html.DisplayFor(name => service.Price)</p>
+                </div> -->
+                <div class="serviceInfo">
+                    <p>@Html.DisplayFor(name => service.Name)</p>
                 </div>
             </div>
         }
