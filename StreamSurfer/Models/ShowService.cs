@@ -13,5 +13,13 @@ namespace StreamSurfer.Models
 
         public Show Show { get; set; }
         public Service Service { get; set; }
+
+        public ShowService(int ShowID, int ServiceID, Show Show, Service Service)
+        {
+            this.ShowID = ShowID;
+            this.ServiceID = ServiceID;
+            this.Show = Show;
+            this.Service = Service;
+        }
     }
 }

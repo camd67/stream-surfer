@@ -31,5 +31,10 @@ namespace StreamSurfer.Services
         {
             return BuildQuery("search", "type=show&query=" + query);
         }
+
+        public string ConvertToServices(int id)
+        {
+            return BuildQuery("shows/" + id + "/available_content", null);
+        }
     }
 }
