@@ -8,5 +8,6 @@ namespace StreamSurfer.Services
     public interface IShowService
     {
         string ConvertToShowSearch(string query);
+        string ConvertToDetail(int id);
     }
 }

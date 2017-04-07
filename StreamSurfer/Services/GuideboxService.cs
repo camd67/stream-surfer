@@ -18,7 +18,13 @@ namespace StreamSurfer.Services
         }
         private string BuildQuery(string endpoint, string queryParams)
         {
-            return BASE_URL + endpoint + "?api_key=" + API_KEY + "&" + queryParams;
+            // only add query params if they exist
+            return BASE_URL + endpoint + "?api_key=" + API_KEY + (queryParams != null ? "&" + queryParams : "");
+        }
+
+        public string ConvertToDetail(int id)
+        {
+            return BuildQuery("shows/" + id, null);
         }
 
         public string ConvertToShowSearch(string query)
