@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace StreamSurfer.Models
 {
-    public class PostgresDataContext : DbContext
+    public class PostgresDataContext : IdentityDbContext<AppUser>
     {
         public PostgresDataContext(DbContextOptions<PostgresDataContext> options)
             : base(options) { }
@@ -14,6 +15,8 @@ namespace StreamSurfer.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<ShowService>().HasKey(x => new { x.ShowID, x.ServiceID });
 
             modelBuilder.Entity<ShowService>()
