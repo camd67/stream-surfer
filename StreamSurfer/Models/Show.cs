@@ -14,7 +14,7 @@ namespace StreamSurfer.Models
         public string Desc { get; set; }
 
         public List<Synonym> Synonyms { get; set; } 
-        public List<Genre> Genres { get; set; }
+        public List<ShowGenre> Genres { get; set; }
         public List<ShowService> ShowService { get; set; }
     }
 }

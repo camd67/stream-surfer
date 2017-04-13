@@ -36,5 +36,10 @@ namespace StreamSurfer.Services
         {
             return BuildQuery("shows/" + id + "/available_content", null);
         }
+
+        public string GetShows(int limit)
+        {
+            return BuildQuery("shows", "limit=" + limit);
+        }
     }
 }
