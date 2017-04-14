@@ -13,6 +13,7 @@
     <Content Include="wwwroot\css\home.css" />
     <Content Include="wwwroot\css\show.css" />
     <Content Include="wwwroot\images\header.jpg" />
+    <Content Include="wwwroot\images\search-background.jpg" />
     <Content Include="wwwroot\js\home.js" />
   </ItemGroup>
   <ItemGroup>
