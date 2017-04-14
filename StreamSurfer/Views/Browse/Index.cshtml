@@ -1,26 +1,25 @@
-﻿@model IEnumerable<StreamSurfer.Models.ShowGenre>
+﻿@model Dictionary<String, List<Show>>
 @{
     ViewData["Title"] = "Browse";
-
-    var genres = new List<string> { "Action", "Action and Adventure", "Adventure", "Animation", "Biography", "Children", "Comedy",
-                                    "Crime", "Documentary", "Drama", "Family", "Fantasy", "Film-Noir", "Food", "Game Show",
-                                    "History", "Home and Garden", "Horror", "Mini-Series", "Music", "Musical", "Mystery", "News",
-                                    "Reality", "Romance", "Science-Fiction", "Soap", "Special Interest", "Sport", "Suspense",
-                                    "Talk Show", "Thriller", "Travel", "Variety", "War", "Western" };
 }
 
 <div id="topDiv">
     <h2>Categories</h2>
 </div>
 
-<div id="genreDiv">
-    @{ 
+<div>
+    @{
         foreach (var item in Model)
         {
-            <div>
-                <h3>@Html.DisplayFor(modelItem => item.Genre.Title)</h3>
+            <h3>@Html.DisplayFor(modelItem => item.Key)</h3>
+            <div class="container">
+                @foreach (var value in item.Value)
+                {
+                    <a href="/show/detail/@Html.DisplayFor(modelItem => value.ID)">
+                        <img src="@Html.DisplayFor(modelItem => value.Picture)" />
+                    </a>
+                }
             </div>
-
         }
     }
 </div>

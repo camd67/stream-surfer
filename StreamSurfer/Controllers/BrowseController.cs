@@ -26,12 +26,7 @@ namespace StreamSurfer.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var genres = new List<string> { "Action", "Action and Adventure", "Adventure", "Animation", "Biography", "Children", "Comedy",
-                                            "Crime", "Documentary", "Drama", "Family", "Fantasy", "Film-Noir", "Food", "Game Show",
-                                            "History", "Home and Garden", "Horror", "Mini-Series", "Music", "Musical", "Mystery", "News",
-                                            "Reality", "Romance", "Science-Fiction", "Soap", "Special Interest", "Sport", "Suspense",
-                                            "Talk Show", "Thriller", "Travel", "Variety", "War", "Western" };
-            var response = await webRequest.Get(showService.GetShows(1));
+            var response = await webRequest.Get(showService.GetShows(5));
             if (!response.IsSuccessStatusCode)
             {
                 return NotFound();
@@ -44,7 +39,7 @@ namespace StreamSurfer.Controllers
                                             Title = (string)JObject.Parse(x.ToString())["title"],
                                             Picture = (string)JObject.Parse(x.ToString())["artwork_304x171"]})
                 .ToList();
-            List<ShowGenre> showGenres = new List<ShowGenre>();
+            Dictionary<String, List<Show>> genreDictionary = new Dictionary<String, List<Show>>();
             foreach (var show in showResults)
             {
                 response = await webRequest.Get(showService.ConvertToDetail(show.ID));
@@ -54,30 +49,27 @@ namespace StreamSurfer.Controllers
                 }
                 content = await response.Content.ReadAsStringAsync();
                 json = JObject.Parse(content);
-                List<Genre> showGenreList = json["genres"]
+                List<String> showGenreList = json["genres"]
                     .Children()
-                    .Select(x => new Genre() { Title = (string)JObject.Parse(x.ToString())["title"] })
+                    .Select(x => (string)JObject.Parse(x.ToString())["title"])
                     .ToList();
                 foreach (var genre in showGenreList)
                 {
-                    showGenres.Add(new ShowGenre { Genre = genre, Show = show });
+                    List<Show> tempList;
+                    if (genreDictionary.ContainsKey(genre))
+                    {
+                        tempList = genreDictionary[genre];
+                        genreDictionary.Remove(genre);
+                    } else
+                    {
+                        tempList = new List<Show>();
+                    }
+                    tempList.Add(show);
+                    genreDictionary.Add(genre, tempList);
                 }
             }
-            /*
-            var response = await webRequest.Get(showService.GetGenre());
-            if (!response.IsSuccessStatusCode)
-            {
-                return NotFound();
-            }
-            var content = await response.Content.ReadAsStringAsync();
-            var json = JObject.Parse(content);
-            List<Genre> genres = json["results"]
-                .Children()
-                .Select(x => new Genre() { Title = (string)JObject.Parse(x.ToString())["genre"] })
-                .ToList();
-            */
             List<Show> shows = new List<Show>();
-            return View(showGenres);
+            return View(genreDictionary);
         }
     }
 }
