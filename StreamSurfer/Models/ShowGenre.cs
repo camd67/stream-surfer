@@ -7,6 +7,7 @@ namespace StreamSurfer.Models
 {
     public class ShowGenre
     {
+        public int Id { get; set; }
         public int ShowID { get; set; }
         public int GenreID { get; set; }
 

@@ -12,6 +12,7 @@
     <Content Include="wwwroot\css\browse.css" />
     <Content Include="wwwroot\css\home.css" />
     <Content Include="wwwroot\css\show.css" />
+    <Content Include="wwwroot\images\header.jpg" />
     <Content Include="wwwroot\js\home.js" />
   </ItemGroup>
   <ItemGroup>
@@ -39,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Show\" />
-    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>
