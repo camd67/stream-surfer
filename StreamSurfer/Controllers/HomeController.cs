@@ -49,6 +49,11 @@ namespace StreamSurfer.Controllers
             }
             return View(showResults);
         }
+
+        public IActionResult AdvancedSearch()
+        {
+            return View();
+        }
         
         public IActionResult Error()
         {
