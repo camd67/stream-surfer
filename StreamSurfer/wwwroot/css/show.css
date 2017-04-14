@@ -1,11 +1,16 @@
-﻿#contentDiv {
+﻿#castDiv {
+    margin-bottom: 15px;
+}
+
+#contentDiv {
     margin-left: 200px;
     margin-right: 200px;
     background-color: white;
+    height: inherit;
 }
 
 #detailsDiv {
-    padding-bottom: 180px;
+    padding-bottom: 120px;
 }
 
 #detailsDiv ul {
@@ -16,7 +21,10 @@
 
 #detailsDiv ul li {
     display: inline-block;
-    width: 60px;
+}
+
+#genreDiv, #castDiv {
+    color: black;
 }
 
 #imgDiv {
@@ -26,10 +34,20 @@
 
 #pictureDiv {
     float: left;
+    padding-right: 15px;
+}
+
+#servicesDiv h2 {
+    color: #FF5F41;
+}
+
+#showDetail {
+    background: url("../images/search-background.jpg") no-repeat top center;
+    height: 700px;
 }
 
 #titleDiv {
-    margin-top: 75px;
+    margin-top: 50px;
     margin-left: 200px;
     margin-right: 200px;
     height: 75px;
@@ -41,6 +59,13 @@
     text-align: center;
     color: #E7E6D6;
     line-height: 75px;
+}
+
+#topDetails ul li {
+    color: #FF5F41;
+    font-size: 18px;
+    font-weight: bold;
+    padding-right: 40px;
 }
 
 #wrapperDiv {

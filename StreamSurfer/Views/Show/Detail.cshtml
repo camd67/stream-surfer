@@ -3,23 +3,64 @@
     ViewData["Title"] = "Detail";
 }
 
-<div id="titleDiv">
-    <h2>@Html.Encode(Model.Title).ToUpper()</h2>
-</div>
+<div id="showDetail">
+    <div id="titleDiv">
+        <h2>@Html.Encode(Model.Title).ToUpper()</h2>
+    </div>
 
-<div id="contentDiv">
-    <div id="wrapperDiv">
-        <div id="pictureDiv">
-            <img src="@Html.DisplayFor(model => model.Picture)" />
-        </div>
-        <div id="detailsDiv">
-            <ul>
-                <li>@Html.DisplayFor(model => model.Started)</li>
-                <li>@Html.DisplayFor(model => model.Rating)</li>
-            </ul>
-        </div>
-        <div id="descDiv">
-            <p>@Html.DisplayFor(model => model.Desc)</p>
+    <div id="contentDiv">
+        <div id="wrapperDiv">
+            <div id="pictureDiv">
+                <img src="@Html.DisplayFor(model => model.Picture)" />
+            </div>
+            <div id="detailsDiv">
+                <div id="topDetails">
+                    <ul>
+                        <li>@Html.DisplayFor(model => model.Started)</li>
+                        <li>@Html.DisplayFor(model => model.Rating)</li>
+                    </ul>
+                </div>                
+                
+                <div id="castDiv">
+                    <ul>
+                        <li><b>Cast: </b></li>
+                        @{
+                            foreach (var item in Model.Cast)
+                            {
+                                <li>@item, </li>
+                            }
+                        }
+                    </ul>
+                </div>
+
+                <div id="genreDiv">
+                    <ul>
+                        <li><b>Genre: </b></li>
+                        @{
+                            foreach (var item in Model.Genres)
+                            {
+                                <li>@item.Title, </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div id="descDiv">
+                <p>@Html.DisplayFor(model => model.Desc)</p>
+            </div>
+            <div id="servicesDiv">
+                <h2>AVAILABLE ON:</h2>
+                @{
+                    foreach (var service in Model.ShowService.Select(s => s.Service))
+                    {
+                        <div class="col-xs-4">
+                            <div class="serviceInfo">
+                                <p>@Html.DisplayFor(name => service.Name)</p>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
         </div>
     </div>
 </div>

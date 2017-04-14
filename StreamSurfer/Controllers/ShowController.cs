@@ -61,7 +61,11 @@ namespace StreamSurfer.Controllers
                 .ToList();
             List<Genre> genres = json["genres"]
                 .Children()
-                .Select(x => new Genre() { Title = x.ToString() })
+                .Select(x => new Genre() { Title = (string)JObject.Parse(x.ToString())["title"] })
+                .ToList();
+            List<string> cast = json["cast"]
+                .Children()
+                .Select(x => (string)JObject.Parse(x.ToString())["name"])
                 .ToList();
             var serviceResponse = await webRequest.Get(showService.ConvertToServices(id.Value));
             var serviceContent = await serviceResponse.Content.ReadAsStringAsync();
@@ -84,8 +88,9 @@ namespace StreamSurfer.Controllers
                 Desc = (string)json["overview"],
                 Started = json["first_aired"].ToString().Substring(0, 4),
                 Rating = (string)json["rating"],
+                Cast = cast,
                 Synonyms = synonyms,
-                //Genres = genres,
+                Genres = genres,
                 ShowService = showServices
             };
             return View(show);

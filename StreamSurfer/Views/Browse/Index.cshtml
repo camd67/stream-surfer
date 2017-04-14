@@ -3,23 +3,25 @@
     ViewData["Title"] = "Browse";
 }
 
-<div id="topDiv">
-    <h2>CATEGORIES</h2>
-</div>
+<div id="browseDiv">
+    <div id="topDiv">
+        <h2>CATEGORIES</h2>
+    </div>
 
-<div>
-    @{
-        foreach (var item in Model)
-        {
-            <h3 class="genreName">@Html.DisplayFor(modelItem => item.Key)</h3>
-            <div class="genreDiv">
-                @foreach (var value in item.Value)
+    <div>
+        @{
+            foreach (var item in Model)
+            {
+                <h3 class="genreName">@Html.DisplayFor(modelItem => item.Key)</h3>
+                <div class="genreDiv">
+                    @foreach (var value in item.Value)
                 {
-                    <a href="/show/detail/@Html.DisplayFor(modelItem => value.ID)">
-                        <img class="genrePic" src="@Html.DisplayFor(modelItem => value.Picture)" />
-                    </a>
-                }
-            </div>
+                        <a href="/show/detail/@Html.DisplayFor(modelItem => value.ID)">
+                            <img class="genrePic" src="@Html.DisplayFor(modelItem => value.Picture)" />
+                        </a>
+                    }
+                </div>
+            }
         }
-    }
+    </div>
 </div>
