@@ -18,8 +18,13 @@
     margin-right: auto;
     text-align: center;
 }
+
+.home-header-search form {
+    box-shadow: 8px 8px 15px 5px rgba(0,0,0,0.5);
+}
 .home-header-search a {
     color: #FFF;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
 }
 
 .card-section {
