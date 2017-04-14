@@ -1,5 +1,26 @@
-﻿.container {
-    width: 30em;
+﻿@import url('https://fonts.googleapis.com/css?family=Museo+Sans');
+
+.genreDiv {
     overflow-x: auto;
     white-space: nowrap;
+    
+}
+
+.genreName {
+    color: #FF5F41;
+    letter-spacing: 2.5px;
+}
+
+.genrePic {
+    width: 371.65px;
+    height: 209.26px;
+    margin-right: 10px;
+}
+
+#topDiv {
+    margin-top: 2em;
+}
+
+#topDiv, #genreName {
+    font-family: "Oswald";
 }
