@@ -45,6 +45,8 @@ namespace StreamSurfer.Controllers
             foreach (JToken r in results)
             {
                 Show showResult = r.ToObject<Show>();
+                showResult.Desc = "First aired: " + r["first_aired"];
+                showResult.Picture = r["artwork_304x171"].ToString();
                 showResults.Add(showResult);
             }
             return View(showResults);
