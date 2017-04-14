@@ -32,6 +32,7 @@ textarea {
 .logo-stream, .logo-surfer {
     margin: 0;
     font-size: 24pt;
+    font-family: "Oswald";
 }
 .logo-stream {
     color: #1A9298;

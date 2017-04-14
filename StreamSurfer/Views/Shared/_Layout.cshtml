@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - StreamSurfer</title>
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Oswald" />
 
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -37,7 +38,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    
+                    <li><a asp-area="" asp-controller="Browse" asp-action="Index">Browse</a></li>
                 </ul>
                 @await  Html.PartialAsync("_LoginPartial")
             </div>
