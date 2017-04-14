@@ -80,8 +80,10 @@ namespace StreamSurfer.Controllers
             {
                 ID = (int)json["id"],
                 Title = (string)json["title"],
-                Picture = (string)json["poster"],
+                Picture = (string)json["artwork_304x171"],
                 Desc = (string)json["overview"],
+                Started = json["first_aired"].ToString().Substring(0, 4),
+                Rating = (string)json["rating"],
                 Synonyms = synonyms,
                 //Genres = genres,
                 ShowService = showServices

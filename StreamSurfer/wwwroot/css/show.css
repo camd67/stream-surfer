@@ -1,62 +1,48 @@
-﻿body {
-    font-family: "Montserrat", sans-serif;
-}
-
-h2 {
-    margin-top: 0;
-    font-weight: bold;
-    font-size: 32px;
-}
-
-h3 {
-    font-weight: bold;
-    font-size: 18px;
-}
-
-.serviceInfo {
-    display: inline-block;
-}
-
-.serviceInfo p {
-    margin-bottom: 0;
-}
-
-.serviceInfo img {
-    max-height: 50px;
-}
-
-.showSpace {
-    height: 50px;
+﻿#contentDiv {
+    margin-left: 200px;
+    margin-right: 200px;
+    background-color: white;
 }
 
 #detailsDiv {
-    color: white;
-    width: 100%;
+    padding-bottom: 180px;
 }
 
-#infoDiv {
-    overflow: hidden;
+#detailsDiv ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#detailsDiv ul li {
+    display: inline-block;
+    width: 60px;
+}
+
+#imgDiv {
+    margin-top: 60px;
+    margin-left: 60px;
 }
 
 #pictureDiv {
     float: left;
 }
 
-#serviceDiv {
-    overflow: auto;
-    margin-top: 15px;
+#titleDiv {
+    margin-top: 75px;
+    margin-left: 200px;
+    margin-right: 200px;
+    height: 75px;
+    background-color: #7BA8A2;
 }
 
-#serviceDiv h2 {
-    font-weight: normal;
+#titleDiv h2 {
+    vertical-align: middle;
+    text-align: center;
+    color: #E7E6D6;
+    line-height: 75px;
 }
 
-#showDetails {
-    padding-left: 15px;
-    background-color: rgba(33, 147, 156, .8);
-    height: 242px;
-}
-
-#showPicture {
-    height: 342px;
+#wrapperDiv {
+    padding: 30px;
 }

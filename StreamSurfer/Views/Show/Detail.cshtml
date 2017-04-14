@@ -3,40 +3,23 @@
     ViewData["Title"] = "Detail";
 }
 
+<div id="titleDiv">
+    <h2>@Html.Encode(Model.Title).ToUpper()</h2>
+</div>
 
-<div id="detailsDiv" class="row">
-    <div class="showSpace"></div>
-    <div id="pictureDiv">
-        <img id="showPicture" src=@Html.DisplayFor(model => model.Picture) />
-    </div>
-
-    <div id="infoDiv">
-        <div class="showSpace"></div>
-        <div id="showDetails">
-            <h2>@Html.DisplayFor(model => model.Title)</h2>
-            <h3>Description</h3>
+<div id="contentDiv">
+    <div id="wrapperDiv">
+        <div id="pictureDiv">
+            <img src="@Html.DisplayFor(model => model.Picture)" />
+        </div>
+        <div id="detailsDiv">
+            <ul>
+                <li>@Html.DisplayFor(model => model.Started)</li>
+                <li>@Html.DisplayFor(model => model.Rating)</li>
+            </ul>
+        </div>
+        <div id="descDiv">
             <p>@Html.DisplayFor(model => model.Desc)</p>
         </div>
     </div>
-</div>
-
-<div id="serviceDiv" class="row">
-    <h2>Available on:</h2>
-    @{ 
-        foreach (var service in Model.ShowService.Select(s => s.Service))
-        {
-            <div class="col-xs-4">
-                <!-- <div class="serviceInfo">
-                    <img src=@Html.DisplayFor(name => service.Picture) />
-                </div>
-                <div class="serviceInfo">
-                    <p>From: </p>
-                    <p>@Html.DisplayFor(name => service.Price)</p>
-                </div> -->
-                <div class="serviceInfo">
-                    <p>@Html.DisplayFor(name => service.Name)</p>
-                </div>
-            </div>
-        }
-    }
 </div>
