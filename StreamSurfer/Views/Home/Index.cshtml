@@ -5,9 +5,25 @@
     <script src="~/js/home.js"></script>
 }
 
-<form asp-action="Search" method="get" id="search-form">
-    <div class="input-group">
-        <i type="submit" class="glyphicon glyphicon-search input-group-addon" id="search-input"></i>
-        <input type="text" id="query" name="query" class="search-box form-control" />
+<header class="home-header">
+    <div class="home-header-search">
+        <form asp-action="Search" method="get" id="search-form">
+            <div class="input-group">
+                <i type="submit" class="glyphicon glyphicon-search input-group-addon" id="search-input"></i>
+                <input type="text" id="query" name="query" class="search-box form-control" />
+            </div>
+        </form>
+        <a asp-controller="Home" asp-action="AdvancedSearch">Advanced Search</a>
     </div>
-</form>
+</header>
+<div class="card-section">
+    <section class="card service-card">
+        <h2>Services</h2>
+    </section>
+    <section class="card show-card">
+        <h2>Shows</h2>
+    </section>
+    <section class="card movie-card">
+        <h2>Movies</h2>
+    </section>
+</div>
