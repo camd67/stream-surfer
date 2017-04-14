@@ -1,22 +1,22 @@
-﻿@model Dictionary<String, List<Show>>
+﻿@model SortedDictionary<String, List<Show>>
 @{
     ViewData["Title"] = "Browse";
 }
 
 <div id="topDiv">
-    <h2>Categories</h2>
+    <h2>CATEGORIES</h2>
 </div>
 
 <div>
     @{
         foreach (var item in Model)
         {
-            <h3>@Html.DisplayFor(modelItem => item.Key)</h3>
-            <div class="container">
+            <h3 class="genreName">@Html.DisplayFor(modelItem => item.Key)</h3>
+            <div class="genreDiv">
                 @foreach (var value in item.Value)
                 {
                     <a href="/show/detail/@Html.DisplayFor(modelItem => value.ID)">
-                        <img src="@Html.DisplayFor(modelItem => value.Picture)" />
+                        <img class="genrePic" src="@Html.DisplayFor(modelItem => value.Picture)" />
                     </a>
                 }
             </div>

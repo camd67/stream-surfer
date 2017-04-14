@@ -39,7 +39,7 @@ namespace StreamSurfer.Controllers
                                             Title = (string)JObject.Parse(x.ToString())["title"],
                                             Picture = (string)JObject.Parse(x.ToString())["artwork_304x171"]})
                 .ToList();
-            Dictionary<String, List<Show>> genreDictionary = new Dictionary<String, List<Show>>();
+            SortedDictionary<String, List<Show>> genreDictionary = new SortedDictionary<String, List<Show>>();
             foreach (var show in showResults)
             {
                 response = await webRequest.Get(showService.ConvertToDetail(show.ID));
