@@ -125,15 +125,4 @@
     position: relative;
     padding: 1em;
 }
-.results-header:after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -50px;
-    width: 0;
-    height: 0;
-    border-top: solid 50px #7BA8A2;
-    border-left: solid 50px transparent;
-    border-right: solid 50px transparent;
-}
+

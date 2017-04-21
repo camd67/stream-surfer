@@ -1,5 +1,6 @@
 ﻿body {
     background: white;
+    font-family: "Montserrat", sans-serif;
 }
 
 .logo-stream, .logo-surfer {
@@ -12,4 +13,29 @@
 }
 .logo-surfer {
     color: #E54E3F;
+}
+.green-tip:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -50px;
+    width: 0;
+    height: 0;
+    border-top: solid 50px #7BA8A2;
+    border-left: solid 50px transparent;
+    border-right: solid 50px transparent;
+}
+
+.orange-tip:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -50px;
+    width: 0;
+    height: 0;
+    border-top: solid 50px #FF5F41;
+    border-left: solid 50px transparent;
+    border-right: solid 50px transparent;
 }
