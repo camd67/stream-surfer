@@ -13,6 +13,7 @@
     <Content Include="wwwroot\android-chrome-512x512.png" />
     <Content Include="wwwroot\apple-touch-icon.png" />
     <Content Include="wwwroot\browserconfig.xml" />
+    <Content Include="wwwroot\css\account.css" />
     <Content Include="wwwroot\css\browse.css" />
     <Content Include="wwwroot\css\home.css" />
     <Content Include="wwwroot\css\show.css" />
@@ -20,6 +21,8 @@
     <Content Include="wwwroot\favicon-32x32.png" />
     <Content Include="wwwroot\favicon.ico" />
     <Content Include="wwwroot\images\header.jpg" />
+    <Content Include="wwwroot\images\logo.png" />
+    <Content Include="wwwroot\images\register-background.jpeg" />
     <Content Include="wwwroot\images\search-background.jpg" />
     <Content Include="wwwroot\js\home.js" />
     <Content Include="wwwroot\manifest.json" />
