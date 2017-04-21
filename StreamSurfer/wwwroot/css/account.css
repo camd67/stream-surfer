@@ -5,6 +5,10 @@
     display: flex;
     align-items: center;
 }
+.login {
+    background: url("../images/login-background.jpg") no-repeat top center fixed;
+    background-size: cover;
+}
 .register-box {
     width: 750px;
     border-radius: 5px;
@@ -72,3 +76,25 @@
     color: #FF5F41;
     font-weight: bold;
 }
+
+.register-box button.orange-background:hover {
+    background-color: #7BA8A2;
+}
+
+.forgot-text {
+    margin-top: 15px;
+}
+
+.register-box .orange-background {
+    background-color: #FF5F41;
+}
+.green-background {
+    background-color: #7BA8A2;
+}
+.green-color {
+    color: #7BA8A2;
+}
+.green-border {
+    border-color: #7BA8A2;
+}
+
