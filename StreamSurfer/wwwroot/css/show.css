@@ -43,7 +43,7 @@
 
 #showDetail {
     background: url("../images/search-background.jpg") no-repeat top center;
-    height: 700px;
+    min-height: 100vh;
 }
 
 #titleDiv {
