@@ -9,10 +9,6 @@ StreamSurfer is a search engine for users who often stream entertainment online,
 * Create a user profile to see recently watched shows and movies  
 * Add shows and movies to personal list for future viewing  
 
-
-
-
-
 ## Built With
 * DigitalOcean: Linux virtual server  
 * ASP NET Core: framework for building the application using C#    
