@@ -16,10 +16,14 @@
     <Content Include="wwwroot\css\account.css" />
     <Content Include="wwwroot\css\browse.css" />
     <Content Include="wwwroot\css\home.css" />
+    <Content Include="wwwroot\css\Profile.css" />
     <Content Include="wwwroot\css\show.css" />
     <Content Include="wwwroot\favicon-16x16.png" />
     <Content Include="wwwroot\favicon-32x32.png" />
     <Content Include="wwwroot\favicon.ico" />
+    <Content Include="wwwroot\fonts\MuseoSansCyrl_0.otf" />
+    <Content Include="wwwroot\fonts\MuseoSansCyrl_3.otf" />
+    <Content Include="wwwroot\images\default-avatar.png" />
     <Content Include="wwwroot\images\header.jpg" />
     <Content Include="wwwroot\images\logo.png" />
     <Content Include="wwwroot\images\register-background.jpeg" />

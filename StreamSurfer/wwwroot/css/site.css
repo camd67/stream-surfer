@@ -1,12 +1,37 @@
-﻿body {
+﻿@font-face {
+    font-family: MuseoSans;
+    src: url("../fonts/MuseoSansCyrl_0.otf") format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: MuseoSans;
+    src: url("../fonts/MuseoSansCyrl_3.otf") format('opentype');
+    font-weight: 300;
+    font-style: oblique;
+}
+
+body {
     background: white;
-    font-family: "Montserrat", sans-serif;
+    font-family: MuseoSans, sans-serif;
+}
+
+h2 {
+    margin: 0;
+}
+
+.background-image {
+    position: absolute;
+    z-index: -999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .logo-stream, .logo-surfer {
     margin: 0;
     font-size: 24pt;
-    font-family: "Oswald";
 }
 .logo-stream {
     color: #7BA8A2;
@@ -14,6 +39,11 @@
 .logo-surfer {
     color: #FF5F41;
 }
+
+.error-message {
+    margin-top: 150px;
+}
+
 .green-tip:after {
     content: '';
     position: absolute;

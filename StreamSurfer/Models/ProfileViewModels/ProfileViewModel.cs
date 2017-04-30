@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace StreamSurfer.Models
+namespace StreamSurfer.Models.ProfileViewModels
 {
-    public class AppUser : IdentityUser
+    public class ProfileViewModel
     {
+        [Required]
+        public string Username { get; set; }
+
         [Required]
         public DateTime RegisterDate { get; set; }
     }

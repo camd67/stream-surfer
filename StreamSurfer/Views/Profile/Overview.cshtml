@@ -1,0 +1,51 @@
+﻿@model OverviewViewModel
+
+<div class="profile-background background-image"></div>
+<div class="container overview-box">
+    <div class="green-tip overview-banner">
+        <h2>Welcome @Model.Username!</h2>
+    </div>
+    <div class="overview-header">
+        <div class="overview-top-info">
+            <div>
+                <img src="~/images/@Model.ProfilePicture" width="175" height="175" />
+            </div>
+            <div>
+                <p>Surfing since @Model.RegisterDate.ToString("y")</p>
+                <p>Bio here</p>
+            </div>
+            <div>
+                <p>Most Watched Genres</p>
+            </div>
+        </div>
+        <div class="overview-list">
+            <p>View List</p>
+            <ul>
+                @*
+    @{
+        foreach (var item in Model)
+        {
+            <li>
+            <h3 class="genreName">@Html.DisplayFor(modelItem => item.Key)</h3>
+            <div class="genreDiv">
+                @foreach (var value in item.Value)
+    {
+                    <a href="/show/detail/@Html.DisplayFor(modelItem => value.ID)">
+                        <img class="genrePic" src="@Html.DisplayFor(modelItem => value.Picture)" />
+                    </a>
+                }
+            </div>
+            </li>
+        }
+    }
+                *@
+            </ul>
+        </div>
+        <div class="overview-list">
+            <p>Recently Rated</p>
+            <ul>
+
+            </ul>
+        </div>
+    </div>
+</div>

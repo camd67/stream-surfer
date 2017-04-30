@@ -109,7 +109,7 @@ namespace StreamSurfer.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = model.Username, Email = model.Email };
+                var user = new AppUser { UserName = model.Username, Email = model.Email, RegisterDate = DateTime.Now };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

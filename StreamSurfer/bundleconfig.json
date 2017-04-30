@@ -8,7 +8,8 @@
       "wwwroot/css/site.css",
       "wwwroot/css/home.css",
       "wwwroot/css/show.css",
-      "wwwroot/css/account.css"
+      "wwwroot/css/account.css",
+      "wwwroot/css/profile.css"
     ]
   },
   {

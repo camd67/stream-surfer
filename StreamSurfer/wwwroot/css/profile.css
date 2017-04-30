@@ -1,0 +1,31 @@
+﻿.profile-background {
+    background: url("../images/register-background.jpeg") no-repeat top center fixed;
+    background-size: cover;
+}
+
+.overview-box {
+    margin-top: 100px;
+}
+
+.overview-banner {
+    text-align: center;
+    background-color: #7BA8A2;
+    color: #E7E6D6;
+    position: relative;
+    height: 3.5em;
+}
+
+.overview-header {
+    padding-top: 50px;
+    padding-left: 2em;
+    padding-right: 2em;
+    background-color: #F3F3EB;
+}
+
+.overview-top-info {
+    display: flex;
+    flex-direction: row;
+}
+.overview-top-info > div {
+    padding: 1em;
+}
