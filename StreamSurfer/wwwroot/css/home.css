@@ -97,8 +97,9 @@
 
 .search-results {
     padding-top: 75px;
+}
+.search-image {
     background: url("../images/search-background.jpg") no-repeat top center;
-    background-color: #7BA8A2;
 }
 .results {
     padding: 0;
