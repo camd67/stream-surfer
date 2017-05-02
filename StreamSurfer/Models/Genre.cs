@@ -10,6 +10,6 @@ namespace StreamSurfer.Models
         public int ID { get; set; }
         public string Title { get; set; }
 
-        public List<ShowGenre> ShowGenres { get; set; }
+        public List<ShowGenre> ShowGenre { get; set; }
     }
 }

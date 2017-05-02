@@ -39,60 +39,109 @@ namespace StreamSurfer.Controllers
             }
             /*
             // DB calls, uncomment when data is added to DB
-            var service = await _context.Services
+            var getService = await _context.Services
                 .Include(m => m.ShowService)
                 .ToListAsync();
-            var show = await _context.Shows
+            var getShow = await _context.Shows
                 .Include(m => m.ShowService)
                 .SingleOrDefaultAsync(m => m.ID == id);
             */
-            var response = await webRequest.Get(showService.ConvertToDetail(id.Value));
-            if (!response.IsSuccessStatusCode)
+
+            var show = await _context.Shows
+                .Include(m => m.ShowService)
+                .Include(m => m.ShowGenre)
+                .SingleOrDefaultAsync(m => m.ID == id);
+            var loadGenres = await _context.Genres
+                .Include(m => m.ShowGenre)
+                .ToListAsync();
+            var loadServices = await _context.Services
+                .Include(m => m.ShowService)
+                .ToListAsync();
+            //switch cast to string separated by ;
+            if (show == null)
             {
-                return NotFound();
+                var response = await webRequest.Get(showService.ConvertToDetail(id.Value));
+                if (!response.IsSuccessStatusCode)
+                {
+                    return NotFound();
+                }
+                var content = await response.Content.ReadAsStringAsync();
+                var json = JObject.Parse(content);
+                // may want to come up with a new way to get these values out.
+                // instead of pulling values out manually
+                List<Synonym> synonyms = json["alternate_titles"]
+                    .Children()
+                    .Select(x => new Synonym() { ShowID = id.Value, Title = x.ToString() })
+                    .ToList();
+                List<Genre> genres = json["genres"]
+                    .Children()
+                    .Select(x => new Genre() {
+                        ID = (int)JObject.Parse(x.ToString())["id"],
+                        Title = (string)JObject.Parse(x.ToString())["title"]
+                    })
+                    .ToList();
+                List<string> cast = json["cast"]
+                    .Children()
+                    .Select(x => (string)JObject.Parse(x.ToString())["name"])
+                    .ToList();
+                string castString = "No cast available.";
+                if (cast.Count > 0)
+                {
+                    castString = cast[0];
+                    cast.Remove(castString);
+                    foreach (var str in cast)
+                    {
+                        castString = castString + ";" + str;
+                    }
+                }
+                var serviceResponse = await webRequest.Get(showService.ConvertToServices(id.Value));
+                var serviceContent = await serviceResponse.Content.ReadAsStringAsync();
+                var serviceJson = JObject.Parse(serviceContent);
+                // TODO: support more than just web links (such as ios + android)
+                List<Service> services = serviceJson["results"]["web"]["episodes"]["all_sources"]
+                    .Children()
+                    .Select(x => new Service()
+                    {
+                        ID = (int)JObject.Parse(x.ToString())["id"],
+                        Name = (string)JObject.Parse(x.ToString())["display_name"]
+                    })
+                    .ToList();
+                List<ShowService> showServices = new List<ShowService>();
+                foreach (var service in services)
+                {
+                    Service getService = _context.Services.SingleOrDefault(s => s.ID == service.ID);
+                    if (getService == null)
+                    {
+                        getService = service;
+                    }
+                    showServices.Add(new ShowService(id.Value, getService.ID, null, getService));
+                }
+                List<ShowGenre> showGenres = new List<ShowGenre>();
+                foreach (var genre in genres)
+                {
+                    Genre getGenre = _context.Genres.SingleOrDefault(g => g.ID == genre.ID);
+                    if (getGenre == null)
+                    {
+                        getGenre = genre;
+                    }
+                    showGenres.Add(new ShowGenre(id.Value, getGenre.ID, null, getGenre));
+                }
+                show = new Show()
+                {
+                    ID = (int)json["id"],
+                    Title = (string)json["title"],
+                    Picture = (string)json["artwork_304x171"],
+                    Desc = (string)json["overview"],
+                    Started = json["first_aired"].ToString().Substring(0, 4),
+                    Rating = (string)json["rating"],
+                    Cast = castString,
+                    Synonyms = synonyms,
+                    ShowGenre = showGenres,
+                    ShowService = showServices
+                };
+                _context.Add(show);
+                _context.SaveChanges();
             }
-            var content = await response.Content.ReadAsStringAsync();
-            var json = JObject.Parse(content);
-            // may want to come up with a new way to get these values out.
-            // instead of pulling values out manually
-            List<Synonym> synonyms = json["alternate_titles"]
-                .Children()
-                .Select(x => new Synonym() { ShowID = id.Value, Title = x.ToString() })
-                .ToList();
-            List<Genre> genres = json["genres"]
-                .Children()
-                .Select(x => new Genre() { Title = (string)JObject.Parse(x.ToString())["title"] })
-                .ToList();
-            List<string> cast = json["cast"]
-                .Children()
-                .Select(x => (string)JObject.Parse(x.ToString())["name"])
-                .ToList();
-            var serviceResponse = await webRequest.Get(showService.ConvertToServices(id.Value));
-            var serviceContent = await serviceResponse.Content.ReadAsStringAsync();
-            var serviceJson = JObject.Parse(serviceContent);
-            // TODO: support more than just web links (such as ios + android)
-            List<Service> services = serviceJson["results"]["web"]["episodes"]["all_sources"]
-                .Children()
-                .Select(x => new Service() { ID = (int) JObject.Parse(x.ToString())["id"],
-                    Name = (string) JObject.Parse(x.ToString())["display_name"]})
-                .ToList();
-            List<ShowService> showServices = new List<ShowService>();
-            foreach (var service in services) {
-                showServices.Add(new ShowService(id.Value, service.ID, null, service));
-            }
-            Show show = new Show()
-            {
-                ID = (int)json["id"],
-                Title = (string)json["title"],
-                Picture = (string)json["artwork_304x171"],
-                Desc = (string)json["overview"],
-                Started = json["first_aired"].ToString().Substring(0, 4),
-                Rating = (string)json["rating"],
-                Cast = cast,
-                Synonyms = synonyms,
-                Genres = genres,
-                ShowService = showServices
-            };
             return View(show);
         }
     }

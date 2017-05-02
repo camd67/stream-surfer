@@ -28,6 +28,18 @@ namespace StreamSurfer.Models
             .HasOne(ss => ss.Service)
             .WithMany(s => s.ShowService)
             .HasForeignKey(ss => ss.ServiceID);
+
+            modelBuilder.Entity<ShowGenre>().HasKey(x => new { x.ShowID, x.GenreID });
+
+            modelBuilder.Entity<ShowGenre>()
+            .HasOne(sg => sg.Show)
+            .WithMany(s => s.ShowGenre)
+            .HasForeignKey(sg => sg.ShowID);
+
+            modelBuilder.Entity<ShowGenre>()
+            .HasOne(sg => sg.Genre)
+            .WithMany(g => g.ShowGenre)
+            .HasForeignKey(sg => sg.GenreID);
         }
     }
 }

@@ -1,6 +1,8 @@
 @model Show
 @{
     ViewData["Title"] = "Detail";
+
+    string[] castList = Model.Cast.Split(';');
 }
 
 <div id="showDetail">
@@ -24,10 +26,11 @@
                 <div id="castDiv">
                     <ul>
                         <li><b>Cast: </b></li>
-                        @{
-                            foreach (var item in Model.Cast)
+                        @{ 
+                            foreach (var cast in castList)
                             {
-                                <li>@item, </li>
+                                <li>@cast, </li>
+
                             }
                         }
                     </ul>
@@ -37,9 +40,9 @@
                     <ul>
                         <li><b>Genre: </b></li>
                         @{
-                            foreach (var item in Model.Genres)
+                            foreach (var genre in Model.ShowGenre.Select(g => g.Genre))
                             {
-                                <li>@item.Title, </li>
+                                <li>@Html.DisplayFor(name => genre.Title), </li>
                             }
                         }
                     </ul>
