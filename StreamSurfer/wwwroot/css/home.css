@@ -1,5 +1,11 @@
 ﻿#search-input {
     cursor: pointer;
+    top: 0;
+    border: none;
+    background-color: #FFF;
+}
+#search-input:hover {
+    background-color: #DDD;
 }
 
 .home-header {
@@ -126,4 +132,3 @@
     position: relative;
     padding: 1em;
 }
-

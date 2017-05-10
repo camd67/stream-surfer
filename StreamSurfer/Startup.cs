@@ -81,9 +81,19 @@ namespace StreamSurfer
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
             app.UseIdentity();
             app.UseStaticFiles();
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions()
+            {
+                AutomaticChallenge = true,
+                AutomaticAuthenticate = true,
+                CookieHttpOnly = true,
+                // Force secure cookies in production
+                CookieSecure = env.IsDevelopment() 
+                    ? Microsoft.AspNetCore.Http.CookieSecurePolicy.SameAsRequest
+                    : Microsoft.AspNetCore.Http.CookieSecurePolicy.Always
+            });
 
             app.UseMvc(routes =>
             {
