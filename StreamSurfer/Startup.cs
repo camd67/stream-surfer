@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -64,6 +65,8 @@ namespace StreamSurfer
             services.AddSingleton<IWebRequestHandler, HttpClientRequestHandler>();
             services.AddTransient<IMessageService, FileMessageService>();
             services.AddScoped<IShowService, GuideboxService>();
+            int cacheSize = int.Parse(Configuration.GetSection("SearchCacheSize").Value);
+            services.AddSingleton<RotatingCache<List<Show>>>(new RotatingCache<List<Show>>(cacheSize));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
