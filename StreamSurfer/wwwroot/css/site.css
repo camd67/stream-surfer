@@ -47,25 +47,25 @@ h2 {
 .green-tip:after {
     content: '';
     position: absolute;
-    top: 100%;
+    top: 99%;
     left: 50%;
-    margin-left: -50px;
+    margin-left: -25px;
     width: 0;
     height: 0;
-    border-top: solid 50px #7BA8A2;
-    border-left: solid 50px transparent;
-    border-right: solid 50px transparent;
+    border-top: solid 25px #7BA8A2;
+    border-left: solid 25px transparent;
+    border-right: solid 25px transparent;
 }
 
 .orange-tip:after {
     content: '';
     position: absolute;
-    top: 100%;
+    top: 99%;
     left: 50%;
-    margin-left: -50px;
+    margin-left: -25px;
     width: 0;
     height: 0;
-    border-top: solid 50px #FF5F41;
-    border-left: solid 50px transparent;
-    border-right: solid 50px transparent;
+    border-top: solid 25px #FF5F41;
+    border-left: solid 25px transparent;
+    border-right: solid 25px transparent;
 }
