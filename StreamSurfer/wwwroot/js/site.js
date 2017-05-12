@@ -1,1 +1,5 @@
-﻿// Write your Javascript code.
+﻿$(function () {
+    $("#global-search-input").click(function () {
+        $("#global-search-form").submit();
+    });
+});
