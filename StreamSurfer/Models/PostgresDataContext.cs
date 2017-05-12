@@ -12,6 +12,7 @@ namespace StreamSurfer.Models
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<ShowService> ShowServices { get; set; }
+        public DbSet<ShowGenre> ShowGenre { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

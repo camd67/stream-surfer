@@ -57,7 +57,7 @@
     background-origin: content-box;
 }
 .show-card {
-    background: url("../images/show_example.jpg") no-repeat center center;
+    background: url("../images/show_example.png") no-repeat center center;
     background-size: contain;
     background-color: #E7E6D6;
     background-origin: content-box;

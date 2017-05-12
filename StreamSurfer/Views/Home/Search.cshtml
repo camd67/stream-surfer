@@ -7,8 +7,10 @@
             @foreach (var s in Model)
             {
                 <li class="results-item">
-                    <img src="@s.Picture" alt="Image for @s.Title" class="results-image" />
-                    <a class="results-link" asp-controller="Show" asp-action="Detail" asp-route-id="@s.ID"><h3>@s.Title</h3></a>
+                    <a class="results-link" asp-controller="Show" asp-action="Detail" asp-route-id="@s.ID">
+                        <img src="@s.Picture" alt="Image for @s.Title" class="results-image" />
+                    </a>
+                    <h3>@s.Title</h3>
                     <p>Show</p>
                     <p class="results-description">@Html.DisplayFor(m => s.Desc)</p>
                 </li>

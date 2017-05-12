@@ -37,16 +37,6 @@ namespace StreamSurfer.Controllers
             {
                 return NotFound();
             }
-            /*
-            // DB calls, uncomment when data is added to DB
-            var getService = await _context.Services
-                .Include(m => m.ShowService)
-                .ToListAsync();
-            var getShow = await _context.Shows
-                .Include(m => m.ShowService)
-                .SingleOrDefaultAsync(m => m.ID == id);
-            */
-
             var show = await _context.Shows
                 .Include(m => m.ShowService)
                 .Include(m => m.ShowGenre)
