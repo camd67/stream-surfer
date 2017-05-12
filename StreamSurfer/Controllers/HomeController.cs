@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -54,7 +55,14 @@ namespace StreamSurfer.Controllers
                 foreach (JToken r in results)
                 {
                     Show showResult = r.ToObject<Show>();
-                    showResult.Desc = "First aired: " + r["first_aired"];
+                    try
+                    {
+                        showResult.Started = DateTime.ParseExact(r["first_aired"].ToString(), "yyyy-m-d", null).ToString("y");
+                    }
+                    catch (FormatException)
+                    {
+                        showResult.Started = "Unknown Start Date";
+                    }
                     showResult.Picture = r["artwork_304x171"].ToString();
                     showResults.Add(showResult);
                 }
