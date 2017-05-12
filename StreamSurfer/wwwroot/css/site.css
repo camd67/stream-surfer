@@ -16,7 +16,7 @@ body {
     font-family: MuseoSans, sans-serif;
 }
 
-h2 {
+h2, h3 {
     margin: 0;
 }
 
@@ -44,28 +44,40 @@ h2 {
     margin-top: 150px;
 }
 
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+#global-search-form {
+    margin-right: 0.5em;
+}
+#global-search-input {
+    top: 0;
+}
+
 .green-tip:after {
     content: '';
     position: absolute;
-    top: 100%;
+    top: 99%;
     left: 50%;
-    margin-left: -50px;
+    margin-left: -25px;
     width: 0;
     height: 0;
-    border-top: solid 50px #7BA8A2;
-    border-left: solid 50px transparent;
-    border-right: solid 50px transparent;
+    border-top: solid 25px #7BA8A2;
+    border-left: solid 25px transparent;
+    border-right: solid 25px transparent;
 }
 
 .orange-tip:after {
     content: '';
     position: absolute;
-    top: 100%;
+    top: 99%;
     left: 50%;
-    margin-left: -50px;
+    margin-left: -25px;
     width: 0;
     height: 0;
-    border-top: solid 50px #FF5F41;
-    border-left: solid 50px transparent;
-    border-right: solid 50px transparent;
+    border-top: solid 25px #FF5F41;
+    border-left: solid 25px transparent;
+    border-right: solid 25px transparent;
 }
