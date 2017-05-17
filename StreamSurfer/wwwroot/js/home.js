@@ -4,12 +4,23 @@
     });
     $("#global-search-form").hide(0);
 
-    // I'm looking for... graphic
     var suggestions = [
         "Game of Thrones",
         "Walking Dead",
-        "Planet Earth"
+        "Planet Earth",
+        "Rick and Morty",
+        "Parks and Recreation",
+        "Sherlock",
+        "Archer",
+        "Samurai Jack",
+        "Attack on Titan",
+        "Adventure Time",
+        "Louie",
+        "Grey's Anatomy",
+        "Homeland",
+        "Zero Punctuation"
     ];
+    suggestions = shuffle(suggestions);
     var suggestionText = $(".home-suggestion-text");
     var suggestionDelay = 3000;
     var typingSpeed = 100;
@@ -55,6 +66,20 @@
                 typingIntervalId = setInterval(animateTyping, typingSpeed);
             }, suggestionDelay / 4);
         }
+    }
+
+    function shuffle(array) {
+        var currentIndex = array.length
+        var temp;
+        var randomIndex;
+        while (0 !== currentIndex) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+            temp = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temp;
+        }
+        return array;
     }
 
 });
