@@ -6,6 +6,7 @@
         <ul class="results">
             @foreach (var s in Model)
             {
+                <li class="results-item">
                     <a asp-controller="Show" asp-action="Detail" asp-route-id="@s.ID">
                         <img src="@s.Picture" alt="Image for @s.Title" class="results-image" />
                     </a>
@@ -23,6 +24,7 @@
                         </div>
                         <p class="results-description">@s.Started</p>
                     </div>
+                </li>
             }
         </ul>
     </div>
