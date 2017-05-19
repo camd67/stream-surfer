@@ -13,15 +13,17 @@ namespace StreamSurfer.Models
 
         public Show Show { get; set; }
         public Service Service { get; set; }
+        public string EpisodeLink { get; set; }
 
         public ShowService(){ }
 
-        public ShowService(int ShowID, int ServiceID, Show Show, Service Service)
+        public ShowService(int ShowID, int ServiceID, Show Show, Service Service, string EpisodeLink)
         {
             this.ShowID = ShowID;
             this.ServiceID = ServiceID;
             this.Show = Show;
             this.Service = Service;
+            this.EpisodeLink = EpisodeLink;
         }
     }
 }

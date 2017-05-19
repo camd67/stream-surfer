@@ -41,5 +41,10 @@ namespace StreamSurfer.Services
         {
             return BuildQuery("shows", "limit=" + limit);
         }
+
+        public string GetEpisodes(int id, int limit, int offset)
+        {
+            return BuildQuery("shows/" + id + "/episodes", "include_links=true&reverse_ordering=true&platform=web&limit=" + limit + "&offset=" + offset);
+        }
     }
 }
