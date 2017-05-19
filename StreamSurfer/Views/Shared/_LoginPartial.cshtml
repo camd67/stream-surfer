@@ -8,7 +8,7 @@
 {
         <ul class="nav navbar-nav navbar-right vertical-align">
             <li>
-                <form asp-action="Search" method="get" id="global-search-form" class="form-inline navbar-right">
+                <form asp-controller="Home" asp-action="Search" method="get" id="global-search-form" class="form-inline navbar-right">
                     <div class="input-group">
                         <i type="submit" class="glyphicon glyphicon-search input-group-addon" id="global-search-input"></i>
                         <input type="text" id="query" name="query" class="search-box form-control" />
@@ -29,7 +29,7 @@ else
 {
     <ul class="nav navbar-nav navbar-right vertical-align">
         <li>
-            <form asp-action="Search" method="get" id="global-search-form" class="form-inline navbar-right">
+            <form asp-controller="Home" asp-action="Search" method="get" id="global-search-form" class="form-inline navbar-right">
                 <div class="input-group">
                     <i type="submit" class="glyphicon glyphicon-search input-group-addon" id="global-search-input"></i>
                     <input type="text" id="query" name="query" class="search-box form-control" />
