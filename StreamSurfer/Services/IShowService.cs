@@ -11,5 +11,6 @@ namespace StreamSurfer.Services
         string ConvertToDetail(int id);
         string ConvertToServices(int id);
         string GetShows(int limit);
+        string GetEpisodes(int id, int limit, int offset);
     }
 }

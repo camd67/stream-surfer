@@ -54,11 +54,11 @@
             <div id="servicesDiv">
                 <h2>AVAILABLE ON:</h2>
                 @{
-                    foreach (var service in Model.ShowService.Select(s => s.Service))
+                    foreach (var ss in Model.ShowService)
                     {
                         <div class="col-xs-4">
                             <div class="serviceInfo">
-                                <p>@Html.DisplayFor(name => service.Name)</p>
+                                <a href="@Html.DisplayFor(link => ss.EpisodeLink)">@Html.DisplayFor(name => ss.Service.Name)</a>
                             </div>
                         </div>
                     }

@@ -50,6 +50,7 @@ namespace StreamSurfer.Controllers
             //switch cast to string separated by ;
             if (show == null)
             {
+                //get show details
                 var response = await webRequest.Get(showService.ConvertToDetail(id.Value));
                 if (!response.IsSuccessStatusCode)
                 {
@@ -84,7 +85,13 @@ namespace StreamSurfer.Controllers
                         castString = castString + ";" + str;
                     }
                 }
+
+                //get service details
                 var serviceResponse = await webRequest.Get(showService.ConvertToServices(id.Value));
+                if (!serviceResponse.IsSuccessStatusCode)
+                {
+                    return NotFound();
+                }
                 var serviceContent = await serviceResponse.Content.ReadAsStringAsync();
                 var serviceJson = JObject.Parse(serviceContent);
                 // TODO: support more than just web links (such as ios + android)
@@ -96,6 +103,32 @@ namespace StreamSurfer.Controllers
                         Name = (string)JObject.Parse(x.ToString())["display_name"]
                     })
                     .ToList();
+
+                //get episodes
+                var episodeResponse = await webRequest.Get(showService.GetEpisodes(id.Value, 1, 0));
+                if (!episodeResponse.IsSuccessStatusCode)
+                {
+                    return NotFound();
+                }
+                var episodeContent = await episodeResponse.Content.ReadAsStringAsync();
+                var episodeJson = JObject.Parse(episodeContent);
+
+                Dictionary<string, string> freeWeb = episodeJson["results"][0]["free_web_sources"]
+                .Children()
+                .ToDictionary(x => (string)JObject.Parse(x.ToString())["display_name"], y => (string)JObject.Parse(y.ToString())["link"]);
+
+                Dictionary<string, string> tvEverywhereWeb = episodeJson["results"][0]["tv_everywhere_web_sources"]
+                .Children()
+                .ToDictionary(x => (string)JObject.Parse(x.ToString())["display_name"], y => (string)JObject.Parse(y.ToString())["link"]);
+
+                Dictionary<string, string> subscriptionWeb = episodeJson["results"][0]["subscription_web_sources"]
+                .Children()
+                .ToDictionary(x => (string)JObject.Parse(x.ToString())["display_name"], y => (string)JObject.Parse(y.ToString())["link"]);
+
+                Dictionary<string, string> purchaseWeb = episodeJson["results"][0]["purchase_web_sources"]
+                .Children()
+                .ToDictionary(x => (string)JObject.Parse(x.ToString())["display_name"], y => (string)JObject.Parse(y.ToString())["link"]);
+
                 List<ShowService> showServices = new List<ShowService>();
                 foreach (var service in services)
                 {
@@ -104,7 +137,24 @@ namespace StreamSurfer.Controllers
                     {
                         getService = service;
                     }
-                    showServices.Add(new ShowService(id.Value, getService.ID, null, getService));
+                    string link = "";
+                    if (freeWeb.ContainsKey(getService.Name))
+                    {
+                        link = freeWeb[getService.Name];
+                    }
+                    else if (tvEverywhereWeb.ContainsKey(getService.Name))
+                    {
+                        link = tvEverywhereWeb[getService.Name];
+                    }
+                    else if (subscriptionWeb.ContainsKey(getService.Name))
+                    {
+                        link = subscriptionWeb[getService.Name];
+                    }
+                    else 
+                    {
+                        link = purchaseWeb[getService.Name];
+                    }
+                    showServices.Add(new ShowService(id.Value, getService.ID, null, getService, link));
                 }
                 List<ShowGenre> showGenres = new List<ShowGenre>();
                 foreach (var genre in genres)
