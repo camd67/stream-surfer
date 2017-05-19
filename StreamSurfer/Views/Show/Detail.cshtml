@@ -8,48 +8,62 @@
 <div id="showDetail" class="background-image"></div>
 <div>
     <div id="titleDiv">
-        <h2>@Html.Encode(Model.Title).ToUpper()</h2>
+        <h1>@Html.Encode(Model.Title).ToUpper()</h1>
     </div>
 
     <div id="contentDiv">
         <div id="wrapperDiv">
             <div id="pictureDiv">
-                <img src="@Html.DisplayFor(model => model.Picture)" />
+                <img src="@Html.DisplayFor(model => model.Poster)" />
             </div>
+            
             <div id="detailsDiv">
                 <div id="topDetails">
-                    <div id="detailsBox">DETAILS</div>
-                    <button>Add to My List</button>
-                </div>                
-                
-                <div id="castDiv">
-                    <ul>
-                        <li><b>Cast: </b></li>
-                        @{ 
-                            foreach (var cast in castList)
-                            {
-                                <li>@cast, </li>
-
-                            }
-                        }
-                    </ul>
-                </div>
-
-                <div id="genreDiv">
-                    <ul>
-                        <li><b>Genre: </b></li>
+                    <div id="detailsBox">
+                        <p>DETAILS</p>
+                    </div>
+                    <button style="display: none;">Add to My List</button>
+                </div> 
+                <table>
+                    <tr>
+                        <td class="title">STARRING</td>
                         @{
-                            foreach (var genre in Model.ShowGenre.Select(g => g.Genre))
+                            string list = "";
+                            for (var i = 0; i < castList.Length - 1; i++)
                             {
-                                <li>@Html.DisplayFor(name => genre.Title), </li>
+                                list += castList[i] + ", ";
+                            }
+                            list += castList[castList.Length - 1];
+                            <td>@list</td>
+                        }
+                    </tr>
+                    <tr>
+                        <td class="title">GENRE</td>
+                        @{
+                            if (Model.ShowGenre.Count > 0)
+                            {
+                                list = "";
+                                for (var i = 0; i < Model.ShowGenre.Count - 1; i++)
+                                {
+                                    list += Model.ShowGenre[i].Genre.Title + ", ";
+                                }
+                                list += Model.ShowGenre[Model.ShowGenre.Count - 1].Genre.Title;
+                                <td>@list</td>
                             }
                         }
-                    </ul>
-                </div>
+                    </tr>
+                    <tr>
+                        <td class="title">RATING</td>
+                        <td>@Html.DisplayFor(name => Model.Rating)</td>
+                    </tr>
+                </table>
             </div>
+
             <div id="descDiv">
+                <h2>SYNOPSIS</h2>
                 <p>@Html.DisplayFor(model => model.Desc)</p>
             </div>
+
             <div id="servicesDiv">
                 <h2>AVAILABLE ON:</h2>
                 @{

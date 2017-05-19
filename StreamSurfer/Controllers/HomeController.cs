@@ -63,7 +63,7 @@ namespace StreamSurfer.Controllers
                     {
                         showResult.Started = "Unknown Start Date";
                     }
-                    showResult.Picture = r["artwork_304x171"].ToString();
+                    showResult.Artwork = r["artwork_304x171"].ToString();
                     showResults.Add(showResult);
                 }
                 searchCache.Add(query, showResults);

@@ -1,5 +1,20 @@
-﻿#castDiv {
-    margin-bottom: 15px;
+﻿body {
+    font-family: MuseoSans, sans-serif;
+}
+
+table {
+    margin-left: 210px;
+}
+
+td {
+    padding-top: 10px;
+}
+
+.title {
+    text-align: right;
+    vertical-align: top;
+    font-weight: bold;
+    padding-right: 10px;
 }
 
 #contentDiv {
@@ -9,8 +24,29 @@
     height: inherit;
 }
 
+#descDiv {
+    margin-top: 15px;
+}
+
+#detailsBox {
+    height: 50px;
+    background-color: #FF5F41;
+}
+
+#detailsBox p {
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0px;
+    font-size: 18px;
+    color: #E7E6D6;
+    font-weight: bold;
+}
+
 #detailsDiv {
-    padding-bottom: 120px;
+    height: 260px;
 }
 
 #detailsDiv ul {
@@ -23,10 +59,6 @@
     display: inline-block;
 }
 
-#genreDiv, #castDiv {
-    color: black;
-}
-
 #imgDiv {
     margin-top: 60px;
     margin-left: 60px;
@@ -34,7 +66,6 @@
 
 #pictureDiv {
     float: left;
-    padding-right: 15px;
 }
 
 #pictureDiv img {
@@ -45,8 +76,10 @@
     margin-bottom: 100px;
 }
 
-#servicesDiv h2 {
+#servicesDiv h2, #descDiv h2 {
     color: #FF5F41;
+    font-weight: bold;
+    font-size: 26px;
 }
 
 #showDetail {
@@ -62,17 +95,19 @@
     background-color: #7BA8A2;
 }
 
-#titleDiv h2 {
+#titleDiv h1 {
     vertical-align: middle;
     text-align: center;
     color: #E7E6D6;
     line-height: 75px;
+    font-weight: bold;
 }
 
 #topDetails div {
-    float: left;
+    display: inline-block;
 }
 
 #wrapperDiv {
     padding: 30px;
+    background-color: #F3F3EB;
 }

@@ -51,7 +51,7 @@ namespace StreamSurfer.Controllers
                     {
                         ID = (int)JObject.Parse(x.ToString())["id"],
                         Title = (string)JObject.Parse(x.ToString())["title"],
-                        Picture = (string)JObject.Parse(x.ToString())["artwork_304x171"]
+                        Artwork = (string)JObject.Parse(x.ToString())["artwork_304x171"],
                     })
                     .ToList();
                 foreach (var show in showResults)

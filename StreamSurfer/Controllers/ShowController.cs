@@ -111,24 +111,21 @@ namespace StreamSurfer.Controllers
                     return NotFound();
                 }
                 var episodeContent = await episodeResponse.Content.ReadAsStringAsync();
-                var episodeJson = JObject.Parse(episodeContent);
+                JObject episodeJson = JObject.Parse(episodeContent);
+                Dictionary<string, string> freeWeb = null;
+                Dictionary<string, string> tvEverywhereWeb = null;
+                Dictionary<string, string> subscriptionWeb = null;
+                Dictionary<string, string> purchaseWeb = null;
+                JArray results = (JArray)episodeJson["results"];
+                if (results.Count > 0)
+                {
+                    freeWeb = getDictionary(episodeJson, "free_web_sources");
+                    tvEverywhereWeb = getDictionary(episodeJson, "tv_everywhere_web_sources");
+                    subscriptionWeb = getDictionary(episodeJson, "subscription_web_sources");
+                    purchaseWeb = getDictionary(episodeJson, "purchase_web_sources");
+                }
 
-                Dictionary<string, string> freeWeb = episodeJson["results"][0]["free_web_sources"]
-                .Children()
-                .ToDictionary(x => (string)JObject.Parse(x.ToString())["display_name"], y => (string)JObject.Parse(y.ToString())["link"]);
-
-                Dictionary<string, string> tvEverywhereWeb = episodeJson["results"][0]["tv_everywhere_web_sources"]
-                .Children()
-                .ToDictionary(x => (string)JObject.Parse(x.ToString())["display_name"], y => (string)JObject.Parse(y.ToString())["link"]);
-
-                Dictionary<string, string> subscriptionWeb = episodeJson["results"][0]["subscription_web_sources"]
-                .Children()
-                .ToDictionary(x => (string)JObject.Parse(x.ToString())["display_name"], y => (string)JObject.Parse(y.ToString())["link"]);
-
-                Dictionary<string, string> purchaseWeb = episodeJson["results"][0]["purchase_web_sources"]
-                .Children()
-                .ToDictionary(x => (string)JObject.Parse(x.ToString())["display_name"], y => (string)JObject.Parse(y.ToString())["link"]);
-
+                //TODO services displayed multiple times
                 List<ShowService> showServices = new List<ShowService>();
                 foreach (var service in services)
                 {
@@ -170,7 +167,8 @@ namespace StreamSurfer.Controllers
                 {
                     ID = (int)json["id"],
                     Title = (string)json["title"],
-                    Picture = (string)json["poster"],
+                    Poster = (string)json["poster"],
+                    Artwork = (string)json["artwork_304x171"],
                     Desc = (string)json["overview"],
                     Started = json["first_aired"].ToString().Substring(0, 4),
                     Rating = (string)json["rating"],
@@ -183,6 +181,14 @@ namespace StreamSurfer.Controllers
                 _context.SaveChanges();
             }
             return View(show);
+        }
+
+        private Dictionary<string, string> getDictionary(JObject episodeJson, string source)
+        {
+            Dictionary<string, string> dictionary = episodeJson["results"][0][source]
+                .Children()
+                .ToDictionary(x => (string)JObject.Parse(x.ToString())["display_name"], y => (string)JObject.Parse(y.ToString())["link"]);
+            return dictionary;
         }
     }
 }
