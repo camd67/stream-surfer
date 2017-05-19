@@ -1,3 +1,7 @@
+<p align="center">
+    <img src="logo.png" alt="Streamsurfer logo" width="200px" style="margin-left:auto; margin-right:auto;">
+</p>
+
 # StreamSurfer
 StreamSurfer is a search engine for users who often stream entertainment online, but struggle to find the legal sources to do so. With StreamSurfer, users are able to easily search for the show they want to watch on well-known streaming platforms as well as lesser-known platforms that are completely legal.
 
@@ -11,5 +15,5 @@ StreamSurfer is a search engine for users who often stream entertainment online,
 
 ## Built With
 * DigitalOcean: Linux virtual server  
-* ASP NET Core: framework for building the application using C#    
+* ASP .NET Core: framework for building the application using C#    
 * Postgres: database management system
