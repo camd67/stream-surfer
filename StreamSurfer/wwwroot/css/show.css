@@ -51,7 +51,7 @@
 
 #showDetail {
     background: url("../images/search-background.jpg") no-repeat top center;
-    min-height: 100vh;
+    background-size: cover;
 }
 
 #titleDiv {

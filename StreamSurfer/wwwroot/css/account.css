@@ -96,3 +96,34 @@
     border-color: #7BA8A2;
 }
 
+.settings-background {
+    background: url("../images/settings-background.jpg") no-repeat top center fixed;
+    background-size: cover;
+}
+
+.settings-group {
+    margin-top: 100px;
+    background-color: #F3F3EB;
+    padding: 0;
+}
+.settings-header {
+    position: relative;
+    text-align: center;
+    margin-bottom: 50px;
+    height: 3em;
+    background-color: #7BA8A2;
+}
+.settings-header span {
+    color: #E7E6D6;
+    font-weight: 900;
+    font-size: 30px;
+}
+
+.settings-label {
+    font-weight: 900;
+}
+
+.settings-section > .row {
+    margin: 0;
+    padding: 0.5em;
+}

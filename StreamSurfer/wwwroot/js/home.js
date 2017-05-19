@@ -9,7 +9,7 @@
         "Walking Dead",
         "Planet Earth",
         "Rick and Morty",
-        "Parks and Recreation",
+        "Parks and Rec",
         "Sherlock",
         "Archer",
         "Samurai Jack",
