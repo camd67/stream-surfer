@@ -8,24 +8,76 @@
 }
 
 .overview-banner {
-    text-align: center;
     background-color: #7BA8A2;
     color: #E7E6D6;
     position: relative;
     height: 3.5em;
+    padding: 0.5em;
 }
 
 .overview-header {
-    padding-top: 50px;
-    padding-left: 2em;
-    padding-right: 2em;
-    background-color: #F3F3EB;
+    background-color: #7BA8A2;
+    top: 100px;
+    left: 100px;
+    width: 300px;
+    height: 470px;
+    position: absolute;
 }
 
-.overview-top-info {
-    display: flex;
-    flex-direction: row;
+.overview-header > div {
+    margin-bottom: 1em;
 }
-.overview-top-info > div {
-    padding: 1em;
+.profile-image-wrapper {
+    padding: 15px;
+}
+.profile-bio {
+    height: 150px;
+    overflow: auto;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+.profile-right-content {
+    margin-left: 450px;
+    margin-right: 75px;
+}
+.profile-logged-in {
+    padding-left: 25px;
+}
+.profile-manage-icon {
+    width: 1em;
+    height: 1em;
+    color: #000;
+}
+.profile-manage-link {
+    color: #000;
+}
+.profile-manage-link:hover {
+    color: #FF5F41;
+    fill: #FF5F41;
+}
+.profile-image {
+    width: 175px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+.profile-join-date {
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    background-color: #F3F3EB;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.profile-section {
+    background-color: #F3F3EB;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border: 10px solid #FF5F41;
+}
+.profile-section-content {
+
 }

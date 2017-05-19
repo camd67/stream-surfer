@@ -7,8 +7,8 @@
 @font-face {
     font-family: MuseoSans;
     src: url("../fonts/MuseoSansCyrl_3.otf") format('opentype');
-    font-weight: 300;
-    font-style: oblique;
+    font-weight: 900;
+    font-style: normal;
 }
 
 body {
@@ -80,4 +80,65 @@ h2, h3 {
     border-top: solid 25px #FF5F41;
     border-left: solid 25px transparent;
     border-right: solid 25px transparent;
+}
+
+.section-header-text {
+    color: #E7E6D6;
+    font-weight: 900;
+    font-size: 30px;
+}
+.content-wrapper {
+    margin-top: 100px;
+    background-color: #F3F3EB;
+    padding: 0;
+    padding-bottom: 1em;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.content-body {
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 10px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.content-header {
+    position: relative;
+    text-align: center;
+    margin-bottom: 50px;
+    height: 3em;
+    background-color: #FF5F41;
+}
+.orange-border {
+    border: 10px solid #FF5F41;
+}
+.green-border {
+    border: 10px solid #7BA8A2;
+}
+.green-background {
+    background-color: #7BA8A2;
+}
+.orange-background {
+    background-color: #FF5F41;
+}
+
+.content-body button {
+    display: block;
+    font-size: 18pt;
+    color: #FFF;
+    margin: auto;
+    width: 250px;
+    height: 50px;
+    border: none;
+    box-shadow: 2px 2px 9px 3px rgba(0,0,0,0.7);
+}
+
+.btn.green-background:hover {
+    background-color: #FF5F41;
+}
+.btn.orange-background:hover {
+    background-color: #7BA8A2;
 }
