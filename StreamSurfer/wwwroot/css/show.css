@@ -37,6 +37,14 @@
     padding-right: 15px;
 }
 
+#pictureDiv img {
+    height: 260px;
+}
+
+#servicesDiv {
+    margin-bottom: 100px;
+}
+
 #servicesDiv h2 {
     color: #FF5F41;
 }
@@ -61,11 +69,8 @@
     line-height: 75px;
 }
 
-#topDetails ul li {
-    color: #FF5F41;
-    font-size: 18px;
-    font-weight: bold;
-    padding-right: 40px;
+#topDetails div {
+    float: left;
 }
 
 #wrapperDiv {
