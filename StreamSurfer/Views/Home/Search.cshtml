@@ -1,8 +1,9 @@
 @model IEnumerable<StreamSurfer.Models.Show>
+
 <div class="background-image search-image"></div>
 <div class="search-results">
     <div class="container">
-        <h2 class="text-center results-header green-tip">Search results:</h2>
+        <h2 class="text-center results-header green-tip">SEARCH RESULTS FOR: "@ViewData["search_query"]"</h2>
         <ul class="results">
             @foreach (var s in Model)
             {
@@ -25,6 +26,15 @@
                         <p class="results-description">@s.Started</p>
                     </div>
                 </li>
+            }
+            @if(Model.Count() % 3 == 1)
+            {
+                <li class="results-item"></li>
+                <li class="results-item"></li>
+            }
+            @if (Model.Count() % 3 == 2)
+            {
+                <li class="results-item"></li>
             }
         </ul>
     </div>

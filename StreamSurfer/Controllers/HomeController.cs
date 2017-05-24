@@ -35,6 +35,9 @@ namespace StreamSurfer.Controllers
 
         public async Task<IActionResult> Search(string query)
         {
+            // ugly string sanitize... at least the query is usually short
+            query = query.Replace("<", "").Replace(">", "");
+            ViewData["search_query"] = query.ToUpper();
             var cacheResult = searchCache.Get(query);
             if (cacheResult == null)
             {

@@ -195,5 +195,8 @@
     background-color: #7BA8A2;
     margin: 0;
     position: relative;
+    font-weight: 900;
     padding: 1em;
+    color: #E7E6D6;
+    overflow: hidden;
 }
