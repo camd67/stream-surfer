@@ -32,6 +32,7 @@ h2, h3 {
 .logo-stream, .logo-surfer {
     margin: 0;
     font-size: 24pt;
+    font-weight: 900;
 }
 .logo-stream {
     color: #7BA8A2;
