@@ -18,6 +18,7 @@ namespace StreamSurfer.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private readonly PostgresDataContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IMessageService _messageSender;
@@ -25,12 +26,14 @@ namespace StreamSurfer.Controllers
         private readonly string _externalCookieScheme;
 
         public AccountController(
+            PostgresDataContext context,
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             IOptions<IdentityCookieOptions> identityCookieOptions,
             IMessageService messageSender,
             ILoggerFactory loggerFactory)
         {
+            _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
@@ -119,6 +122,11 @@ namespace StreamSurfer.Controllers
                     //var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
                     //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
                     //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
+                    _context.MyList.Add(new MyList()
+                    {
+                        User = user,
+                        MyListShows = new List<MyListShows>()
+                    });
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation(3, "User created a new account with password.");
                     return RedirectToLocal(returnUrl);

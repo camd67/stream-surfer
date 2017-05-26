@@ -20,5 +20,6 @@ namespace StreamSurfer.Models
         public List<Synonym> Synonyms { get; set; } 
         public List<ShowGenre> ShowGenre { get; set; }
         public List<ShowService> ShowService { get; set; }
+        public List<MyListShows> MyListShows { get; set; }
     }
 }

@@ -135,8 +135,7 @@
     background: url("../images/search-background.jpg") no-repeat top center;
 }
 .results {
-    padding: 0;
-    padding-top: 2em;
+    padding: 2em 1em 2em 1em;
     background-color: #F3F3EB;
     display: flex;
     flex-flow: row wrap;
@@ -198,4 +197,17 @@
     font-weight: 900;
     padding: 1em;
     color: #E7E6D6;
+}
+.results-footer {
+    display: flex;
+}
+.results-footer-left {
+    display: block;
+    flex: 1 1 33%;
+}
+.results-footer-right {
+    display: block;
+    flex: 1 1 65%;
+    width: 65%;
+    text-align: right;
 }

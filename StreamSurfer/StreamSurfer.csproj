@@ -57,6 +57,7 @@
     <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.0.238" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Migrations\" />
     <Folder Include="Views\Show\" />
   </ItemGroup>
 

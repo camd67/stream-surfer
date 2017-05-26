@@ -22,14 +22,17 @@ namespace StreamSurfer.Controllers
         private readonly string _externalCookieScheme;
         private readonly IMessageService _messageSender;
         private readonly ILogger _logger;
+        private readonly PostgresDataContext _context;
 
         public ProfileController(
+          PostgresDataContext context,
           UserManager<AppUser> userManager,
           SignInManager<AppUser> signInManager,
           IOptions<IdentityCookieOptions> identityCookieOptions,
           IMessageService messageSender,
           ILoggerFactory loggerFactory)
         {
+            _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
             _externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
@@ -48,6 +51,7 @@ namespace StreamSurfer.Controllers
         public async Task<IActionResult> Overview(string id)
         {
             var user = await GetCurrentUserAsync();
+            
             if((id == null || id == "") && user == null)
             {
                 return NotFound();
@@ -64,9 +68,16 @@ namespace StreamSurfer.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult List(int? id)
+        public IActionResult List(int id)
         {
+            //var list = _context.MyList.Where(x => x.Id == id);
             return View();
+        }
+
+        [HttpPost]
+        public JsonResult AddToList(int id)
+        {
+            return Json("Added to list");
         }
 
         private Task<AppUser> GetCurrentUserAsync()

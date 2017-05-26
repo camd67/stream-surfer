@@ -126,6 +126,24 @@ h2, h3 {
     background-color: #FF5F41;
 }
 
+.add-button {
+    background-color: #FF5F41;
+    border-radius: 0;
+    box-shadow: rgba(0,0,0,.25) 4px 4px 4px;
+    color: #FFF;
+    padding-left: 5px;
+}
+.add-button:hover {
+    background-color: #b2422d;
+}
+.add-button i {
+    margin-right: 10px;
+    text-shadow: 0px 4px 4px rgba(0,0,0,.25);
+}
+.add-button:disabled:hover {
+    color: #FFF;
+}
+
 .content-body button {
     display: block;
     font-size: 18pt;
