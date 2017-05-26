@@ -135,6 +135,7 @@ h2, h3 {
 }
 .add-button:hover {
     background-color: #b2422d;
+    color: #FFF;
 }
 .add-button i {
     margin-right: 10px;

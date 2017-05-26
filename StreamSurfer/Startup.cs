@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using StreamSurfer.Models;
+using StreamSurfer.Models.ShowViewModels;
 using StreamSurfer.Services;
 
 namespace StreamSurfer
@@ -66,7 +67,7 @@ namespace StreamSurfer
             services.AddTransient<IMessageService, FileMessageService>();
             services.AddScoped<IShowService, GuideboxService>();
             int cacheSize = int.Parse(Configuration.GetSection("SearchCacheSize").Value);
-            services.AddSingleton<RotatingCache<List<Show>>>(new RotatingCache<List<Show>>(cacheSize));
+            services.AddSingleton<RotatingCache<List<SearchViewModel>>>(new RotatingCache<List<SearchViewModel>>(cacheSize));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -75,8 +75,24 @@ namespace StreamSurfer.Controllers
         }
 
         [HttpPost]
-        public JsonResult AddToList(int id)
+        public async Task<JsonResult> AddToList(int id)
         {
+            var toAdd = _context.Shows.SingleOrDefault(x => x.ID == id);
+            var user = await GetCurrentUserAsync();
+            if(toAdd != null)
+            {
+                var myList = _context.MyList.FirstOrDefault(x => x.User.Id == user.Id);
+                if(myList.MyListShows == null)
+                {
+                    myList.MyListShows = new List<MyListShows>();
+                }
+                _context.Add(new MyListShows()
+                    {
+                        ShowId = id,
+                        MyListId = myList.Id
+                    });
+                _context.SaveChanges();
+            }
             return Json("Added to list");
         }
 

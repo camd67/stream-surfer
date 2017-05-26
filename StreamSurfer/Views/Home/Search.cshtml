@@ -1,4 +1,4 @@
-@model IEnumerable<StreamSurfer.Models.Show>
+@model IEnumerable<StreamSurfer.Models.ShowViewModels.SearchViewModel>
 
 @inject SignInManager<AppUser> SignInManager
 
@@ -10,11 +10,11 @@
             @foreach (var s in Model)
             {
                 <li class="results-item">
-                    <a asp-controller="Show" asp-action="Detail" asp-route-id="@s.ID">
-                        <img src="@s.Artwork" alt="Image for @s.Title" class="results-image" />
+                    <a asp-controller="Show" asp-action="Detail" asp-route-id="@s.Show.ID">
+                        <img src="@s.Show.Artwork" alt="Image for @s.Show.Title" class="results-image" />
                     </a>
                     <div class="results-description">
-                        <a class="results-link" asp-controller="Show" asp-action="Detail" asp-route-id="@s.ID"><h3>@s.Title</h3></a>
+                        <a class="results-link" asp-controller="Show" asp-action="Detail" asp-route-id="@s.Show.ID"><h3>@s.Show.Title</h3></a>
                         <div class="results-div-bar"></div>
                         <div class="results-footer">
                             <div class="results-footer-left">
@@ -27,15 +27,25 @@
                                     </svg>
                                     <span class="results-type-text">Show</span>
                                 </div>
-                                <p class="results-description">@s.Started</p>
+                                <p class="results-description">@s.Show.Started</p>
                             </div>
                             @if (SignInManager.IsSignedIn(User))
                             {
                             <div class="results-footer-right">
-                                <button class="btn add-button" data-id="@s.ID">
-                                    <i class="glyphicon glyphicon-plus"></i>
-                                    <span class="add-button-text">Add to My List</span>
-                                </button>
+                                @if (s.IsInList)
+                                {
+                                    <button class="btn add-button" data-id="@s.Show.ID" disabled>
+                                        <i class="glyphicon glyphicon-ok"></i>
+                                        <span class="add-button-text">Added to My List</span>
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button class="btn add-button" data-id="@s.Show.ID">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <span class="add-button-text">Add to My List</span>
+                                    </button>
+                                }
                             </div>
                             }
                         </div>
