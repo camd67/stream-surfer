@@ -58,6 +58,10 @@
     color: #FFF;
     text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
 }
+.home-header-search a:hover {
+    font-weight: 900;
+    text-decoration: none;
+}
 
 .card-section {
     height: 40vh;
@@ -77,10 +81,14 @@
     text-align: center;
     justify-content: center;
 }
-
+.card:hover {
+    font-weight: 900;
+    text-decoration: none;
+}
 .card h2 {
     color: #FFF;
     text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+    font-weight: inherit;
 }
 .service-card {
     background: url("../images/service_example.png") no-repeat center center;
