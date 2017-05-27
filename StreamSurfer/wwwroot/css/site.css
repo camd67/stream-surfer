@@ -110,7 +110,7 @@ h2, h3 {
     position: relative;
     text-align: center;
     margin-bottom: 50px;
-    height: 3em;
+    min-height: 3em;
     background-color: #FF5F41;
 }
 .orange-border {
@@ -161,4 +161,8 @@ h2, h3 {
 }
 .btn.orange-background:hover {
     background-color: #7BA8A2;
+}
+
+.italic {
+    font-style: italic;
 }

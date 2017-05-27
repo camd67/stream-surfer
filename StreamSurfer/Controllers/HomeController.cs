@@ -109,6 +109,15 @@ namespace StreamSurfer.Controllers
         {
             return View();
         }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult Tos()
+        {
+            return View();
+        }
         
         public IActionResult Error()
         {

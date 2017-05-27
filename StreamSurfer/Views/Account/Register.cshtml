@@ -31,7 +31,18 @@
                     <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password"/>
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
-                <button type="submit">Register</button>
+                <div class="form-group">
+                    <div>
+                        <input type="checkbox" class="form-inline" id="accept-terms" />
+                        <span>
+                            By checking this box I accept the 
+                            <a asp-controller="Home" asp-action="Tos" target="_blank">Terms of Service</a> and 
+                            <a asp-controller="Home" asp-action="Privacy" target="_blank">Privacy Policy</a>
+                        </span>
+                    </div>
+                    <span id="accept-terms-error" class="text-danger">You must accept the Terms of Service and Privacy Policy to create an account.</span>
+                </div>
+                <button id="register-submit" type="submit" disabled>Register</button>
             </form>
         </div>
         <p class="register-footer">Already have an account? <a asp-controller="Account" asp-action="Login">Login</a></p>
@@ -40,4 +51,5 @@
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script src="~/js/register.js"></script>
 }

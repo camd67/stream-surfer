@@ -211,3 +211,29 @@
     width: 65%;
     text-align: right;
 }
+
+.privacy-background {
+    background: url("../images/privacy-background.jpg") no-repeat top center;
+    background-size: cover;
+}
+
+.privacy-header {
+    padding: 1em;
+}
+.privacy-header h1 {
+    margin: 0;
+    font-weight: 900;
+}
+.privacy-wrapper h1 {
+    text-align: center;
+}
+.privacy-wrapper h2 {
+    font-size: 18pt;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+.tos-background {
+    background: url("../images/tos-background.jpg") no-repeat top center;
+    background-size: cover;
+}
