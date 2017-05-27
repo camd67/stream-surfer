@@ -157,10 +157,16 @@ h2, h3 {
 }
 
 .btn.green-background:hover {
-    background-color: #FF5F41;
+    background-color: #628681;
+    color: #FFF;
 }
 .btn.orange-background:hover {
-    background-color: #7BA8A2;
+    background-color: #b2422d;
+    color: #FFF;
+}
+
+.btn {
+    border-radius: 0;
 }
 
 .italic {

@@ -63,9 +63,6 @@
     border: none;
     box-shadow: 4px 4px 4px rgba(0,0,0,0.5);
 }
-.register-content button:hover {
-    background-color: #FF5F41;
-}
 .register-content button:disabled {
     background-color: #AFCCC6;
     box-shadow: none;
@@ -83,9 +80,6 @@
     font-weight: bold;
 }
 
-.register-box button.orange-background:hover {
-    background-color: #7BA8A2;
-}
 
 .forgot-text {
     margin-top: 15px;
