@@ -165,7 +165,9 @@
 .results-item h3:hover {
     color: #FF5F41;
 }
-
+.results-bottom {
+    margin-top: 0.5em;
+}
 .results-image {
     margin-right: 1.5em;
 }
@@ -177,7 +179,8 @@
 
 .results-link {
     display: block;
-    margin-bottom: 0.5em;
+    min-height: 4em;
+    margin-bottom: 0em;
 }
 .results-link h3 {
     font-size: 18pt;
@@ -207,6 +210,7 @@
     color: #E7E6D6;
 }
 .results-footer {
+    margin-top: 0.5em;
     display: flex;
 }
 .results-footer-left {
