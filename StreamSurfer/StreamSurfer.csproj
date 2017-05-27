@@ -29,6 +29,8 @@
     <Content Include="wwwroot\images\register-background.jpeg" />
     <Content Include="wwwroot\images\search-background.jpg" />
     <Content Include="wwwroot\js\home.js" />
+    <Content Include="wwwroot\js\register.js" />
+    <Content Include="wwwroot\js\settings.js" />
     <Content Include="wwwroot\manifest.json" />
     <Content Include="wwwroot\mstile-150x150.png" />
     <Content Include="wwwroot\safari-pinned-tab.svg" />

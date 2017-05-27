@@ -66,6 +66,39 @@ namespace StreamSurfer.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<JsonResult> Update(string bio, string profilePicture)
+        {
+            if(bio == null && profilePicture == null)
+            {
+                return Json("No profile changes detected");
+            }
+            var user = await GetCurrentUserAsync();
+            if(bio != null)
+            {
+                user.Bio = bio;
+            }
+            if(profilePicture != null)
+            {
+                // profile pictures can only contain letters, numbers, -, and .
+                // such as temp-image2.png
+                var temp = Array.FindAll<char>(profilePicture.ToCharArray(), 
+                    (x => char.IsLetterOrDigit(x)
+                       || x == '-'
+                       || x == '.'));
+                user.ProfilePicture = new string(temp);
+            }
+            IdentityResult res = await _userManager.UpdateAsync(user);
+            if (res.Succeeded)
+            {
+                return Json("Successfully updated profile");
+            }
+            else
+            {
+                return Json("Failed to update profile");
+            }
+        }
+
         //
         // POST: /Manage/EnableTwoFactorAuthentication
         [HttpPost]

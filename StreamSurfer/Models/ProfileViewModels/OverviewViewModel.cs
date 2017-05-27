@@ -10,5 +10,6 @@ namespace StreamSurfer.Models.ProfileViewModels
         public string Username { get; set; }
         public DateTime RegisterDate { get; set; }
         public string ProfilePicture { get; set; }
+        public string Bio { get; set; }
     }
 }

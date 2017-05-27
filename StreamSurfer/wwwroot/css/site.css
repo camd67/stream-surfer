@@ -130,25 +130,25 @@ h2, h3 {
     background-color: #FF5F41;
     border-radius: 0;
     box-shadow: rgba(0,0,0,.25) 4px 4px 4px;
-    color: #FFF;
+    color: #F3F3EB;
     padding-left: 5px;
 }
 .add-button:hover {
     background-color: #b2422d;
-    color: #FFF;
+    color: #F3F3EB;
 }
 .add-button i {
     margin-right: 10px;
     text-shadow: 0px 4px 4px rgba(0,0,0,.25);
 }
-.add-button:disabled:hover {
-    color: #FFF;
-}
+    .add-button:disabled:hover {
+        color: #F3F3EB;
+    }
 
 .content-body button {
     display: block;
     font-size: 18pt;
-    color: #FFF;
+    color: #F3F3EB;
     margin: auto;
     width: 250px;
     height: 50px;
@@ -158,11 +158,11 @@ h2, h3 {
 
 .btn.green-background:hover {
     background-color: #628681;
-    color: #FFF;
+    color: #F3F3EB;
 }
 .btn.orange-background:hover {
     background-color: #b2422d;
-    color: #FFF;
+    color: #F3F3EB;
 }
 
 .btn {

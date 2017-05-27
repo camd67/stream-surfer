@@ -11,5 +11,8 @@ namespace StreamSurfer.Models
     {
         [Required]
         public DateTime RegisterDate { get; set; }
+
+        public string ProfilePicture { get; set; }
+        public string Bio { get; set; }
     }
 }

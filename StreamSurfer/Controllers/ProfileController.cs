@@ -56,12 +56,18 @@ namespace StreamSurfer.Controllers
             {
                 return NotFound();
             }
-            string path = "default-avatar.png";
+            string path = user.ProfilePicture == null || user.ProfilePicture == ""
+                ? "default-avatar.png"
+                : user.ProfilePicture;
+            string bio =  user.Bio == null || user.Bio == ""
+                ? "This user hasn't set a bio yet!"
+                : user.Bio;
             var model = new OverviewViewModel()
             {
-                Username = await _userManager.GetUserNameAsync(user),
+                Username = user.UserName,
                 RegisterDate = user.RegisterDate,
-                ProfilePicture = path
+                ProfilePicture = path,
+                Bio = bio
             };
             return View(model);
         }

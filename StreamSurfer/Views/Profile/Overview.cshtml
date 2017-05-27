@@ -12,7 +12,7 @@
             Surfing since @Model.RegisterDate.ToString("MMM yyyy")
         </div>
         <div class="profile-bio">
-            This user hasn't created a bio yet!
+            @Model.Bio
         </div>
         @if (SignInManager.IsSignedIn(User))
         {

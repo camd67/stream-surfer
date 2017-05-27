@@ -129,3 +129,31 @@
     margin: 0;
     padding: 0.5em;
 }
+
+.profile-picture-carousel {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding: 0;
+}
+.profile-picture-carousel li {
+    display: inline;
+    list-style: none;
+    margin-right: 2em;
+}
+.settings-button {
+    display: block;
+    font-size: 18pt;
+    color: #F3F3EB;
+    margin: auto;
+    width: 250px;
+    height: 50px;
+    border: none;
+    box-shadow: 2px 2px 9px 3px rgba(0,0,0,0.7);
+}
+.update-result {
+    text-align: center;
+    font-size: 16pt;
+    display: none;
+    margin: 0;
+}
