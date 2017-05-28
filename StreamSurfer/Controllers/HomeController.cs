@@ -119,16 +119,17 @@ namespace StreamSurfer.Controllers
             return View();
         }
         
-        public IActionResult Error(string errCode)
+        public IActionResult Error(int id)
         {
             // This isn't how you're supposed to do it, but it works...
-            if(HttpContext.Response.StatusCode == 404)
+            if(HttpContext.Response.StatusCode == 404 || id == 404)
             {
                 return View("Error404");
             }
-            if (HttpContext.Response.StatusCode >= 500 && HttpContext.Response.StatusCode < 600)
+            if ((HttpContext.Response.StatusCode >= 500 && HttpContext.Response.StatusCode < 600)
+                || id == 500)
             {
-                return View("Eror500");
+                return View("Error500");
             }
             return View();
         }
