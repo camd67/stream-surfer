@@ -69,6 +69,7 @@
                 @{
                     foreach (var ss in Model.ShowService)
                     {
+                        //"sorry no services found"
                         <div class="col-xs-4">
                             <div class="serviceInfo">
                                 <a href="@Html.DisplayFor(link => ss.EpisodeLink)">@Html.DisplayFor(name => ss.Service.Name)</a>

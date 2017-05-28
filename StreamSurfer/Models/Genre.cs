@@ -11,5 +11,6 @@ namespace StreamSurfer.Models
         public string Title { get; set; }
 
         public List<ShowGenre> ShowGenre { get; set; }
+        public List<MovieGenre> MovieGenre { get; set; }
     }
 }

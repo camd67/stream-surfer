@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,7 +52,7 @@ namespace StreamSurfer.Controllers
             if (show == null)
             {
                 //get show details
-                var response = await webRequest.Get(showService.ConvertToDetail(id.Value));
+                var response = await webRequest.Get(showService.ConvertToShowDetail(id.Value));
                 if (!response.IsSuccessStatusCode)
                 {
                     return NotFound();

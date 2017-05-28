@@ -14,6 +14,9 @@ namespace StreamSurfer.Models
         public DbSet<ShowService> ShowServices { get; set; }
         public DbSet<ShowGenre> ShowGenre { get; set; }
         public DbSet<MyList> MyList { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<MovieService> MovieService { get; set; }
+        public DbSet<MovieGenre> MovieGenre { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,6 +34,18 @@ namespace StreamSurfer.Models
             .WithMany(s => s.ShowService)
             .HasForeignKey(ss => ss.ServiceID);
 
+            modelBuilder.Entity<MovieService>().HasKey(x => new { x.MovieID, x.ServiceID });
+
+            modelBuilder.Entity<MovieService>()
+            .HasOne(ms => ms.Movie)
+            .WithMany(m => m.MovieService)
+            .HasForeignKey(ms => ms.ServiceID);
+
+            modelBuilder.Entity<MovieService>()
+            .HasOne(ms => ms.Service)
+            .WithMany(s => s.MovieService)
+            .HasForeignKey(ms => ms.ServiceID);
+
             modelBuilder.Entity<ShowGenre>().HasKey(x => new { x.ShowID, x.GenreID });
 
             modelBuilder.Entity<ShowGenre>()
@@ -42,6 +57,18 @@ namespace StreamSurfer.Models
             .HasOne(sg => sg.Genre)
             .WithMany(g => g.ShowGenre)
             .HasForeignKey(sg => sg.GenreID);
+
+            modelBuilder.Entity<MovieGenre>().HasKey(x => new { x.MovieID, x.GenreID });
+
+            modelBuilder.Entity<MovieGenre>()
+            .HasOne(mg => mg.Movie)
+            .WithMany(m => m.MovieGenre)
+            .HasForeignKey(mg => mg.MovieID);
+
+            modelBuilder.Entity<MovieGenre>()
+            .HasOne(mg => mg.Genre)
+            .WithMany(g => g.MovieGenre)
+            .HasForeignKey(mg => mg.GenreID);
 
             modelBuilder.Entity<MyList>().HasKey(x => x.Id);
 

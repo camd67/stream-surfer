@@ -29,64 +29,44 @@ namespace StreamSurfer.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Genres()
+        public async Task<IActionResult> Shows()
         {
+            //get all sources
+            /*
+            var sources = await webRequest.Get(showService.GetSources());
+            if (!sources.IsSuccessStatusCode)
+            {
+                return NotFound();
+            }
+            var sourceContent = await sources.Content.ReadAsStringAsync();
+            var sourceJson = JObject.Parse(sourceContent);
+            List<Service> serviceList = sourceJson["results"]
+                .Children()
+                .Select(x => new Service()
+                {
+                    ID = (int)JObject.Parse(x.ToString())["id"],
+                    Name = (string)JObject.Parse(x.ToString())["display_name"]
+                })
+                .ToList();
+
+            foreach (var ser in serviceList)
+            {
+                Service getService = _context.Services.SingleOrDefault(s => s.ID == ser.ID);
+                if (getService == null)
+                {
+                    _context.Add(ser);
+                }
+            }
+
+            _context.SaveChanges();
+            */
+
             var getShowGenre = await _context.ShowGenre
                 .Include(m => m.Genre)
                 .Include(m => m.Show)
                 .ToListAsync();
             SortedDictionary<String, List<Show>> genreDictionary = new SortedDictionary<String, List<Show>>();
-            if (getShowGenre == null)
-            {
-                var response = await webRequest.Get(showService.GetShows(5));
-                if (!response.IsSuccessStatusCode)
-                {
-                    return NotFound();
-                }
-                var content = await response.Content.ReadAsStringAsync();
-                var json = JObject.Parse(content);
-                List<Show> showResults = json["results"]
-                    .Children()
-                    .Select(x => new Show()
-                    {
-                        ID = (int)JObject.Parse(x.ToString())["id"],
-                        Title = (string)JObject.Parse(x.ToString())["title"],
-                        Artwork = (string)JObject.Parse(x.ToString())["artwork_304x171"],
-                    })
-                    .ToList();
-                foreach (var show in showResults)
-                {
-                    response = await webRequest.Get(showService.ConvertToDetail(show.ID));
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        return NotFound();
-                    }
-                    content = await response.Content.ReadAsStringAsync();
-                    json = JObject.Parse(content);
-                    List<String> showGenreList = json["genres"]
-                        .Children()
-                        .Select(x => (string)JObject.Parse(x.ToString())["title"])
-                        .ToList();
-                    foreach (var genre in showGenreList)
-                    {
-                        List<Show> tempList;
-                        if (genreDictionary.ContainsKey(genre))
-                        {
-                            tempList = genreDictionary[genre];
-                            genreDictionary.Remove(genre);
-                        }
-                        else
-                        {
-                            tempList = new List<Show>();
-                        }
-                        tempList.Add(show);
-                        genreDictionary.Add(genre, tempList);
-                    }
-                    _context.Add(show);
-                    _context.SaveChanges();
-                }
-            }
-            else
+            if (getShowGenre.Count > 0)
             {
                 foreach (var sg in getShowGenre)
                 {
@@ -111,6 +91,11 @@ namespace StreamSurfer.Controllers
                 .ToListAsync();
             SortedDictionary<String, List<Show>> genreDictionary = new SortedDictionary<String, List<Show>>();
             return View(genreDictionary);
+        }
+
+        public async Task<IActionResult> Movies()
+        {
+            return View();
         }
     }
 }

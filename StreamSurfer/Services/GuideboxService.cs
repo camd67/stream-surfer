@@ -22,9 +22,14 @@ namespace StreamSurfer.Services
             return BASE_URL + endpoint + "?api_key=" + API_KEY + (queryParams != null ? "&" + queryParams : "");
         }
 
-        public string ConvertToDetail(int id)
+        public string ConvertToShowDetail(int id)
         {
             return BuildQuery("shows/" + id, null);
+        }
+
+        public string ConvertToMovieDetail(int id)
+        {
+            return BuildQuery("movies/" + id, null);
         }
 
         public string ConvertToShowSearch(string query)
@@ -45,6 +50,11 @@ namespace StreamSurfer.Services
         public string GetEpisodes(int id, int limit, int offset)
         {
             return BuildQuery("shows/" + id + "/episodes", "include_links=true&reverse_ordering=true&platform=web&limit=" + limit + "&offset=" + offset);
+        }
+
+        public string GetSources()
+        {
+            return BuildQuery("sources", null);
         }
     }
 }
