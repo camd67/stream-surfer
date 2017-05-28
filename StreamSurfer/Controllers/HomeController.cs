@@ -42,62 +42,90 @@ namespace StreamSurfer.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Search(string query)
+        public async Task<IActionResult> Search(string query, string offline)
         {
             // ugly string sanitize... at least the query is usually short
             query = query.Replace("<", "").Replace(">", "");
             ViewData["search_query"] = query.ToUpper();
             var cacheResult = searchCache.Get(query);
+
             if (cacheResult == null)
             {
                 logger.LogDebug("Search cache miss, adding: " + query);
-                // build the API request string, and get it
-                var response = await webRequest.Get(showService.ConvertToShowSearch(query));
-                if (!response.IsSuccessStatusCode)
-                {
-                    //return Error();
-                }
-                // actually download the content
-                var content = await response.Content.ReadAsStringAsync();
-                // convert httpResponse into JSON
-                var json = JObject.Parse(content);
-                // get all the results as a list
-                IList<JToken> results = json["results"].Children().ToList();
-                List<SearchViewModel> showResults = new List<SearchViewModel>();
-                var user = await GetCurrentUserAsync();
+                List<SearchViewModel> vm = new List<SearchViewModel>();
                 MyList myList = null;
-                if(user != null)
+                var user = await GetCurrentUserAsync();
+                if (user != null)
                 {
                     myList = _context.MyList
                         .Include(x => x.MyListShows)
                         .FirstOrDefault(x => x.User.Id == user.Id);
                 }
-                foreach (JToken r in results)
+                if (offline == "t")
                 {
-                    Show showResult = r.ToObject<Show>();
-                    try
+                    var shows = _context.Shows
+                        .Where(x => x.Title.ToLower().Contains(query.ToLower()))
+                        .ToList();
+                    foreach (Show s in shows)
                     {
-                        showResult.Started = DateTime.ParseExact(r["first_aired"].ToString(), "yyyy-m-d", null).ToString("y");
+
+                        bool inList = false;
+                        if (myList != null)
+                        {
+                            var listCheck = myList.MyListShows?
+                                .FirstOrDefault(x => x.ShowId == s.ID);
+                            inList = listCheck == null ? false : true;
+                        }
+                        vm.Add(new SearchViewModel()
+                        {
+                            Show = s,
+                            IsInList = inList
+                        });
                     }
-                    catch (FormatException)
-                    {
-                        showResult.Started = "Unknown Start Date";
-                    }
-                    showResult.Artwork = r["artwork_304x171"].ToString();
-                    bool inList = false;
-                    if(myList != null)
-                    {
-                        var listCheck = myList.MyListShows?.FirstOrDefault(x => x.ShowId == showResult.ID);
-                        inList = listCheck == null ? false : true;
-                    }
-                    showResults.Add(new SearchViewModel()
-                    {
-                        IsInList = inList,
-                        Show = showResult
-                    });
                 }
-                searchCache.Add(query, showResults);
-                return View(showResults);
+                else
+                {
+                    // build the API request string, and get it
+                    var response = await webRequest.Get(showService.ConvertToShowSearch(query));
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return Error(500);
+                    }
+                    // actually download the content
+                    var content = await response.Content.ReadAsStringAsync();
+                    // convert httpResponse into JSON
+                    var json = JObject.Parse(content);
+                    // get all the results as a list
+                    IList<JToken> results = json["results"].Children().ToList();
+                    foreach (JToken r in results)
+                    {
+                        Show showResult = r.ToObject<Show>();
+                        try
+                        {
+                            showResult.Started = DateTime.ParseExact(r["first_aired"].ToString(), "yyyy-m-d", null).ToString("y");
+                        }
+                        catch (FormatException)
+                        {
+                            showResult.Started = "Unknown Start Date";
+                        }
+                        showResult.Artwork = r["artwork_304x171"].ToString();
+                        bool inList = false;
+                        if (myList != null)
+                        {
+                            var listCheck = myList.MyListShows?.FirstOrDefault(x => x.ShowId == showResult.ID);
+                            inList = listCheck == null ? false : true;
+                        }
+                        vm.Add(new SearchViewModel()
+                        {
+                            IsInList = inList,
+                            Show = showResult
+                        });
+                    }
+                    // ONLY add to cache if we had to download it
+                    // otherwise we may add a shortened version of the list
+                    searchCache.Add(query, vm);
+                }
+                return View(vm);
             }
             else
             {
