@@ -14,6 +14,9 @@
     height: 3.5em;
     padding: 0.5em;
 }
+.overview-banner h2 {
+    font-weight: 900;
+}
 
 .overview-header {
     background-color: #7BA8A2;
@@ -35,10 +38,6 @@
     overflow: auto;
     padding-left: 1em;
     padding-right: 1em;
-}
-.profile-right-content {
-    margin-left: 450px;
-    margin-right: 75px;
 }
 .profile-logged-in {
     padding-left: 25px;
@@ -70,14 +69,48 @@
     font-weight: 900;
 }
 
+.profile-right-content {
+    margin-left: 450px;
+    margin-right: 25px;
+}
+.profile-section-wrapper {
+    background-color: #F3F3EB;
+    padding: 45px 30px 30px 30px;
+    position: relative;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
 .profile-section {
     background-color: #F3F3EB;
-    padding-bottom: 15px;
-    padding-top: 15px;
-    padding-left: 50px;
-    padding-right: 50px;
     border: 10px solid #FF5F41;
 }
-.profile-section-content {
-
+.profile-section-name {
+    line-height: 1em;
+    transform: translate(0, -35px);
+    margin-bottom: -35px;
+    background-color: #F3F3EB;
+    margin-left: 45px;
+    width: 125px;
+    font-size: 24px;
+    font-weight: 900;
+    padding: 0 5px 0 5px;
+}
+.profile-section-name span {
+    font-size: 36px;
+}
+.profile-section-name a {
+    color: #000;
+}
+.profile-section-content ul {
+    list-style: none;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+.profile-list-item {
+    display: inline-block;
+    margin: 0.25em 0.25em 0.25em 0.25em;
+}
+.profile-list-item:hover {
+    outline: 3px #FF5F41 solid;
 }

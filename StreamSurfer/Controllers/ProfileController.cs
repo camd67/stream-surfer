@@ -65,12 +65,14 @@ namespace StreamSurfer.Controllers
             var myList = await _context.MyList
                 .Include(m => m.MyListShows)
                 .SingleOrDefaultAsync(x => x.User.Id == user.Id);
+            var recentWatch = new List<Show>();
+            var recentRate = new List<Show>();
             if (myList == null)
             {
                 // just make an empty list, so no errors appear
                 myList = new MyList()
                 {
-                    MyListShows = new List<MyListShows>()
+                    MyListShows = new List<MyListShows>(),
                 };
             }
             else
@@ -80,6 +82,17 @@ namespace StreamSurfer.Controllers
                     .Include(m => m.Show)
                     .Where(x => x.MyList.Id == myList.Id)
                     .ToListAsync();
+                recentWatch = listShows
+                    .OrderByDescending(x => x.LastChange)
+                    .Select(x => x.Show)
+                    .Take(10)
+                    .ToList();
+                recentRate = listShows
+                    .Where(x => x.Rating > 0)
+                    .OrderByDescending(x => x.LastChange)
+                    .Select(x => x.Show)
+                    .Take(10)
+                    .ToList();
                 myList.MyListShows = listShows;
             }
             var model = new OverviewViewModel()
@@ -88,7 +101,9 @@ namespace StreamSurfer.Controllers
                 RegisterDate = user.RegisterDate,
                 ProfilePicture = path,
                 Bio = bio,
-                List = myList
+                List = myList,
+                RecentlyRated = recentRate,
+                RecentlyWatched = recentWatch
             };
             return View(model);
         }
