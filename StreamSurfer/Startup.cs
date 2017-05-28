@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -75,7 +76,7 @@ namespace StreamSurfer
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -83,8 +84,10 @@ namespace StreamSurfer
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("Home/Error");
+                app.UseStatusCodePagesWithReExecute("/Home/Error/{0}");
             }
+
             app.UseIdentity();
             app.UseStaticFiles();
 
@@ -95,8 +98,8 @@ namespace StreamSurfer
                 CookieHttpOnly = true,
                 // Force secure cookies in production
                 CookieSecure = env.IsDevelopment() 
-                    ? Microsoft.AspNetCore.Http.CookieSecurePolicy.SameAsRequest
-                    : Microsoft.AspNetCore.Http.CookieSecurePolicy.Always
+                    ? CookieSecurePolicy.SameAsRequest
+                    : CookieSecurePolicy.Always
             });
 
             app.UseMvc(routes =>

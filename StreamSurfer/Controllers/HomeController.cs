@@ -55,7 +55,7 @@ namespace StreamSurfer.Controllers
                 var response = await webRequest.Get(showService.ConvertToShowSearch(query));
                 if (!response.IsSuccessStatusCode)
                 {
-                    return Error();
+                    //return Error();
                 }
                 // actually download the content
                 var content = await response.Content.ReadAsStringAsync();
@@ -119,8 +119,17 @@ namespace StreamSurfer.Controllers
             return View();
         }
         
-        public IActionResult Error()
+        public IActionResult Error(string errCode)
         {
+            // This isn't how you're supposed to do it, but it works...
+            if(HttpContext.Response.StatusCode == 404)
+            {
+                return View("Error404");
+            }
+            if (HttpContext.Response.StatusCode >= 500 && HttpContext.Response.StatusCode < 600)
+            {
+                return View("Eror500");
+            }
             return View();
         }
 

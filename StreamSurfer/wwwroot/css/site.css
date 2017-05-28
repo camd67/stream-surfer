@@ -153,7 +153,7 @@ h2, h3 {
     width: 250px;
     height: 50px;
     border: none;
-    box-shadow: 2px 2px 9px 3px rgba(0,0,0,0.7);
+    box-shadow: 4px 4px 4px rgba(0,0,0,0.5);
 }
 
 .btn.green-background:hover {
@@ -171,4 +171,35 @@ h2, h3 {
 
 .italic {
     font-style: italic;
+}
+
+.error-500 {
+    background: url("../images/500-background.png") no-repeat bottom center;
+    background-size: cover;
+}
+.error-404 {
+    background: url("../images/404-background.png") no-repeat bottom center;
+    background-size: cover;
+}
+
+.error-text {
+    width: 75%;
+    margin: 150px auto 0 auto;
+    text-align: center;
+    color: #FFF;
+    font-size: 26px;
+    font-weight: 900;
+}
+.error-text .larger {
+    font-size: 36px;
+}
+.error-text a {
+    display: block;
+    font-size: 18pt;
+    color: #F3F3EB;
+    margin: auto;
+    width: 250px;
+    height: 50px;
+    border: none;
+    box-shadow: 4px 4px 4px rgba(0,0,0,0.5);
 }
