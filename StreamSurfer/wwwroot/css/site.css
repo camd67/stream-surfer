@@ -141,9 +141,10 @@ h2, h3 {
     margin-right: 10px;
     text-shadow: 0px 4px 4px rgba(0,0,0,.25);
 }
-    .add-button:disabled:hover {
-        color: #F3F3EB;
-    }
+.add-button:disabled:hover {
+    background-color: #FF5F41;
+    color: #F3F3EB;
+}
 
 .content-body button {
     display: block;
@@ -155,7 +156,6 @@ h2, h3 {
     border: none;
     box-shadow: 4px 4px 4px rgba(0,0,0,0.5);
 }
-
 .btn.green-background:hover {
     background-color: #628681;
     color: #F3F3EB;
@@ -163,6 +163,13 @@ h2, h3 {
 .btn.orange-background:hover {
     background-color: #b2422d;
     color: #F3F3EB;
+}
+.btn.green-background:disabled:hover {
+    background-color: #7BA8A2;
+}
+
+.btn.orange-background:disabled:hover {
+    background-color: #FF5F41;
 }
 
 .btn {
@@ -202,4 +209,8 @@ h2, h3 {
     height: 50px;
     border: none;
     box-shadow: 4px 4px 4px rgba(0,0,0,0.5);
+}
+
+.drop-shadow {
+    box-shadow: rgba(0,0,0,.25) 4px 4px 4px;
 }

@@ -3,7 +3,9 @@
         $("#search-form").submit();
     });
     $("#global-search-form").hide(0);
-
+    $("#search-form").submit(function () {
+        $(".loading-overlay").fadeIn(500);
+    });
     var suggestions = [
         "Game of Thrones",
         "Walking Dead",

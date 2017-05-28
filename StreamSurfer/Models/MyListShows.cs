@@ -13,6 +13,10 @@ namespace StreamSurfer.Models
         public int MyListId { get; set; }
         public int ShowId { get; set; }
 
+        public int Rating { get; set; }
+        public int Status { get; set; }
+        public DateTime LastChange { get; set; }
+
         public MyListShows() { }
         public MyListShows(int MyListId, int ShowId, MyList MyListRef, Show ShowInList)
         {

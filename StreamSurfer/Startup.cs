@@ -68,7 +68,7 @@ namespace StreamSurfer
             services.AddTransient<IMessageService, FileMessageService>();
             services.AddScoped<IShowService, GuideboxService>();
             int cacheSize = int.Parse(Configuration.GetSection("SearchCacheSize").Value);
-            services.AddSingleton<RotatingCache<List<SearchViewModel>>>(new RotatingCache<List<SearchViewModel>>(cacheSize));
+            services.AddSingleton(new RotatingCache<List<Show>>(cacheSize));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

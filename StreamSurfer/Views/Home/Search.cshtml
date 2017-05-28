@@ -1,5 +1,9 @@
 @model IEnumerable<StreamSurfer.Models.ShowViewModels.SearchViewModel>
 
+@{ 
+    ViewData["Title"] = "Results for " + ViewData["search_query"];
+}
+
 @inject SignInManager<AppUser> SignInManager
 
 <div class="background-image search-image"></div>

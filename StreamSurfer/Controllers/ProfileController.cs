@@ -11,6 +11,7 @@ using StreamSurfer.Models;
 using StreamSurfer.Models.ProfileViewModels;
 using StreamSurfer.Services;
 using System.IO;
+using Microsoft.EntityFrameworkCore;
 
 namespace StreamSurfer.Controllers
 {
@@ -50,8 +51,7 @@ namespace StreamSurfer.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Overview(string id)
         {
-            var user = await GetCurrentUserAsync();
-            
+            var user = await GetCurrentUserAsync();            
             if((id == null || id == "") && user == null)
             {
                 return NotFound();
@@ -62,12 +62,48 @@ namespace StreamSurfer.Controllers
             string bio =  user.Bio == null || user.Bio == ""
                 ? "This user hasn't set a bio yet!"
                 : user.Bio;
+            var myList = await _context.MyList
+                .Include(m => m.MyListShows)
+                .SingleOrDefaultAsync(x => x.User.Id == user.Id);
+            var recentWatch = new List<Show>();
+            var recentRate = new List<Show>();
+            if (myList == null)
+            {
+                // just make an empty list, so no errors appear
+                myList = new MyList()
+                {
+                    MyListShows = new List<MyListShows>(),
+                };
+            }
+            else
+            {
+                var listShows = await _context.MyListShows
+                    .Include(m => m.MyList)
+                    .Include(m => m.Show)
+                    .Where(x => x.MyList.Id == myList.Id)
+                    .ToListAsync();
+                recentWatch = listShows
+                    .OrderByDescending(x => x.LastChange)
+                    .Select(x => x.Show)
+                    .Take(10)
+                    .ToList();
+                recentRate = listShows
+                    .Where(x => x.Rating > 0)
+                    .OrderByDescending(x => x.LastChange)
+                    .Select(x => x.Show)
+                    .Take(10)
+                    .ToList();
+                myList.MyListShows = listShows;
+            }
             var model = new OverviewViewModel()
             {
                 Username = user.UserName,
                 RegisterDate = user.RegisterDate,
                 ProfilePicture = path,
-                Bio = bio
+                Bio = bio,
+                List = myList,
+                RecentlyRated = recentRate,
+                RecentlyWatched = recentWatch
             };
             return View(model);
         }
@@ -95,7 +131,11 @@ namespace StreamSurfer.Controllers
                 _context.Add(new MyListShows()
                     {
                         ShowId = id,
-                        MyListId = myList.Id
+                        MyListId = myList.Id,
+                        Rating = -1,
+                        Status = (int)ShowStatus.WANT_TO_WATCH,
+                        LastChange = DateTime.Now,
+                        MyList = myList
                     });
                 _context.SaveChanges();
             }
