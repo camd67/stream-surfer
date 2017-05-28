@@ -7,23 +7,71 @@
         $(".loading-overlay").fadeIn(500);
     });
     var suggestions = [
-        "Game of Thrones",
-        "Walking Dead",
-        "Planet Earth",
-        "Rick and Morty",
-        "Parks and Rec",
-        "Sherlock",
-        "Archer",
-        "Samurai Jack",
-        "Attack on Titan",
-        "Adventure Time",
-        "Louie",
-        "Grey's Anatomy",
-        "Homeland",
-        "Zero Punctuation"
+        {
+            display: "Game of Thrones",
+            image: "got.jpg"
+        },
+        {
+            display: "Walking Dead",
+            image: "walkingdead.jpg"
+        },
+        {
+            display: "Planet Earth",
+            image: "pe.jpg"
+        },
+        {
+            display: "Rick and Morty",
+            image: "rick_and_morty.jpg"
+        },
+        {
+            display: "Parks and Rec",
+            image: "parks_and_rec.jpg"
+        },
+        {
+            display: "Sherlock",
+            image: "sherlock.jpg"
+        },
+        {
+            display: "Archer",
+            image: "archer.jpg"
+        },
+        {
+            display: "Samurai Jack",
+            image: "samuraijack.jpg"
+        },
+        {
+            display: "Attack on Titan",
+            image: "aot.jpg"
+        },
+        {
+            display: "Adventure Time",
+            image: "adventuretime.jpg"
+        },
+        {
+            display: "Big Hero 6",
+            image: "bh6.jpg"
+        }/*,
+        {
+            display: "Louie",
+            image: "louie.jpg"
+        },
+        {
+            display: "Grey's Anatomy",
+            image: "greysanatomy.jpg"
+        },
+        {
+            display: "Homeland",
+            image: "homeland.jpg"
+        },
+        {
+            display: "Zero Punctuation",
+            image: "zeropunc.jpg"
+        }
+        */
     ];
     suggestions = shuffle(suggestions);
     var suggestionText = $(".home-suggestion-text");
+    var header = $(".header-image");
     var suggestionDelay = 3000;
     var typingSpeed = 100;
     var currentSuggestion = "";
@@ -39,17 +87,17 @@
             suggestionIndex = (suggestionIndex + 1) % suggestions.length;
             toggleTypingInterval();
             return;
-        } 
+        }
         currentSuggestion = currentSuggestion.substr(0, currentSuggestion.length - 1);
         suggestionText.text(currentSuggestion);
     }
     function animateTyping() {
-        if (currentSuggestion === suggestions[suggestionIndex]) {
+        if (currentSuggestion === suggestions[suggestionIndex].display) {
             deleting = true;
             toggleTypingInterval();
             return;
         }
-        currentSuggestion += suggestions[suggestionIndex][currentSuggestion.length];
+        currentSuggestion += suggestions[suggestionIndex].display[currentSuggestion.length];
         suggestionText.text(currentSuggestion);
     }
     function toggleTypingInterval() {
@@ -64,6 +112,11 @@
             if (typingIntervalId) {
                 clearInterval(typingIntervalId);
             }
+            var aniDelay = 500;
+            header.fadeOut(aniDelay, function () {
+                    header.css("background-image", "url(\"../images/homepage/" + suggestions[suggestionIndex].image + "\")");
+                    header.fadeIn(aniDelay);
+                });
             setTimeout(function () {
                 typingIntervalId = setInterval(animateTyping, typingSpeed);
             }, suggestionDelay / 4);
