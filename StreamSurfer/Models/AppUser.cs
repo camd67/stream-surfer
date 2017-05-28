@@ -14,5 +14,6 @@ namespace StreamSurfer.Models
 
         public string ProfilePicture { get; set; }
         public string Bio { get; set; }
+        public MyList MyList { get; set; }
     }
 }

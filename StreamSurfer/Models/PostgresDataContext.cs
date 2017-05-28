@@ -14,6 +14,7 @@ namespace StreamSurfer.Models
         public DbSet<ShowService> ShowServices { get; set; }
         public DbSet<ShowGenre> ShowGenre { get; set; }
         public DbSet<MyList> MyList { get; set; }
+        public DbSet<MyListShows> MyListShows { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -60,6 +61,11 @@ namespace StreamSurfer.Models
                 .HasOne(s => s.Show)
                 .WithMany(s => s.MyListShows)
                 .HasForeignKey(s => s.ShowId);
+
+            modelBuilder.Entity<MyList>()
+                .HasOne(ml => ml.User)
+                .WithOne(ap => ap.MyList)
+                .HasForeignKey<MyList>(ap => ap.UserForeignKey);
         }
     }
 }

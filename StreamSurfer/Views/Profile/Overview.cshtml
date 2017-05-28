@@ -38,44 +38,40 @@
             <div class="profile-section-name">View my List</div>
             <div class="profile-section-content">
                 <ul>
-                    <li><img class="profile-image" src="~/images/@Model.ProfilePicture" width="175" height="100" /></li>
-                    <li><img class="profile-image" src="~/images/@Model.ProfilePicture" width="175" height="100" /></li>
-                    <li><img class="profile-image" src="~/images/@Model.ProfilePicture" width="175" height="100" /></li>
-                    <li><img class="profile-image" src="~/images/@Model.ProfilePicture" width="175" height="100" /></li>
+                    @foreach (var mls in Model.List.MyListShows)
+                    {
+                        <li>
+                            <img src="@mls.Show.Artwork" width="175" height="100"/>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
         <div class="profile-section">
-            <div class="profile-section-name">Recently Rated</div>
+            <div class="profile-section-name">Highest Rated</div>
             <div class="profile-section-content">
                 <ul>
-                    <li><img class="profile-image" src="~/images/@Model.ProfilePicture" width="175" height="100" /></li>
-                    <li><img class="profile-image" src="~/images/@Model.ProfilePicture" width="175" height="100" /></li>
-                    <li><img class="profile-image" src="~/images/@Model.ProfilePicture" width="175" height="100" /></li>
-                    <li><img class="profile-image" src="~/images/@Model.ProfilePicture" width="175" height="100" /></li>
+                    @foreach (var mls in Model.List.MyListShows)
+                    {
+                        <li>
+                            <img src="@mls.Show.Artwork" width="175" height="100" />
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
         <div class="profile-section">
             <div class="profile-section-name">Recently Watched</div>
+            <div class="profile-section-content">
+                <ul>
+                    @foreach (var mls in Model.List.MyListShows)
+                    {
+                        <li>
+                            <img src="@mls.Show.Artwork" width="175" height="100" />
+                        </li>
+                    }
+                </ul>
+            </div>
         </div>
     </div>
-                @*
-    @{
-        foreach (var item in Model)
-        {
-            <li>
-            <h3 class="genreName">@Html.DisplayFor(modelItem => item.Key)</h3>
-            <div class="genreDiv">
-                @foreach (var value in item.Value)
-    {
-                    <a href="/show/detail/@Html.DisplayFor(modelItem => value.ID)">
-                        <img class="genrePic" src="@Html.DisplayFor(modelItem => value.Picture)" />
-                    </a>
-                }
-            </div>
-            </li>
-        }
-    }
-                *@
 </div>
