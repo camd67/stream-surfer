@@ -2,6 +2,9 @@
     $("#global-search-input").click(function () {
         $("#global-search-form").submit();
     });
+    $("#global-search-form").submit(function () {
+        $(".loading-overlay").fadeIn(500);
+    });
 
     // note this selects a lot of buttons
     $(".add-button").click(function (e) {

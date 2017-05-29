@@ -47,6 +47,9 @@
             </div>
         </div>
     </nav>
+    <div class="loading-overlay">
+        @await Html.PartialAsync("_SurferOverlay");
+    </div>
     <div class="body-content">
         @RenderBody()
     </div>

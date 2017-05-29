@@ -5,9 +5,6 @@
     <script src="~/js/home.js"></script>
 }
 
-<div class="loading-overlay">
-        @await Html.PartialAsync("_SurferOverlay");
-</div>
 <header class="home-header">
     <div class="header-image"></div>
     <div class="header-content home-suggestion-banner">
@@ -25,7 +22,7 @@
     </div>
 </header>
 <div class="card-section">
-    <a class="card service-card" asp-Controller="Browse" asp-action="Index">
+    <a class="card service-card" asp-Controller="Browse" asp-action="Services">
         <h2>SERVICES</h2>
     </a>
     <a class="card show-card" asp-Controller="Browse" asp-action="Shows">
