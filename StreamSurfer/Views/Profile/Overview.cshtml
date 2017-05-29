@@ -55,8 +55,8 @@
                         @foreach (var mls in Model.List.MyListShows)
                         {
                             <li class="profile-list-item">
-                                <a asp-controller="Show" asp-action="Detail" asp-route-id="@mls.ShowId">
-                                    <img class="drop-shadow" src="@mls.Show.Artwork" alt="Image for @mls.Show.Title" width="175" height="100" />
+                                <a asp-controller="@(mls.Show == null ? "Movie" : "Show")" asp-action="Detail" asp-route-id="@mls.SafeGetId()">
+                                    <img class="drop-shadow" src="@mls.SafeGetArtwork()" alt="Image for @mls.SafeGetTitle()" width="175" height="100" />
                                 </a>
                             </li>
                         }
@@ -76,11 +76,11 @@
                         @foreach (var s in Model.RecentlyRated)
                         {
                             <li class="profile-list-item">
-                                <a asp-controller="Show" asp-action="Detail" asp-route-id="@s.Show.ID">
+                                <a asp-controller="@(s.Show == null ? "Movie" : "Show")" asp-action="Detail" asp-route-id="@s.SafeGetId()">
                                     <div class="rating-wrapper">
                                         @await Html.PartialAsync("_RatingOverlay", s)
                                     </div>
-                                    <img class="drop-shadow" src="@s.Show.Artwork" alt="Image for @s.Show.Title" width="175" height="100" />
+                                    <img class="drop-shadow" src="@s.SafeGetArtwork()" alt="Image for @s.SafeGetTitle()" width="175" height="100" />
                                 </a>
                             </li>
                         }
@@ -100,8 +100,8 @@
                         @foreach (var s in Model.RecentlyWatched)
                         {
                             <li class="profile-list-item">
-                                <a asp-controller="Show" asp-action="Detail" asp-route-id="@s.ID">
-                                    <img class="drop-shadow" src="@s.Artwork" alt="Image for @s.Title" width="175" height="100" />
+                                <a asp-controller="@(s.Show == null ? "Movie" : "Show")" asp-action="Detail" asp-route-id="@s.SafeGetId()">
+                                    <img class="drop-shadow" src="@s.SafeGetArtwork()" alt="Image for @s.SafeGetTitle()" width="175" height="100" />
                                 </a>
                             </li>
                         }

@@ -77,22 +77,29 @@ namespace StreamSurfer.Models
                 .Property(ml => ml.Id)
                 .ValueGeneratedOnAdd();
 
-            modelBuilder.Entity<MyListShows>().HasKey(x => new { x.MyListId, x.ShowId });
+            modelBuilder.Entity<MyListShows>().HasKey(x => x.ID);
 
             modelBuilder.Entity<MyListShows>()
                 .HasOne(mls => mls.MyList)
                 .WithMany(s => s.MyListShows)
                 .HasForeignKey(mls => mls.MyListId);
 
-            modelBuilder.Entity<MyListShows>()
-                .HasOne(s => s.Show)
-                .WithMany(s => s.MyListShows)
-                .HasForeignKey(s => s.ShowId);
-
             modelBuilder.Entity<MyList>()
                 .HasOne(ml => ml.User)
                 .WithOne(ap => ap.MyList)
                 .HasForeignKey<MyList>(ap => ap.UserForeignKey);
+
+            modelBuilder.Entity<MyListShows>()
+                .HasOne(s => s.Show)
+                .WithMany(s => s.MyListShows)
+                .HasForeignKey(s => s.ShowId)
+                .IsRequired(false);
+
+            modelBuilder.Entity<MyListShows>()
+                .HasOne(s => s.Movie)
+                .WithMany(s => s.MyListShows)
+                .HasForeignKey(s => s.MovieId)
+                .IsRequired(false);
         }
     }
 }

@@ -24,14 +24,14 @@
                     <div class="list-wrapper">
                         @if (Model.IsInList)
                         {
-                            <button class="btn add-button" data-id="@Model.Show.ID" disabled>
+                            <button class="btn add-button" data-id="@Model.Show.ID" data-type="show" disabled>
                                 <i class="glyphicon glyphicon-ok"></i>
                                 <span class="add-button-text">Added to My List</span>
                             </button>
                         }
                         else
                         {
-                            <button class="btn add-button" data-id="@Model.Show.ID">
+                            <button class="btn add-button" data-id="@Model.Show.ID" data-type="show">
                                 <i class="glyphicon glyphicon-plus"></i>
                                 <span class="add-button-text">Add to My List</span>
                             </button>
@@ -51,7 +51,7 @@
                                         asp-items="Html.GetEnumSelectList<ShowStatus>()"
                                         ></select>
                             </div>
-                            <button id="list-save-changes" data-id="@Model.Show.ID" class="btn green-background drop-shadow">Save Changes</button>
+                            <button id="list-save-changes" data-id="@Model.Show.ID" data-type="show" class="btn green-background drop-shadow">Save Changes</button>
                             <p class="list-save-notification"><i class="glyphicon glyphicon-ok"></i> Changes Saved!</p>
                         </div>
                     </div>

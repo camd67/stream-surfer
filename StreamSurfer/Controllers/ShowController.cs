@@ -210,7 +210,7 @@ namespace StreamSurfer.Controllers
                 myListShow = await _context.MyListShows
                         .Include(x => x.MyList)
                         .Where(x => x.MyList.User.Id == user.Id)
-                        .SingleOrDefaultAsync(x => x.ShowId == id);
+                        .SingleOrDefaultAsync(x => x.SafeCompareId(show.ID));
                 isInList = myListShow == null ? false : true;
             }
 

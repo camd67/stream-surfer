@@ -13,7 +13,7 @@ namespace StreamSurfer.Models.ProfileViewModels
         public string Bio { get; set; }
         public MyList List { get; set; }
         public List<MyListShows> RecentlyRated { get; set; }
-        public List<Show> RecentlyWatched { get; set; }
+        public List<MyListShows> RecentlyWatched { get; set; }
         public bool IsPersonalProfile { get; set; }
     }
 }

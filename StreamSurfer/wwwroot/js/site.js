@@ -10,6 +10,7 @@
     $(".add-button").click(function (e) {
         var button = $(this);
         var selectedId = button.data("id");
+        var selectedType = $(this).data("type");
         button.find(".add-button-text").text("Added to My List");
         button.find(".glyphicon").removeClass("glyphicon-plus");
         button.find(".glyphicon").addClass("glyphicon-ok");
@@ -17,7 +18,7 @@
         $.ajax({
             method: "POST",
             url: "/Profile/AddToList",
-            data: { id: selectedId }
+            data: { id: selectedId, type: selectedType }
         })
         .done(function (data) {
             console.log(data);
@@ -28,12 +29,14 @@
         var rating = $("#list-rating");
         var status = $("#list-status");
         var selectedId = $(this).data("id");
+        var selectedType = $(this).data("type");
         $.ajax({
             method: "POST",
             url: "/Profile/UpdateList",
             data: {
                 status: status.val(),
                 rating: rating.val(),
+                type: selectedType,
                 id: selectedId
             }
         })

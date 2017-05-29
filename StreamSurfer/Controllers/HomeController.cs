@@ -18,14 +18,14 @@ namespace StreamSurfer.Controllers
         private readonly IWebRequestHandler webRequest;
         private readonly IShowService showService;
         private readonly ILogger logger;
-        private readonly RotatingCache<List<Show>> searchCache;
+        private readonly RotatingCache<List<SearchViewModel>> searchCache;
         private readonly UserManager<AppUser> _userManager;
         private readonly PostgresDataContext _context;
 
         public HomeController(IWebRequestHandler webRequest,
             IShowService showService,
             ILogger<HomeController> logger,
-            RotatingCache<List<Show>> searchCache,
+            RotatingCache<List<SearchViewModel>> searchCache,
             UserManager<AppUser> userManager,
             PostgresDataContext context)
         {
@@ -86,47 +86,30 @@ namespace StreamSurfer.Controllers
                 }
                 else
                 {
-                    // build the API request string, and get it
-                    var response = await webRequest.Get(showService.ConvertToShowSearch(query));
-                    if (!response.IsSuccessStatusCode)
+                    var showSearch = SearchShows(query, myList);
+                    var movieSearch = SearchMovies(query, myList);
+                    await Task.WhenAll(showSearch, movieSearch);
+
+                    // Weave results together, since there's no other good way to get a "results rating"
+                    var shows = showSearch.Result;
+                    var movies = movieSearch.Result;
+                    int smallerSize = Math.Min(shows.Count, movies.Count);
+                    for(int i = 0; i < smallerSize; i++)
                     {
-                        return Error(500);
+                        vm.Add(shows[i]);
+                        vm.Add(movies[i]);
                     }
-                    // actually download the content
-                    var content = await response.Content.ReadAsStringAsync();
-                    // convert httpResponse into JSON
-                    var json = JObject.Parse(content);
-                    // get all the results as a list
-                    IList<JToken> results = json["results"].Children().ToList();
-                    List<Show> showList = new List<Show>();
-                    foreach (JToken r in results)
+                    if(shows.Count > smallerSize)
                     {
-                        Show showResult = r.ToObject<Show>();
-                        try
-                        {
-                            showResult.Started = DateTime.ParseExact(r["first_aired"].ToString(), "yyyy-m-d", null).ToString("y");
-                        }
-                        catch (FormatException)
-                        {
-                            showResult.Started = "Unknown Start Date";
-                        }
-                        showResult.Artwork = r["artwork_304x171"].ToString();
-                        bool inList = false;
-                        if (myList != null)
-                        {
-                            var listCheck = myList.MyListShows?.FirstOrDefault(x => x.ShowId == showResult.ID);
-                            inList = listCheck == null ? false : true;
-                        }
-                        showList.Add(showResult);
-                        vm.Add(new SearchViewModel()
-                        {
-                            IsInList = inList,
-                            Show = showResult
-                        });
+                        vm.AddRange(shows.Skip(smallerSize));
+                    }
+                    else if(movies.Count > smallerSize)
+                    {
+                        vm.AddRange(movies.Skip(smallerSize));
                     }
                     // ONLY add to cache if we had to download it
                     // otherwise we may add a shortened version of the list
-                    searchCache.Add(query, showList);
+                    searchCache.Add(query, vm);
                 }
             }
             else
@@ -136,18 +119,99 @@ namespace StreamSurfer.Controllers
                     bool inList = false;
                     if (myList != null)
                     {
-                        var listCheck = myList.MyListShows?
-                            .FirstOrDefault(x => x.ShowId == s.ID);
+                        var listCheck = myList.MyListShows?.FirstOrDefault(x => x.SafeCompareId(s.SafeGetId()));
                         inList = listCheck == null ? false : true;
                     }
                     vm.Add(new SearchViewModel()
                     {
-                        Show = s,
+                        Show = s.Show,
+                        Movie = s.Movie,
                         IsInList = inList
                     });
                 }
             }
             return View(vm);
+        }
+
+        private async Task<List<SearchViewModel>> SearchMovies(string query, MyList myList)
+        {
+            var response = await webRequest.Get(showService.ConvertToMovieSearch(query));
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new ArgumentException("Query request failed");
+            }
+            var content = await response.Content.ReadAsStringAsync();
+            var json = JObject.Parse(content);
+            IList<JToken> results = json["results"].Children().ToList();
+            List<SearchViewModel> movieList = new List<SearchViewModel>();
+            foreach (JToken r in results)
+            {
+                Movie movieResult = r.ToObject<Movie>();
+                try
+                {
+                    movieResult.Aired = DateTime.ParseExact(r["release_date"].ToString(), "yyyy-m-d", null).ToString("y");
+                }
+                catch (FormatException)
+                {
+                    movieResult.Aired = "Unknown Start Date";
+                }
+                movieResult.Artwork = r["poster_240x342"].ToString();
+                bool inList = false;
+                if (myList != null)
+                {
+                    var listCheck = myList.MyListShows?.FirstOrDefault(x => x.SafeCompareId(movieResult.ID));
+                    inList = listCheck == null ? false : true;
+                }
+                movieList.Add(new SearchViewModel()
+                {
+                    IsInList = inList,
+                    Movie = movieResult
+                });
+            }
+            return movieList;
+        }
+
+        private async Task<List<SearchViewModel>> SearchShows(string query, MyList myList)
+        {
+            // build the API request string, and get it
+            var response = await webRequest.Get(showService.ConvertToShowSearch(query));
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new ArgumentException("Query request failed");
+            }
+            // actually download the content
+            var content = await response.Content.ReadAsStringAsync();
+            // convert httpResponse into JSON
+            var json = JObject.Parse(content);
+            // get all the results as a list
+            IList<JToken> results = json["results"].Children().ToList();
+            List<SearchViewModel> showList = new List<SearchViewModel>();
+            foreach (JToken r in results)
+            {
+                Show showResult = r.ToObject<Show>();
+                try
+                {
+                    showResult.Started = DateTime.ParseExact(r["first_aired"].ToString(), "yyyy-m-d", null).ToString("y");
+                }
+                catch (FormatException)
+                {
+                    showResult.Started = "Unknown Start Date";
+                }
+                showResult.Artwork = r["artwork_304x171"].ToString();
+                bool inList = false;
+                if (myList != null)
+                {
+                    var listCheck = myList.MyListShows?
+                        .FirstOrDefault(x => x.ShowId == showResult.ID);
+                    inList = listCheck == null ? false : true;
+                }
+                showList.Add(new SearchViewModel()
+                {
+                    IsInList = inList,
+                    Show = showResult
+                });
+            }
+            return showList;
         }
 
         public IActionResult AdvancedSearch()
