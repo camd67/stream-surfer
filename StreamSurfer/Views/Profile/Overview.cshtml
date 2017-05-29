@@ -76,8 +76,11 @@
                         @foreach (var s in Model.RecentlyRated)
                         {
                             <li class="profile-list-item">
-                                <a asp-controller="Show" asp-action="Detail" asp-route-id="@s.ID">
-                                    <img class="drop-shadow" src="@s.Artwork" alt="Image for @s.Title" width="175" height="100" />
+                                <a asp-controller="Show" asp-action="Detail" asp-route-id="@s.Show.ID">
+                                    <div class="rating-wrapper">
+                                        @await Html.PartialAsync("_RatingOverlay", s)
+                                    </div>
+                                    <img class="drop-shadow" src="@s.Show.Artwork" alt="Image for @s.Show.Title" width="175" height="100" />
                                 </a>
                             </li>
                         }

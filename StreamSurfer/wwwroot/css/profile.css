@@ -108,6 +108,7 @@
     white-space: nowrap;
 }
 .profile-list-item {
+    position: relative;
     display: inline-block;
     margin: 0.25em 0.25em 0.25em 0.25em;
 }

@@ -78,7 +78,7 @@ namespace StreamSurfer.Controllers
                 .Include(m => m.MyListShows)
                 .SingleOrDefaultAsync(x => x.User.Id == user.Id);
             var recentWatch = new List<Show>();
-            var recentRate = new List<Show>();
+            var recentRate = new List<MyListShows>();
             if (myList == null)
             {
                 // just make an empty list, so no errors appear
@@ -102,7 +102,6 @@ namespace StreamSurfer.Controllers
                 recentRate = listShows
                     .Where(x => x.Rating > 0)
                     .OrderByDescending(x => x.LastChange)
-                    .Select(x => x.Show)
                     .Take(10)
                     .ToList();
                 myList.MyListShows = listShows;
@@ -145,7 +144,7 @@ namespace StreamSurfer.Controllers
                     {
                         ShowId = id,
                         MyListId = myList.Id,
-                        Rating = -1,
+                        Rating = (int)ShowRating.NOT_RATED,
                         Status = (int)ShowStatus.WANT_TO_WATCH,
                         LastChange = DateTime.Now,
                         MyList = myList
@@ -153,6 +152,28 @@ namespace StreamSurfer.Controllers
                 _context.SaveChanges();
             }
             return Json("Added to list");
+        }
+
+        [HttpPost]
+        public  async Task<JsonResult> UpdateList(int id, ShowStatus status, ShowRating rating)
+        {
+            var user = await GetCurrentUserAsync();
+            if(user == null)
+            {
+                return Json("ERROR: failed to update");
+            }
+            var toModify = await _context.MyListShows
+                .Include(x => x.MyList)
+                .SingleOrDefaultAsync(x => x.ShowId == id && x.MyList.UserForeignKey == user.Id);
+            if(toModify == null)
+            {
+                return Json("ERROR: Show not in list");
+            }
+            _context.Update(toModify);
+            toModify.Status = (int)status;
+            toModify.Rating = (int)rating;
+            await _context.SaveChangesAsync();
+            return Json("Updated list");
         }
 
         private Task<AppUser> GetCurrentUserAsync()

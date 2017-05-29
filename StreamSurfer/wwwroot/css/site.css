@@ -156,6 +156,9 @@ h2, h3 {
     border: none;
     box-shadow: 4px 4px 4px rgba(0,0,0,0.5);
 }
+.btn.green-background, .btn.orange-background {
+    color: #F3F3EB;
+}
 .btn.green-background:hover {
     background-color: #628681;
     color: #F3F3EB;
@@ -213,6 +216,42 @@ h2, h3 {
 
 .drop-shadow {
     box-shadow: rgba(0,0,0,.25) 4px 4px 4px;
+}
+
+.list-wrapper {
+    float: right;
+}
+.list-change-group {
+    margin-top: 1em;
+}
+.list-save-notification {
+    margin-top: 0.5em;
+    opacity: 0;
+}
+
+.rating-wrapper {
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+.rating-wrapper-svg {
+    width: inherit;
+    height: inherit;
+}
+.surf-icon {
+    fill: #BDBDBD;
+    opacity: 0.5;
+    width: 15px;
+    height: 15px;
+}
+.rating-include {
+    opacity: 1;
+    fill: #FF5F41;
+    stroke: #000;
+    stroke-width: 1px;
 }
 
 .loading-overlay {

@@ -1,9 +1,9 @@
-@model Show
+@model StreamSurfer.Models.ShowViewModels.DetailShowViewModel
 @{
     ViewData["Title"] = "Detail";
-
-    string[] castList = Model.Cast.Split(';');
-    string title = Model.Title.ToUpper();
+    
+    string[] castList = Model.Show.Cast.Split(';');
+    string title = Model.Show.Title.ToUpper();
 }
 
 <div id="showDetail" class="background-image"></div>
@@ -15,15 +15,51 @@
     <div id="contentDiv">
         <div id="wrapperDiv">
             <div id="pictureDiv">
-                <img src="@Html.DisplayFor(model => model.Poster)" />
+                <img src="@Html.DisplayFor(model => model.Show.Poster)" />
             </div>
             
             <div id="detailsDiv">
+                @if (Model.IsLoggedIn)
+                {
+                    <div class="list-wrapper">
+                        @if (Model.IsInList)
+                        {
+                            <button class="btn add-button" data-id="@Model.Show.ID" disabled>
+                                <i class="glyphicon glyphicon-ok"></i>
+                                <span class="add-button-text">Added to My List</span>
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn add-button" data-id="@Model.Show.ID">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                <span class="add-button-text">Add to My List</span>
+                            </button>
+                        }
+                        <div style="@(Model.IsInList ? " " : "display: none;")" class="list-change-group">
+                            <div class="form-group">
+                                <span>Rating:</span>
+                                <select id="list-rating"
+                                        asp-for="MyListShow.Rating"
+                                        asp-items="Html.GetEnumSelectList<ShowRating>()"
+                                        ></select>
+                            </div>
+                            <div class="form-group">
+                                <span>Status:</span>
+                                <select id="list-status"
+                                        asp-for="MyListShow.Status"
+                                        asp-items="Html.GetEnumSelectList<ShowStatus>()"
+                                        ></select>
+                            </div>
+                            <button id="list-save-changes" data-id="@Model.Show.ID" class="btn green-background drop-shadow">Save Changes</button>
+                            <p class="list-save-notification"><i class="glyphicon glyphicon-ok"></i> Changes Saved!</p>
+                        </div>
+                    </div>
+                }
                 <div id="topDetails">
                     <div id="detailsBox">
                         <p>DETAILS</p>
                     </div>
-                    <button style="display: none;">Add to My List</button>
                 </div> 
                 <table>
                     <tr>
@@ -41,14 +77,14 @@
                     <tr>
                         <td class="title">GENRE</td>
                         @{
-                            if (Model.ShowGenre.Count > 0)
+                            if (Model.Show.ShowGenre.Count > 0)
                             {
                                 list = "";
-                                for (var i = 0; i < Model.ShowGenre.Count - 1; i++)
+                                for (var i = 0; i < Model.Show.ShowGenre.Count - 1; i++)
                                 {
-                                    list += Model.ShowGenre[i].Genre.Title + ", ";
+                                    list += Model.Show.ShowGenre[i].Genre.Title + ", ";
                                 }
-                                list += Model.ShowGenre[Model.ShowGenre.Count - 1].Genre.Title;
+                                list += Model.Show.ShowGenre[Model.Show.ShowGenre.Count - 1].Genre.Title;
                                 <td>@list</td>
                             }
                             else
@@ -60,13 +96,13 @@
                     <tr>
                         <td class="title">RATING</td>
                         @{ 
-                            if (Model.Rating == null)
+                            if (Model.Show.Rating == null)
                             {
                                 <td>No rating available.</td>
                             }
                             else
                             {
-                                <td>@Html.DisplayFor(name => Model.Rating)</td>
+                                <td>@Html.DisplayFor(name => Model.Show.Rating)</td>
                             }
                         }
                     </tr>
@@ -76,13 +112,13 @@
             <div id="descDiv">
                 <h2>SYNOPSIS</h2>
                 @{
-                    if (Model.Desc == null)
+                    if (Model.Show.Desc == null)
                     {
                         <p>No synopsis available.</p>
                     }
                     else
                     {
-                        <p>@Html.DisplayFor(model => model.Desc)</p>
+                        <p>@Html.DisplayFor(model => model.Show.Desc)</p>
                     }
                 }
             </div>
@@ -90,7 +126,7 @@
             <div id="servicesDiv">
                 <h2>AVAILABLE ON:</h2>
                 @{
-                    if (Model.ShowService.Count == 0)
+                    if (Model.Show.ShowService.Count == 0)
                     {
                         <div class="col-xs-4">
                             <div class="serviceInfo">
@@ -100,7 +136,7 @@
                     }
                     else
                     {
-                        foreach (var ss in Model.ShowService)
+                        foreach (var ss in Model.Show.ShowService)
                         {
                             if (ss.EpisodeLink != "")
                             {

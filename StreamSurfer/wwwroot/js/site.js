@@ -21,6 +21,33 @@
         })
         .done(function (data) {
             console.log(data);
+            $(".list-change-group").fadeIn();
         });
+    });
+    $("#list-save-changes").click(function () {
+        var rating = $("#list-rating");
+        var status = $("#list-status");
+        var selectedId = $(this).data("id");
+        $.ajax({
+            method: "POST",
+            url: "/Profile/UpdateList",
+            data: {
+                status: status.val(),
+                rating: rating.val(),
+                id: selectedId
+            }
+        })
+            .done(function (data) {
+                console.log(data);
+            if (data.startsWith("ERROR")) {
+                console.error(data);
+            }
+        })
+        $(".list-save-notification")
+            .animate({ opacity: 1 }, 750,
+            function () {
+                $(this).delay(2500).animate({ opacity: 0 },
+                    750);
+            });
     });
 });
