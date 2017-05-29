@@ -40,11 +40,11 @@ namespace StreamSurfer.Models
             modelBuilder.Entity<MovieService>()
             .HasOne(ms => ms.Movie)
             .WithMany(m => m.MovieService)
-            .HasForeignKey(ms => ms.ServiceID);
+            .HasForeignKey(ms => ms.MovieID);
 
             modelBuilder.Entity<MovieService>()
             .HasOne(ms => ms.Service)
-            .WithMany(s => s.MovieService)
+            .WithMany(m => m.MovieService)
             .HasForeignKey(ms => ms.ServiceID);
 
             modelBuilder.Entity<ShowGenre>().HasKey(x => new { x.ShowID, x.GenreID });

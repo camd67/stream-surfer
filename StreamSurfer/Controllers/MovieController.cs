@@ -43,10 +43,10 @@ namespace StreamSurfer.Controllers
                 .SingleOrDefaultAsync(m => m.ID == id);
             var loadGenres = _context.Genres
                 .Include(m => m.MovieGenre)
-                .ToList();
+                .ToDictionary(x => x.ID, x => x);
             var loadServices = _context.Services
                 .Include(m => m.MovieService)
-                .ToList();
+                .ToDictionary(x => x.Source, x => x);
             //switch cast to string separated by ;
             if (movie == null)
             {
@@ -72,6 +72,17 @@ namespace StreamSurfer.Controllers
                         Title = (string)JObject.Parse(x.ToString())["title"]
                     })
                     .ToList();
+                List<MovieGenre> movieGenres = new List<MovieGenre>();
+                foreach (var genre in genres)
+                {
+                    loadGenres.TryGetValue(genre.ID, out Genre getGenre);
+                    if (getGenre == null)
+                    {
+                        getGenre = genre;
+                    }
+                    movieGenres.Add(new MovieGenre(id.Value, getGenre.ID, null, getGenre));
+                }
+                    
                 List<string> cast = json["cast"]
                     .Children()
                     .Select(x => (string)JObject.Parse(x.ToString())["name"])
@@ -89,22 +100,57 @@ namespace StreamSurfer.Controllers
 
                 //get service details
                 List<Service> services = new List<Service>();
-                services.AddRange(json["free_web_sources"].Children().Select(x => new Service()
+                Dictionary<string, string> links = new Dictionary<string, string>();
+                foreach (var x in json["free_web_sources"].Children())
                 {
-                    Name = (string)JObject.Parse(x.ToString())["display_name"]
-                }));
-                services.AddRange(json["tv_everywhere_web_sources"].Children().Select(x => new Service()
+                    var source = (string)JObject.Parse(x.ToString())["source"];
+                    services.Add(new Service()
+                    {
+                        Name = (string)JObject.Parse(x.ToString())["display_name"],
+                        Source = source
+                    });
+                    links.Add(source, (string)JObject.Parse(x.ToString())["link"]);
+                }
+                foreach (var x in json["tv_everywhere_web_sources"].Children())
                 {
-                    Name = (string)JObject.Parse(x.ToString())["display_name"]
-                }));
-                services.AddRange(json["subscription_web_sources"].Children().Select(x => new Service()
+                    var source = (string)JObject.Parse(x.ToString())["source"];
+                    services.Add(new Service()
+                    {
+                        Name = (string)JObject.Parse(x.ToString())["display_name"],
+                        Source = source
+                    });
+                    links.Add(source, (string)JObject.Parse(x.ToString())["link"]);
+                }
+                foreach (var x in json["subscription_web_sources"].Children())
                 {
-                    Name = (string)JObject.Parse(x.ToString())["display_name"]
-                }));
-                services.AddRange(json["purchase_web_sources"].Children().Select(x => new Service()
+                    var source = (string)JObject.Parse(x.ToString())["source"];
+                    services.Add(new Service()
+                    {
+                        Name = (string)JObject.Parse(x.ToString())["display_name"],
+                        Source = source
+                    });
+                    links.Add(source, (string)JObject.Parse(x.ToString())["link"]);
+                }
+                foreach (var x in json["purchase_web_sources"].Children())
                 {
-                    Name = (string)JObject.Parse(x.ToString())["display_name"]
-                }));
+                    var source = (string)JObject.Parse(x.ToString())["source"];
+                    services.Add(new Service()
+                    {
+                        Name = (string)JObject.Parse(x.ToString())["display_name"],
+                        Source = source
+                    });
+                    links.Add(source, (string)JObject.Parse(x.ToString())["link"]);
+                }
+                List<MovieService> movieServices = new List<MovieService>();
+                foreach (var ser in services)
+                {
+                    loadServices.TryGetValue(ser.Source, out Service getService);
+                    if (getService != null)
+                    {
+                        movieServices.Add(new MovieService(id.Value, getService.ID, null, getService, links[getService.Source]));
+                    }
+                }
+
                 movie = new Movie()
                 {
                     ID = (int)json["id"],
@@ -113,20 +159,14 @@ namespace StreamSurfer.Controllers
                     Desc = (string)json["overview"],
                     Aired = json["release_date"].ToString().Substring(0, 4),
                     Rating = (string)json["rating"],
-                    Cast = castString
+                    Cast = castString,
+                    MovieGenre = movieGenres,
+                    MovieService = movieServices
                 };
                 _context.Add(movie);
                 _context.SaveChanges();
             }
             return View(movie);
-        }
-
-        private Dictionary<string, string> getDictionary(JObject episodeJson, string source)
-        {
-            Dictionary<string, string> dictionary = episodeJson["results"][0][source]
-                .Children()
-                .ToDictionary(x => (string)JObject.Parse(x.ToString())["display_name"], y => (string)JObject.Parse(y.ToString())["link"]);
-            return dictionary;
         }
     }
 }
