@@ -14,5 +14,6 @@ namespace StreamSurfer.Models.ProfileViewModels
         public MyList List { get; set; }
         public List<Show> RecentlyRated { get; set; }
         public List<Show> RecentlyWatched { get; set; }
+        public bool IsPersonalProfile { get; set; }
     }
 }
