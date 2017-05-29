@@ -3,12 +3,13 @@
     ViewData["Title"] = "Detail";
 
     string[] castList = Model.Cast.Split(';');
+    string title = Model.Title.ToUpper();
 }
 
 <div id="showDetail" class="background-image"></div>
-<div>
+<div id="pageDiv">
     <div id="titleDiv">
-        <h1>@Html.Encode(Model.Title).ToUpper()</h1>
+        <h1 class="green-tip">@title</h1>
     </div>
 
     <div id="contentDiv">
@@ -101,11 +102,14 @@
                     {
                         foreach (var ss in Model.ShowService)
                         {
-                            <div class="col-xs-4">
-                                <div class="serviceInfo">
-                                    <a href="@Html.DisplayFor(link => ss.EpisodeLink)" target="_blank">@Html.DisplayFor(name => ss.Service.Name)</a>
+                            if (ss.EpisodeLink != "")
+                            {
+                                <div class="col-xs-4">
+                                    <div class="serviceInfo">
+                                        <a href="@Html.DisplayFor(link => ss.EpisodeLink)" target="_blank">@Html.DisplayFor(name => ss.Service.Name)</a>
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         }
                     }
                 }

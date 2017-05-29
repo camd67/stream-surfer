@@ -165,12 +165,18 @@ namespace StreamSurfer.Controllers
                     }
                     showGenres.Add(new ShowGenre(id.Value, getGenre.ID, null, getGenre));
                 }
+
+                string poster = (string)json["poster"];
+                poster.Replace("http://", "https://");
+                string artwork = (string)json["artwork_304x171"];
+                artwork.Replace("http://", "https://");
+
                 show = new Show()
                 {
                     ID = (int)json["id"],
                     Title = (string)json["title"],
-                    Poster = (string)json["poster"],
-                    Artwork = (string)json["artwork_304x171"],
+                    Poster = poster,
+                    Artwork = artwork,
                     Desc = (string)json["overview"],
                     Started = json["first_aired"].ToString().Substring(0, 4),
                     Rating = (string)json["rating"],

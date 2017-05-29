@@ -2,6 +2,12 @@
     font-family: MuseoSans, sans-serif;
 }
 
+h1 {
+    font-size: 30px;
+    margin-top: 0px;
+    position: relative;
+}
+
 table {
     margin-left: 210px;
 }
@@ -64,6 +70,11 @@ td {
     margin-left: 60px;
 }
 
+#pageDiv {
+    padding-top: 75px;
+    min-height: 100vh;
+}
+
 #pictureDiv {
     float: left;
 }
@@ -88,7 +99,6 @@ td {
 }
 
 #titleDiv {
-    margin-top: 50px;
     margin-left: 200px;
     margin-right: 200px;
     height: 75px;
