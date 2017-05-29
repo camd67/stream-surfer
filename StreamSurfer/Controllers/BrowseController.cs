@@ -73,7 +73,7 @@ namespace StreamSurfer.Controllers
                 {
                     if (!genreDictionary.ContainsKey(sg.Genre.Title))
                     {
-                        genreDictionary.Add(sg.Genre.Title, new List<Show>{sg.Show});
+                        genreDictionary.Add(sg.Genre.Title, new List<Show> { sg.Show });
                     } else
                     {
                         var showList = genreDictionary[sg.Genre.Title];
@@ -89,9 +89,45 @@ namespace StreamSurfer.Controllers
         public async Task<IActionResult> Services()
         {
             var getShowService = await _context.ShowServices
+                .Include(s => s.Service)
+                .Include(s => s.Show)
                 .ToListAsync();
-            SortedDictionary<String, List<Show>> genreDictionary = new SortedDictionary<String, List<Show>>();
-            return View(genreDictionary);
+            var getMovieService = await _context.MovieService
+                .Include(m => m.Service)
+                .Include(m => m.Movie)
+                .ToListAsync();
+            SortedDictionary<String, List<Object>> serviceDictionary = new SortedDictionary<String, List<Object>>();
+            foreach (var ser in getShowService)
+            {
+                string key = ser.Service.Name;
+                if (!serviceDictionary.ContainsKey(key))
+                {
+                    serviceDictionary.Add(key, new List<Object>() { ser.Show });
+                }
+                else
+                {
+                    List<Object> getList = serviceDictionary[key];
+                    getList.Add(ser.Show);
+                    serviceDictionary.Remove(key);
+                    serviceDictionary.Add(key, getList);
+                }
+            }
+            foreach (var mov in getMovieService)
+            {
+                string key = mov.Service.Name;
+                if (!serviceDictionary.ContainsKey(key))
+                {
+                    serviceDictionary.Add(key, new List<Object>() { mov.Movie });
+                }
+                else
+                {
+                    List<Object> getList = serviceDictionary[key];
+                    getList.Add(mov.Movie);
+                    serviceDictionary.Remove(key);
+                    serviceDictionary.Add(key, getList);
+                }
+            }
+            return View(serviceDictionary);
         }
 
         public async Task<IActionResult> Movies()

@@ -15,7 +15,7 @@
                 <h3 class="genreName">@Html.DisplayFor(modelItem => item.Key)</h3>
                 <div class="genreDiv">
                     @foreach (var value in item.Value)
-                {
+                    {
                         <a href="/movie/detail/@Html.DisplayFor(modelItem => value.ID)">
                             <img class="genrePic" src="@Html.DisplayFor(modelItem => value.Poster)" />
                         </a>

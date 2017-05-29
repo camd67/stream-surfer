@@ -1,4 +1,39 @@
-﻿@model SortedDictionary<String, List<Show>>
+﻿@model SortedDictionary<String, List<Object>>
 @{
     ViewData["Title"] = "Services";
 }
+
+<div id="browseDiv">
+    <div id="topDiv">
+        <h2>CATEGORIES</h2>
+    </div>
+
+    <div>
+        @{
+            foreach (var item in Model)
+            {
+                <h3 class="genreName">@Html.DisplayFor(modelItem => item.Key)</h3>
+                <div class="genreDiv">
+                    @foreach (var value in item.Value)
+                    {
+                        if (value is Show)
+                        {
+                            Show show = (Show)value;
+                            <a href="/show/detail/@Html.DisplayFor(modelItem => show.ID)">
+                                <img class="genrePic" src="@Html.DisplayFor(modelItem => show.Artwork)" />
+                            </a>
+                        }
+                        else if (value is Movie)
+                        {
+                            Movie movie = (Movie)value;
+                            <a href="/movie/detail/@Html.DisplayFor(modelItem => movie.ID)">
+                                <img class="genrePic" src="@Html.DisplayFor(modelItem => movie.Artwork)" />
+                            </a>
+                        }
+
+                    }
+                </div>
+            }
+        }
+    </div>
+</div>

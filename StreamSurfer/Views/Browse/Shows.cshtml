@@ -1,6 +1,6 @@
 ﻿@model SortedDictionary<String, List<Show>>
 @{
-    ViewData["Title"] = "Movies";
+    ViewData["Title"] = "Shows";
 }
 
 <div id="browseDiv">
@@ -15,7 +15,7 @@
                 <h3 class="genreName">@Html.DisplayFor(modelItem => item.Key)</h3>
                 <div class="genreDiv">
                     @foreach (var value in item.Value)
-                {
+                    {
                         <a href="/show/detail/@Html.DisplayFor(modelItem => value.ID)">
                             <img class="genrePic" src="@Html.DisplayFor(modelItem => value.Artwork)" />
                         </a>
