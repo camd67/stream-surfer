@@ -37,9 +37,12 @@
         }
     </div>
     <div class="profile-right-content">
-        <div class="overview-banner">
-            <h2>Welcome, @Model.Username</h2>
-        </div>
+        @if (Model.IsPersonalProfile)
+        {
+            <div class="overview-banner">
+                <h2>Welcome, @Model.Username</h2>
+            </div>
+        }
         <div class="profile-section-wrapper">
             <div class="profile-section">
                 <div class="profile-section-name">

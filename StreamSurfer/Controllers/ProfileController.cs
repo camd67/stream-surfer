@@ -42,17 +42,29 @@ namespace StreamSurfer.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return await Overview(null);
         }
 
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Overview(string id)
         {
-            var user = await GetCurrentUserAsync();            
-            if((id == null || id == "") && user == null)
+            bool isPersonal = true;
+            var user = await GetCurrentUserAsync();
+            if ((id == null || id == "") && user == null)
+            {
+                return RedirectToAction("Error", "Home", new { id = 404 });
+            }
+            if (user == null)
+            {
+                isPersonal = false;
+                user = await _context.Users
+                    .SingleOrDefaultAsync(x => x.NormalizedUserName == id.ToUpper());
+            }
+            // double check after getting id user
+            if (user == null)
             {
                 return NotFound();
             }
@@ -103,7 +115,8 @@ namespace StreamSurfer.Controllers
                 Bio = bio,
                 List = myList,
                 RecentlyRated = recentRate,
-                RecentlyWatched = recentWatch
+                RecentlyWatched = recentWatch,
+                IsPersonalProfile = isPersonal
             };
             return View(model);
         }
