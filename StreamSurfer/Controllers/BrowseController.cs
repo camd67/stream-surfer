@@ -32,7 +32,7 @@ namespace StreamSurfer.Controllers
         public async Task<IActionResult> Shows()
         {
             //get all sources
-            
+            /*
             var sources = await webRequest.Get(showService.GetSources());
             if (!sources.IsSuccessStatusCode)
             {
@@ -61,7 +61,7 @@ namespace StreamSurfer.Controllers
 
             _context.SaveChanges();
             
-
+            */
             var getShowGenre = await _context.ShowGenre
                 .Include(m => m.Genre)
                 .Include(m => m.Show)
@@ -96,7 +96,29 @@ namespace StreamSurfer.Controllers
 
         public async Task<IActionResult> Movies()
         {
-            return View();
+            var getMovieGenre = await _context.MovieGenre
+                .Include(m => m.Genre)
+                .Include(m => m.Movie)
+                .ToListAsync();
+            SortedDictionary<String, List<Movie>> genreDictionary = new SortedDictionary<String, List<Movie>>();
+            if (getMovieGenre.Count > 0)
+            {
+                foreach (var mg in getMovieGenre)
+                {
+                    if (!genreDictionary.ContainsKey(mg.Genre.Title))
+                    {
+                        genreDictionary.Add(mg.Genre.Title, new List<Movie> { mg.Movie });
+                    }
+                    else
+                    {
+                        var movieList = genreDictionary[mg.Genre.Title];
+                        movieList.Add(mg.Movie);
+                        genreDictionary.Remove(mg.Genre.Title);
+                        genreDictionary.Add(mg.Genre.Title, movieList);
+                    }
+                }
+            }
+            return View(genreDictionary);
         }
     }
 }
