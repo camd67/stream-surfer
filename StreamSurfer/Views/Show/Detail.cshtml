@@ -50,31 +50,63 @@
                                 list += Model.ShowGenre[Model.ShowGenre.Count - 1].Genre.Title;
                                 <td>@list</td>
                             }
+                            else
+                            {
+                                <td>No genres available.</td>
+                            }
                         }
                     </tr>
                     <tr>
                         <td class="title">RATING</td>
-                        <td>@Html.DisplayFor(name => Model.Rating)</td>
+                        @{ 
+                            if (Model.Rating == null)
+                            {
+                                <td>No rating available.</td>
+                            }
+                            else
+                            {
+                                <td>@Html.DisplayFor(name => Model.Rating)</td>
+                            }
+                        }
                     </tr>
                 </table>
             </div>
 
             <div id="descDiv">
                 <h2>SYNOPSIS</h2>
-                <p>@Html.DisplayFor(model => model.Desc)</p>
+                @{
+                    if (Model.Desc == null)
+                    {
+                        <p>No synopsis available.</p>
+                    }
+                    else
+                    {
+                        <p>@Html.DisplayFor(model => model.Desc)</p>
+                    }
+                }
             </div>
 
             <div id="servicesDiv">
                 <h2>AVAILABLE ON:</h2>
                 @{
-                    foreach (var ss in Model.ShowService)
+                    if (Model.ShowService.Count == 0)
                     {
-                        //"sorry no services found"
                         <div class="col-xs-4">
                             <div class="serviceInfo">
-                                <a href="@Html.DisplayFor(link => ss.EpisodeLink)">@Html.DisplayFor(name => ss.Service.Name)</a>
+                                <p>No services available.</p>
                             </div>
                         </div>
+                    }
+                    else
+                    {
+                        foreach (var ss in Model.ShowService)
+                        {
+                            <div class="col-xs-4">
+                                <div class="serviceInfo">
+                                    <a href="@Html.DisplayFor(link => ss.EpisodeLink)" target="_blank">@Html.DisplayFor(name => ss.Service.Name)</a>
+                                </div>
+                            </div>
+                        }
                     }
                 }
             </div>
