@@ -32,7 +32,7 @@ namespace StreamSurfer.Controllers
         public async Task<IActionResult> Shows()
         {
             //get all sources
-            /*
+            
             var sources = await webRequest.Get(showService.GetSources());
             if (!sources.IsSuccessStatusCode)
             {
@@ -45,7 +45,8 @@ namespace StreamSurfer.Controllers
                 .Select(x => new Service()
                 {
                     ID = (int)JObject.Parse(x.ToString())["id"],
-                    Name = (string)JObject.Parse(x.ToString())["display_name"]
+                    Name = (string)JObject.Parse(x.ToString())["display_name"],
+                    Source = (string)JObject.Parse(x.ToString())["source"]
                 })
                 .ToList();
 
@@ -59,7 +60,7 @@ namespace StreamSurfer.Controllers
             }
 
             _context.SaveChanges();
-            */
+            
 
             var getShowGenre = await _context.ShowGenre
                 .Include(m => m.Genre)

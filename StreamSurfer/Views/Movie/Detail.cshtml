@@ -1,5 +1,83 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Movie
 @{
+    ViewData["Title"] = "Detail";
+
+    string[] castList = Model.Cast.Split(';');
 }
+
+<div id="showDetail" class="background-image"></div>
+<div>
+    <div id="titleDiv">
+        <h1>@Html.Encode(Model.Title).ToUpper()</h1>
+    </div>
+
+    <div id="contentDiv">
+        <div id="wrapperDiv">
+            <div id="pictureDiv">
+                <img src="@Html.DisplayFor(model => model.Poster)" />
+            </div>
+
+            <div id="detailsDiv">
+                <div id="topDetails">
+                    <div id="detailsBox">
+                        <p>DETAILS</p>
+                    </div>
+                    <button style="display: none;">Add to My List</button>
+                </div>
+                <table>
+                    <tr>
+                        <td class="title">STARRING</td>
+                        @{
+                            string list = "";
+                            for (var i = 0; i < castList.Length - 1; i++)
+                            {
+                                list += castList[i] + ", ";
+                            }
+                            list += castList[castList.Length - 1];
+                            <td>@list</td>
+                        }
+                    </tr>
+                    <tr>
+                        <td class="title">GENRE</td>
+                        @{
+                            if (Model.MovieGenre.Count > 0)
+                            {
+                                list = "";
+                                for (var i = 0; i < Model.MovieGenre.Count - 1; i++)
+                                {
+                                    list += Model.MovieGenre[i].Genre.Title + ", ";
+                                }
+                                list += Model.MovieGenre[Model.MovieGenre.Count - 1].Genre.Title;
+                                <td>@list</td>
+                            }
+                        }
+                    </tr>
+                    <tr>
+                        <td class="title">RATING</td>
+                        <td>@Html.DisplayFor(name => Model.Rating)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="descDiv">
+                <h2>SYNOPSIS</h2>
+                <p>@Html.DisplayFor(model => model.Desc)</p>
+            </div>
+
+            <div id="servicesDiv">
+                <h2>AVAILABLE ON:</h2>
+                @{
+                    foreach (var ss in Model.MovieService)
+                    {
+                        //"sorry no services found"
+                        <div class="col-xs-4">
+                            <div class="serviceInfo">
+                                <a href="@Html.DisplayFor(link => ss.MovieLink)">@Html.DisplayFor(name => ss.Service.Name)</a>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
