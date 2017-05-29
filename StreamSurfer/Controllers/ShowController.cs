@@ -42,12 +42,12 @@ namespace StreamSurfer.Controllers
                 .Include(m => m.ShowService)
                 .Include(m => m.ShowGenre)
                 .SingleOrDefaultAsync(m => m.ID == id);
-            var loadGenres = await _context.Genres
+            var loadGenres = _context.Genres
                 .Include(m => m.ShowGenre)
-                .ToListAsync();
-            var loadServices = await _context.Services
+                .ToDictionary(x => x.ID, x => x);
+            var loadServices = _context.Services
                 .Include(m => m.ShowService)
-                .ToListAsync();
+                .ToDictionary(x => x.Source, x => x);
             //switch cast to string separated by ;
             if (show == null)
             {
@@ -101,7 +101,8 @@ namespace StreamSurfer.Controllers
                     .Select(x => new Service()
                     {
                         ID = (int)JObject.Parse(x.ToString())["id"],
-                        Name = (string)JObject.Parse(x.ToString())["display_name"]
+                        Name = (string)JObject.Parse(x.ToString())["display_name"],
+                        Source = (string)JObject.Parse(x.ToString())["source"]
                     })
                     .ToList();
 
@@ -130,7 +131,7 @@ namespace StreamSurfer.Controllers
                 List<ShowService> showServices = new List<ShowService>();
                 foreach (var service in services)
                 {
-                    Service getService = _context.Services.SingleOrDefault(s => s.ID == service.ID);
+                    loadServices.TryGetValue(service.Source, out Service getService);
                     if (getService == null)
                     {
                         getService = service;
@@ -157,7 +158,7 @@ namespace StreamSurfer.Controllers
                 List<ShowGenre> showGenres = new List<ShowGenre>();
                 foreach (var genre in genres)
                 {
-                    Genre getGenre = _context.Genres.SingleOrDefault(g => g.ID == genre.ID);
+                    loadGenres.TryGetValue(genre.ID, out Genre getGenre);
                     if (getGenre == null)
                     {
                         getGenre = genre;
