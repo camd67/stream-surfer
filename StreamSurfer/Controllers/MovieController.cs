@@ -151,11 +151,14 @@ namespace StreamSurfer.Controllers
                     }
                 }
 
+                string poster = (string)json["poster_400x570"];
+                poster.Replace("http://", "https://");
+
                 movie = new Movie()
                 {
                     ID = (int)json["id"],
                     Title = (string)json["title"],
-                    Poster = (string)json["poster_400x570"],
+                    Poster = poster,
                     Desc = (string)json["overview"],
                     Aired = json["release_date"].ToString().Substring(0, 4),
                     Rating = (string)json["rating"],
