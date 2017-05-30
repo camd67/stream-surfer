@@ -96,20 +96,23 @@ namespace StreamSurfer.Controllers
                 .Include(m => m.Service)
                 .Include(m => m.Movie)
                 .ToListAsync();
-            SortedDictionary<String, List<Object>> serviceDictionary = new SortedDictionary<String, List<Object>>();
+            SortedDictionary<String, HashSet<Object>> serviceDictionary = new SortedDictionary<String, HashSet<Object>>();
             foreach (var ser in getShowService)
             {
                 string key = ser.Service.Name;
                 if (!serviceDictionary.ContainsKey(key))
                 {
-                    serviceDictionary.Add(key, new List<Object>() { ser.Show });
+                    serviceDictionary.Add(key, new HashSet<Object>() { ser.Show });
                 }
                 else
                 {
-                    List<Object> getList = serviceDictionary[key];
-                    getList.Add(ser.Show);
-                    serviceDictionary.Remove(key);
-                    serviceDictionary.Add(key, getList);
+                    HashSet<Object> getList = serviceDictionary[key];
+                    if (!getList.Contains(ser.Show))
+                    {
+                        getList.Add(ser.Show);
+                        serviceDictionary.Remove(key);
+                        serviceDictionary.Add(key, getList);
+                    }
                 }
             }
             foreach (var mov in getMovieService)
@@ -117,14 +120,17 @@ namespace StreamSurfer.Controllers
                 string key = mov.Service.Name;
                 if (!serviceDictionary.ContainsKey(key))
                 {
-                    serviceDictionary.Add(key, new List<Object>() { mov.Movie });
+                    serviceDictionary.Add(key, new HashSet<Object>() { mov.Movie });
                 }
                 else
                 {
-                    List<Object> getList = serviceDictionary[key];
-                    getList.Add(mov.Movie);
-                    serviceDictionary.Remove(key);
-                    serviceDictionary.Add(key, getList);
+                    HashSet<Object> getList = serviceDictionary[key];
+                    if (!getList.Contains(mov.Movie))
+                    {
+                        getList.Add(mov.Movie);
+                        serviceDictionary.Remove(key);
+                        serviceDictionary.Add(key, getList);
+                    }
                 }
             }
             return View(serviceDictionary);

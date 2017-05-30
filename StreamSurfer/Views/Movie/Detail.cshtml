@@ -3,12 +3,13 @@
     ViewData["Title"] = "Detail";
 
     string[] castList = Model.Movie.Cast.Split(';');
+    string title = Model.Movie.Title.ToUpper();
 }
 
 <div id="showDetail" class="background-image"></div>
-<div>
+<div id="pageDiv">
     <div id="titleDiv">
-        <h1>@Html.Encode(Model.Movie.Title).ToUpper()</h1>
+        <h1 class="green-tip">@title</h1>
     </div>
 
     <div id="contentDiv">
@@ -136,12 +137,23 @@
                     {
                         foreach (var ss in Model.Movie.MovieService)
                         {
-                            <div class="col-xs-4">
-                                <div class="serviceInfo">
-                                    <a href="@Html.DisplayFor(link => ss.MovieLink)" target="_blank">@Html.DisplayFor(name => ss.Service.Name)</a>
+                            if (ss.MovieLink != "")
+                            {
+                                <div class="col-xs-4">
+                                    <div class="serviceInfo">
+                                        <a href="@Html.DisplayFor(link => ss.MovieLink)" target="_blank">@Html.DisplayFor(name => ss.Service.Name)</a>
+                                    </div>
                                 </div>
-                            </div>
-                        }
+                            }
+                            else
+                            {
+                                <div class="col-xs-4">
+                                    <div class="serviceInfo">
+                                        <p>@Html.DisplayFor(name => ss.Service.Name)</p>
+                                    </div>
+                                </div>
+                            }
+                    }
                     }
                 }
             </div>

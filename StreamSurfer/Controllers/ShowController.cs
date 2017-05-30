@@ -137,6 +137,7 @@ namespace StreamSurfer.Controllers
 
                 //TODO services displayed multiple times
                 List<ShowService> showServices = new List<ShowService>();
+                HashSet<string> check = new HashSet<string>();
                 foreach (var service in services)
                 {
                     loadServices.TryGetValue(service.Source, out Service getService);
@@ -161,7 +162,11 @@ namespace StreamSurfer.Controllers
                     {
                         link = purchaseWeb[getService.Name];
                     }
-                    showServices.Add(new ShowService(id.Value, getService.ID, null, getService, link));
+                    if (!check.Contains(getService.Name))
+                    {
+                        check.Add(getService.Name);
+                        showServices.Add(new ShowService(id.Value, getService.ID, null, getService, link));
+                    }
                 }
                 List<ShowGenre> showGenres = new List<ShowGenre>();
                 foreach (var genre in genres)

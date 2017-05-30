@@ -146,11 +146,13 @@ namespace StreamSurfer.Controllers
                     links.Add(source, (string)JObject.Parse(x.ToString())["link"]);
                 }
                 List<MovieService> movieServices = new List<MovieService>();
+                HashSet<string> check = new HashSet<string>();
                 foreach (var ser in services)
                 {
                     loadServices.TryGetValue(ser.Source, out Service getService);
-                    if (getService != null)
+                    if (getService != null && !check.Contains(ser.Name))
                     {
+                        check.Add(ser.Name);
                         movieServices.Add(new MovieService(id.Value, getService.ID, null, getService, links[getService.Source]));
                     }
                 }
