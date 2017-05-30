@@ -22,7 +22,7 @@ StreamSurfer is a search engine for users who often stream entertainment online,
 * Reasons for choosing this stack: ...
 
 ## Contact
-* Website URL - streamsurfer.info
+* Website URL - streamsurfer.info (streamsurfer.info)
 * StreamSurfer Support - streamsurferinfo@gmail.com
 * Cameron D. - camdoane@uw.edu
 * Isabelle T. - itran94@uw.edu
