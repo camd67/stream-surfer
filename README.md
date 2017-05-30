@@ -21,7 +21,7 @@ StreamSurfer is a search engine for users who often stream entertainment online,
 
 ## Contact
 * Cameron D. - camdoane@uw.edu
-
 * Isabelle T. - itran94@uw.edu
 * Jack W. - jackw117@uw.edu
 * Alison W. - aliwong@uw.edu
+* StreamSurfer Support - streamsurferinfo@gmail.com
