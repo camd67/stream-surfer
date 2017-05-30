@@ -115,3 +115,22 @@
 .profile-list-item:hover {
     outline: 3px #FF5F41 solid;
 }
+
+.my-list-wrapper {
+    background-color: #F3F3EB;
+    min-height: 100vh;
+    padding: 50px 1em 1em 2em;
+}
+.list-header {
+    color: #FF5F41;
+    font-weight: 900;
+    font-size: 48px;
+}
+.list-section-header {
+    color: #000;
+    font-weight: 900;
+    font-size: 24px;
+}
+.list-section ul {
+    padding-left: 0;
+}

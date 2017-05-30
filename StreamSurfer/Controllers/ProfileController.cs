@@ -66,7 +66,7 @@ namespace StreamSurfer.Controllers
             // double check after getting id user
             if (user == null)
             {
-                return NotFound();
+                return RedirectToAction("Error", "Home", new { id = 404 });
             }
             string path = user.ProfilePicture == null || user.ProfilePicture == ""
                 ? "default-avatar.png"
@@ -122,10 +122,63 @@ namespace StreamSurfer.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult List(int id)
+        public async Task<IActionResult> List(string id)
         {
-            //var list = _context.MyList.Where(x => x.Id == id);
-            return View();
+            var user = await GetCurrentUserAsync();
+            if ((id == null || id == "") && user == null)
+            {
+                return RedirectToAction("Error", "Home", new { id = 404 });
+            }
+            if (user == null)
+            {
+                user = await _context.Users
+                    .SingleOrDefaultAsync(x => x.NormalizedUserName == id.ToUpper());
+            }
+            // double check after getting id user
+            if (user == null)
+            {
+                return RedirectToAction("Error", "Home", new { id = 404 });
+            }
+            var myList = await _context.MyList
+                .Include(m => m.MyListShows)
+                .SingleOrDefaultAsync(x => x.User.Id == user.Id);
+            List<MyListShows> complete = new List<MyListShows>();
+            List<MyListShows> watching = new List<MyListShows>();
+            List<MyListShows> want = new List<MyListShows>(); ;
+            if (myList == null)
+            {
+                // just make an empty list, so no errors appear
+                myList = new MyList()
+                {
+                    MyListShows = new List<MyListShows>(),
+                };
+            }
+            else
+            {
+                myList.MyListShows = await _context.MyListShows
+                    .Include(m => m.MyList)
+                    .Include(m => m.Show)
+                    .Include(m => m.Movie)
+                    .Where(x => x.MyList.Id == myList.Id)
+                    .ToListAsync();
+                complete = myList.MyListShows
+                    .Where(x => x.Status == (int)ShowStatus.COMPLETED)
+                    .ToList();
+                watching = myList.MyListShows
+                    .Where(x => x.Status == (int)ShowStatus.WATCHING)
+                    .ToList();
+                want = myList.MyListShows
+                    .Where(x => x.Status == (int)ShowStatus.WANT_TO_WATCH)
+                    .ToList();
+            }
+            var model = new MyListViewModel()
+            {
+                 Username = user.UserName,
+                 Complete = complete,
+                 WantToWatch = want,
+                 Watching = watching
+            };
+            return View(model);
         }
 
         [HttpPost]

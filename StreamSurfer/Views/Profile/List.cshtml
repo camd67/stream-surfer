@@ -1,0 +1,70 @@
+@model StreamSurfer.Models.ProfileViewModels.MyListViewModel
+
+<div class="my-list-wrapper">
+    <h1 class="list-header">@(Model.Username)&#39;s List</h1>
+    <div>
+        <h2 class="list-section-header">WATCHING</h2>
+        <div class="list-section">
+            <ul>
+                @foreach (var s in Model.Watching)
+                {
+                    <li class="profile-list-item">
+                        <a asp-controller="@(s.Show == null ? "Movie" : "Show")" asp-action="Detail" asp-route-id="@s.SafeGetId()">
+                            @if (s.Rating > 0)
+                            {
+                                <div class="rating-wrapper">
+                                    @await Html.PartialAsync("_RatingOverlay", s)
+                                </div>
+                            }
+                            <img class="drop-shadow" src="@s.SafeGetArtwork()" alt="Image for @s.SafeGetTitle()" width="175" height="100" />
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div>
+        <h2 class="list-section-header">COMPLETE</h2>
+        <div class="list-section">
+            <ul>
+                @foreach (var s in Model.Complete)
+                {
+                    <li class="profile-list-item">
+                        <a asp-controller="@(s.Show == null ? "Movie" : "Show")" asp-action="Detail" asp-route-id="@s.SafeGetId()">
+                            @if (s.Rating > 0)
+                            {
+                                <div class="rating-wrapper">
+                                    @await Html.PartialAsync("_RatingOverlay", s)
+                                </div>
+                            }
+                            <img class="drop-shadow" src="@s.SafeGetArtwork()" alt="Image for @s.SafeGetTitle()" width="175" height="100" />
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+    </div>
+    <div>
+        <h2 class="list-section-header">WANT TO WATCH</h2>
+        <div class="list-section">
+            <ul>
+                @foreach (var s in Model.WantToWatch)
+                {
+                    <li class="profile-list-item">
+                        <a asp-controller="@(s.Show == null ? "Movie" : "Show")" asp-action="Detail" asp-route-id="@s.SafeGetId()">
+                            @if (s.Rating > 0)
+                            {
+                                <div class="rating-wrapper">
+                                    @await Html.PartialAsync("_RatingOverlay", s)
+                                </div>
+                            }
+                            <img class="drop-shadow" src="@s.SafeGetArtwork()" alt="Image for @s.SafeGetTitle()" width="175" height="100" />
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+    </div>
+</div>
