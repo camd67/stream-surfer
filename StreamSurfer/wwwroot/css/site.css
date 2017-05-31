@@ -15,11 +15,9 @@ body {
     background: white;
     font-family: MuseoSans, sans-serif;
 }
-
 h2, h3 {
     margin: 0;
 }
-
 .background-image {
     position: fixed;
     z-index: -999;
@@ -28,7 +26,9 @@ h2, h3 {
     left: 0;
     right: 0;
 }
-
+.nav.navbar-right form .input-group{
+    padding-top: 0.5em;
+}
 .logo-stream, .logo-surfer {
     margin: 0;
     font-size: 24pt;
@@ -93,18 +93,26 @@ h2, h3 {
     background-color: #F3F3EB;
     padding: 0;
     padding-bottom: 1em;
-    width: 50%;
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
 }
+@media (min-width: 768px){
+    .content-wrapper {
+        width: 50%;
+    }
+}
 .content-body {
-    margin-left: 40px;
-    margin-right: 40px;
     margin-bottom: 10px;
-    padding-bottom: 15px;
-    padding-top: 15px;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding: 15px 0.5em 15px 0.5em;
+}
+@media (min-width: 768px) {
+    .content-body {
+        padding-left: 50px;
+        padding-right: 50px;
+        margin-left: 40px;
+        margin-right: 40px;
+    }
 }
 .content-header {
     position: relative;
@@ -268,10 +276,18 @@ h2, h3 {
 
 .loading-overlay > svg {
     display: block;
-    height: 100vh;
+    position: absolute;
+    width: 100%;
     margin-right: auto;
     margin-left: auto;
     bottom: 0;
+}
+@media (min-width: 768px){
+    .loading-overlay > svg {
+        width: initial;
+        position: initial;
+        height: 100vh;
+    }
 }
 
 .wave-anim {

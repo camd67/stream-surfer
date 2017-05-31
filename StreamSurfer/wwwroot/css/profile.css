@@ -11,11 +11,18 @@
     background-color: #7BA8A2;
     color: #E7E6D6;
     position: relative;
-    height: 3.5em;
     padding: 0.5em;
+}
+@media (min-width: 786px){
+    .overview-banner {
+        height: 3.5em;
+    }
 }
 .overview-banner h2 {
     font-weight: 900;
+}
+.overview-banner .mobile-only {
+    margin-top: 0.5em;
 }
 
 .overview-header {
@@ -25,6 +32,12 @@
     width: 300px;
     height: 470px;
     position: absolute;
+    display: none;
+}
+@media (min-width: 786px){
+    .overview-header{
+        display: block;
+    }
 }
 
 .overview-header > div {
@@ -69,16 +82,31 @@
     font-weight: 900;
 }
 
+@media (min-width:786px){
+    .mobile-only {
+        display: none;
+    }
+}
 .profile-right-content {
-    margin-left: 450px;
+    margin-left: 25px;
     margin-right: 25px;
+}
+@media (min-width:786px) {
+    .profile-right-content {
+        margin-left: 450px;
+    }
 }
 .profile-section-wrapper {
     background-color: #F3F3EB;
-    padding: 45px 30px 30px 30px;
+    padding: 45px 15px 15px 15px;
     position: relative;
     margin-bottom: 50px;
     margin-top: 50px;
+}
+@media (min-width:786px){
+    .profile-section-wrapper {
+        padding: 45px 30px 30px 30px;
+    }
 }
 .profile-section {
     background-color: #F3F3EB;

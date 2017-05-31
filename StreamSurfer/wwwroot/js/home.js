@@ -137,4 +137,29 @@
         return array;
     }
 
+    var showTab = $(".results-show");
+    var movieTab = $(".results-movie");
+    movieTab.hide();
+    console.log(movieTab);
+    var showTabButton = $(".show-tab-button");
+    var movieTabButton = $(".movie-tab-button");
+    var viewingShows = true;
+    showTabButton.click(function () {
+        if (!viewingShows) {
+            viewingShows = !viewingShows;
+            showTab.show();
+            movieTab.hide();
+            showTabButton.toggleClass("selected").toggleClass("orange-tip");
+            movieTabButton.toggleClass("selected").toggleClass("orange-tip");
+        }
+    });
+    movieTabButton.click(function () {
+        if (viewingShows) {
+            viewingShows = !viewingShows;
+            showTab.hide();
+            movieTab.show();
+            showTabButton.toggleClass("selected").toggleClass("orange-tip");
+            movieTabButton.toggleClass("selected").toggleClass("orange-tip");
+        }
+    });
 });

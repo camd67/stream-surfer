@@ -9,6 +9,7 @@
     <div class="header-image"></div>
     <div class="header-content home-suggestion-banner">
         Let's watch
+        <div class="line-break"></div>
         <span class="home-suggestion-text"></span><span class="blink">&#124;</span>
     </div>
     <div class="header-content home-header-search">
@@ -18,17 +19,22 @@
                 <i type="submit" class="glyphicon glyphicon-search input-group-addon" id="search-input"></i>
             </div>
         </form>
-        <a asp-controller="Home" asp-action="AdvancedSearch">Advanced Search</a>
     </div>
 </header>
 <div class="card-section">
     <a class="card service-card" asp-Controller="Browse" asp-action="Services">
-        <h2>SERVICES</h2>
+        <div class="card-inner-wrapper">
+            <h2>SERVICES</h2>
+        </div>
     </a>
     <a class="card show-card" asp-Controller="Browse" asp-action="Shows">
-        <h2>SHOWS</h2>
+        <div class="card-inner-wrapper">
+            <h2>SHOWS</h2>
+        </div>
     </a>
     <a class="card movie-card" asp-Controller="Browse" asp-action="Movies">
-        <h2>MOVIES</h2>
+        <div class="card-inner-wrapper">
+            <h2>MOVIES</h2>
+        </div>
     </a>
 </div>

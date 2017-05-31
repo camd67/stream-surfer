@@ -10,15 +10,22 @@
     background-size: cover;
 }
 .register-box {
-    width: 750px;
+    margin-top: 50px;
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
     background-color: #FFF;
     padding: 0;
     box-shadow: 13px 10px 9px 3px rgba(0,0,0,0.7);
 }
+@media (min-width:786px){
+    .register-box {
+        margin-top: 100px;
+        width: 500px;
+    }
+}
 .register-header {
-    height: 100px;
+    height: 60px;
     background-color: #FF5F41;
     display: flex;
     position: relative;
@@ -27,8 +34,17 @@
 .register-header-logo {
     display: block;
     margin: auto;
-    height: 75px;
-    width: 75px;
+    height: 50px;
+    width: 50px;
+}
+@media (min-wdith: 786px){
+    .register-header-logo {
+        height: 75px;
+        width: 75px;
+    }
+    .register-header {
+        height: 100px;
+    }
 }
 
 .sign-up-logo {
@@ -36,21 +52,40 @@
     text-align: center;
     font-weight: bold;
     transform: translate(0, -45px);
-    width: 150px;
     background-color: #FFF;
     margin-left: auto;
     margin-right: auto;
 }
+@media (min-width:786px){
+    .sign-up-logo {
+        width: 150px;
+    }
+}
 .register-content {
-    margin-left: 40px;
-    margin-right: 40px;
-    margin-top: 75px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 50px;
     margin-bottom: 10px;
     padding-bottom: 15px;
     padding-top: 15px;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
     border: 10px solid #FF5F41;
+}
+.register-content form {
+    margin-top: -45px;
+}
+@media (min-wdith: 786px){
+    .register-content {
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-top: 75px;
+        margin-bottom: 10px;
+        padding-bottom: 15px;
+        padding-top: 15px;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
 }
 .register-content button {
     display: block;
@@ -58,10 +93,15 @@
     font-size: 18pt;
     color: #FFF;
     margin: auto;
-    width: 250px;
+    width: 100%;
     height: 50px;
     border: none;
     box-shadow: 4px 4px 4px rgba(0,0,0,0.5);
+}
+@media (min-wdith:786px){
+    .register-content button {
+        width: 250px;
+    }
 }
 .register-content button:disabled {
     background-color: #AFCCC6;

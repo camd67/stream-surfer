@@ -1,7 +1,11 @@
 @model IEnumerable<StreamSurfer.Models.ShowViewModels.SearchViewModel>
 
-@{ 
+@{
     ViewData["Title"] = "Results for " + ViewData["search_query"];
+}
+
+@section Scripts {
+    <script src="~/js/home.js"></script>
 }
 
 @inject SignInManager<AppUser> SignInManager
@@ -9,75 +13,161 @@
 <div class="background-image search-image"></div>
 <div class="search-results">
     <div class="container">
-        <h2 class="text-center results-header green-tip">SEARCH RESULTS FOR: "@ViewData["search_query"]"</h2>
-        <ul class="results">
-            @foreach (var s in Model)
-            {
-                <li class="results-item">
-                    <a asp-controller="@(s.Show == null ? "Movie" : "Show")" asp-action="Detail" asp-route-id="@s.SafeGetId()">
-                        <img src="@s.SafeGetArtwork()" alt="Image for @s.SafeGetTitle()" class="results-image" />
-                    </a>
-                    <div class="results-bottom">
-                        <a class="results-link" asp-controller="@(s.Show == null ? "Movie" : "Show")" asp-action="Detail" asp-route-id="@s.SafeGetId()"><h3>@s.SafeGetTitle()</h3></a>
-                        <div class="results-div-bar"></div>
-                        <div class="results-footer">
-                            <div class="results-footer-left">
-                                <div class="results-type">
-                                    <svg class="results-type-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 471 471" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 471 471">
-                                        @if (s.Show == null)
-                                        {
-                                            <g>
-                                                <path d="M413.974,413.973C459.775,368.171,485,307.274,485,242.5s-25.225-125.671-71.026-171.473C368.171,25.224,307.274,0,242.5,0S116.829,25.224,71.026,71.027C25.225,116.829,0,177.726,0,242.5s25.225,125.671,71.026,171.473C116.829,459.776,177.726,485,242.5,485H485v-30H359.528C379.263,444.094,397.588,430.359,413.974,413.973z M30,242.5C30,125.327,125.327,30,242.5,30S455,125.327,455,242.5S359.673,455,242.5,455S30,359.673,30,242.5z" />
-                                                <path d="M242.5,200c35.841,0,65-29.159,65-65s-29.159-65-65-65s-65,29.159-65,65S206.659,200,242.5,200z M242.5,100c19.299,0,35,15.701,35,35s-15.701,35-35,35s-35-15.701-35-35S223.201,100,242.5,100z" />
-                                                <path d="M200,242.5c0-35.841-29.159-65-65-65s-65,29.159-65,65s29.159,65,65,65S200,278.341,200,242.5z M135,277.5c-19.299,0-35-15.701-35-35s15.701-35,35-35s35,15.701,35,35S154.299,277.5,135,277.5z" />
-                                                <path d="M242.5,285c-35.841,0-65,29.159-65,65s29.159,65,65,65s65-29.159,65-65S278.341,285,242.5,285z M242.5,385c-19.299,0-35-15.701-35-35s15.701-35,35-35s35,15.701,35,35S261.799,385,242.5,385z" />
-                                                <path d="M415,242.5c0-35.841-29.159-65-65-65s-65,29.159-65,65s29.159,65,65,65S415,278.341,415,242.5z M350,277.5c-19.299,0-35-15.701-35-35s15.701-35,35-35s35,15.701,35,35S369.299,277.5,350,277.5z" />
-                                            </g>
-                                        }
-                                        else
-                                        {
-                                            <g>
-                                                <path d="m443.5,86.676h-416c-2.761,0-5,2.239-5,5v253.493c0,2.761 2.239,5 5,5h416c2.762,0 5-2.239 5-5v-253.493c0-2.762-2.238-5-5-5zm-5,253.493h-406v-243.493h406v243.493z" />
-                                                <path d="m449.055,64.176h-427.109c-12.101,0-21.946,9.845-21.946,21.945v264.602c0,12.101 9.845,21.945 21.946,21.945h148.343l-7.91,19.156h-31.772c-4.142,0-7.5,3.358-7.5,7.5s3.358,7.5 7.5,7.5h209.79c4.143,0 7.5-3.358 7.5-7.5s-3.357-7.5-7.5-7.5h-31.772l-7.911-19.156h148.343c12.101,0 21.945-9.845 21.945-21.945v-264.602c-0.002-12.1-9.846-21.945-21.947-21.945zm-156.661,327.649h-113.788l7.911-19.156h97.967l7.91,19.156zm163.606-41.101c0,3.83-3.115,6.945-6.945,6.945h-427.109c-3.83,0-6.946-3.116-6.946-6.945v-264.603c0-3.83 3.116-6.946 6.946-6.946h427.109c3.83,0 6.945,3.116 6.945,6.946v264.603z" />
-                                            </g>
-                                        }
-                                    </svg>
-                                    <span class="results-type-text">@(s.Show == null ? "Movie" : "Show")</span>
+        <div class="results-header">
+            <h2 class="text-center">SEARCH RESULTS FOR: "@ViewData["search_query"]"</h2>
+            <div class="results-tab">
+                <span class="show-tab-button selected orange-tip">SHOWS</span>
+                <span class="movie-tab-button">MOVIES</span>
+            </div>
+        </div>
+        <div class="results-show">
+            <ul class="results">
+                @foreach (var s in Model)
+                {
+                    @if (s.IsShow())
+                    {
+                        <li class="results-item">
+                            <a asp-controller="@(s.Show == null ? "Movie" : "Show")" asp-action="Detail" asp-route-id="@s.SafeGetId()">
+                                <img src="@s.SafeGetArtwork()" alt="Image for @s.SafeGetTitle()" class="results-image" />
+                            </a>
+                            <div class="results-bottom">
+                                <a class="results-link" asp-controller="@(s.Show == null ? "Movie" : "Show")" asp-action="Detail" asp-route-id="@s.SafeGetId()"><h3>@s.SafeGetTitle()</h3></a>
+                                <div class="results-div-bar"></div>
+                                <div class="results-footer">
+                                    <div class="results-footer-left">
+                                        <div class="results-type">
+                                            <svg class="results-type-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 471 471" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 471 471">
+                                                @if (s.Show == null)
+                                                {
+                                                    <g>
+                                                        <path d="M413.974,413.973C459.775,368.171,485,307.274,485,242.5s-25.225-125.671-71.026-171.473C368.171,25.224,307.274,0,242.5,0S116.829,25.224,71.026,71.027C25.225,116.829,0,177.726,0,242.5s25.225,125.671,71.026,171.473C116.829,459.776,177.726,485,242.5,485H485v-30H359.528C379.263,444.094,397.588,430.359,413.974,413.973z M30,242.5C30,125.327,125.327,30,242.5,30S455,125.327,455,242.5S359.673,455,242.5,455S30,359.673,30,242.5z" />
+                                                        <path d="M242.5,200c35.841,0,65-29.159,65-65s-29.159-65-65-65s-65,29.159-65,65S206.659,200,242.5,200z M242.5,100c19.299,0,35,15.701,35,35s-15.701,35-35,35s-35-15.701-35-35S223.201,100,242.5,100z" />
+                                                        <path d="M200,242.5c0-35.841-29.159-65-65-65s-65,29.159-65,65s29.159,65,65,65S200,278.341,200,242.5z M135,277.5c-19.299,0-35-15.701-35-35s15.701-35,35-35s35,15.701,35,35S154.299,277.5,135,277.5z" />
+                                                        <path d="M242.5,285c-35.841,0-65,29.159-65,65s29.159,65,65,65s65-29.159,65-65S278.341,285,242.5,285z M242.5,385c-19.299,0-35-15.701-35-35s15.701-35,35-35s35,15.701,35,35S261.799,385,242.5,385z" />
+                                                        <path d="M415,242.5c0-35.841-29.159-65-65-65s-65,29.159-65,65s29.159,65,65,65S415,278.341,415,242.5z M350,277.5c-19.299,0-35-15.701-35-35s15.701-35,35-35s35,15.701,35,35S369.299,277.5,350,277.5z" />
+                                                    </g>
+                                                }
+                                                else
+                                                {
+                                                    <g>
+                                                        <path d="m443.5,86.676h-416c-2.761,0-5,2.239-5,5v253.493c0,2.761 2.239,5 5,5h416c2.762,0 5-2.239 5-5v-253.493c0-2.762-2.238-5-5-5zm-5,253.493h-406v-243.493h406v243.493z" />
+                                                        <path d="m449.055,64.176h-427.109c-12.101,0-21.946,9.845-21.946,21.945v264.602c0,12.101 9.845,21.945 21.946,21.945h148.343l-7.91,19.156h-31.772c-4.142,0-7.5,3.358-7.5,7.5s3.358,7.5 7.5,7.5h209.79c4.143,0 7.5-3.358 7.5-7.5s-3.357-7.5-7.5-7.5h-31.772l-7.911-19.156h148.343c12.101,0 21.945-9.845 21.945-21.945v-264.602c-0.002-12.1-9.846-21.945-21.947-21.945zm-156.661,327.649h-113.788l7.911-19.156h97.967l7.91,19.156zm163.606-41.101c0,3.83-3.115,6.945-6.945,6.945h-427.109c-3.83,0-6.946-3.116-6.946-6.945v-264.603c0-3.83 3.116-6.946 6.946-6.946h427.109c3.83,0 6.945,3.116 6.945,6.946v264.603z" />
+                                                    </g>
+                                                }
+                                            </svg>
+                                            <span class="results-type-text">@(s.Show == null ? "Movie" : "Show")</span>
+                                        </div>
+                                        <p class="results-description">@s.SafeGetAired()</p>
+                                    </div>
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+                                        <div class="results-footer-right">
+                                            @if (s.IsInList)
+                                            {
+                                                <button class="btn add-button" data-id="@s.SafeGetId()" data-type="@s.GetTypeString()" disabled>
+                                                    <i class="glyphicon glyphicon-ok"></i>
+                                                    <span class="add-button-text">Added to My List</span>
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn add-button" data-id="@s.SafeGetId()" data-type="@s.GetTypeString()">
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                    <span class="add-button-text">Add to My List</span>
+                                                </button>
+                                            }
+                                        </div>
+                                    }
                                 </div>
-                                <p class="results-description">@s.SafeGetAired()</p>
                             </div>
-                            @if (SignInManager.IsSignedIn(User))
-                            {
-                            <div class="results-footer-right">
-                                @if (s.IsInList)
-                                {
-                                    <button class="btn add-button" data-id="@s.SafeGetId()" data-type="@s.GetTypeString()" disabled>
-                                        <i class="glyphicon glyphicon-ok"></i>
-                                        <span class="add-button-text">Added to My List</span>
-                                    </button>
-                                }
-                                else
-                                {
-                                    <button class="btn add-button" data-id="@s.SafeGetId()" data-type="@s.GetTypeString()">
-                                        <i class="glyphicon glyphicon-plus"></i>
-                                        <span class="add-button-text">Add to My List</span>
-                                    </button>
-                                }
+                        </li>
+                    }
+                }
+                @if (Model.Count() % 3 == 1)
+                {
+                    <li class="results-item"></li>
+                    <li class="results-item"></li>
+                }
+                @if (Model.Count() % 3 == 2)
+                {
+                    <li class="results-item"></li>
+                }
+            </ul>
+        </div>
+        @*I'm sorry for this copy + paste... it's presentaiton time in like 1 hour*@
+        <div class="results-movie">
+            <ul class="results">
+                @foreach (var s in Model)
+                {
+                    @if (s.IsMovie())
+                    {
+                        <li class="results-item">
+                            <a asp-controller="@(s.Show == null ? "Movie" : "Show")" asp-action="Detail" asp-route-id="@s.SafeGetId()">
+                                <img src="@s.SafeGetArtwork()" alt="Image for @s.SafeGetTitle()" class="results-image" />
+                            </a>
+                            <div class="results-bottom">
+                                <a class="results-link" asp-controller="@(s.Show == null ? "Movie" : "Show")" asp-action="Detail" asp-route-id="@s.SafeGetId()"><h3>@s.SafeGetTitle()</h3></a>
+                                <div class="results-div-bar"></div>
+                                <div class="results-footer">
+                                    <div class="results-footer-left">
+                                        <div class="results-type">
+                                            <svg class="results-type-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 471 471" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 471 471">
+                                                @if (s.Show == null)
+                                                {
+                                                    <g>
+                                                        <path d="M413.974,413.973C459.775,368.171,485,307.274,485,242.5s-25.225-125.671-71.026-171.473C368.171,25.224,307.274,0,242.5,0S116.829,25.224,71.026,71.027C25.225,116.829,0,177.726,0,242.5s25.225,125.671,71.026,171.473C116.829,459.776,177.726,485,242.5,485H485v-30H359.528C379.263,444.094,397.588,430.359,413.974,413.973z M30,242.5C30,125.327,125.327,30,242.5,30S455,125.327,455,242.5S359.673,455,242.5,455S30,359.673,30,242.5z" />
+                                                        <path d="M242.5,200c35.841,0,65-29.159,65-65s-29.159-65-65-65s-65,29.159-65,65S206.659,200,242.5,200z M242.5,100c19.299,0,35,15.701,35,35s-15.701,35-35,35s-35-15.701-35-35S223.201,100,242.5,100z" />
+                                                        <path d="M200,242.5c0-35.841-29.159-65-65-65s-65,29.159-65,65s29.159,65,65,65S200,278.341,200,242.5z M135,277.5c-19.299,0-35-15.701-35-35s15.701-35,35-35s35,15.701,35,35S154.299,277.5,135,277.5z" />
+                                                        <path d="M242.5,285c-35.841,0-65,29.159-65,65s29.159,65,65,65s65-29.159,65-65S278.341,285,242.5,285z M242.5,385c-19.299,0-35-15.701-35-35s15.701-35,35-35s35,15.701,35,35S261.799,385,242.5,385z" />
+                                                        <path d="M415,242.5c0-35.841-29.159-65-65-65s-65,29.159-65,65s29.159,65,65,65S415,278.341,415,242.5z M350,277.5c-19.299,0-35-15.701-35-35s15.701-35,35-35s35,15.701,35,35S369.299,277.5,350,277.5z" />
+                                                    </g>
+                                                }
+                                                else
+                                                {
+                                                    <g>
+                                                        <path d="m443.5,86.676h-416c-2.761,0-5,2.239-5,5v253.493c0,2.761 2.239,5 5,5h416c2.762,0 5-2.239 5-5v-253.493c0-2.762-2.238-5-5-5zm-5,253.493h-406v-243.493h406v243.493z" />
+                                                        <path d="m449.055,64.176h-427.109c-12.101,0-21.946,9.845-21.946,21.945v264.602c0,12.101 9.845,21.945 21.946,21.945h148.343l-7.91,19.156h-31.772c-4.142,0-7.5,3.358-7.5,7.5s3.358,7.5 7.5,7.5h209.79c4.143,0 7.5-3.358 7.5-7.5s-3.357-7.5-7.5-7.5h-31.772l-7.911-19.156h148.343c12.101,0 21.945-9.845 21.945-21.945v-264.602c-0.002-12.1-9.846-21.945-21.947-21.945zm-156.661,327.649h-113.788l7.911-19.156h97.967l7.91,19.156zm163.606-41.101c0,3.83-3.115,6.945-6.945,6.945h-427.109c-3.83,0-6.946-3.116-6.946-6.945v-264.603c0-3.83 3.116-6.946 6.946-6.946h427.109c3.83,0 6.945,3.116 6.945,6.946v264.603z" />
+                                                    </g>
+                                                }
+                                            </svg>
+                                            <span class="results-type-text">@(s.Show == null ? "Movie" : "Show")</span>
+                                        </div>
+                                        <p class="results-description">@s.SafeGetAired()</p>
+                                    </div>
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+                                        <div class="results-footer-right">
+                                            @if (s.IsInList)
+                                            {
+                                                <button class="btn add-button" data-id="@s.SafeGetId()" data-type="@s.GetTypeString()" disabled>
+                                                    <i class="glyphicon glyphicon-ok"></i>
+                                                    <span class="add-button-text">Added to My List</span>
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn add-button" data-id="@s.SafeGetId()" data-type="@s.GetTypeString()">
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                    <span class="add-button-text">Add to My List</span>
+                                                </button>
+                                            }
+                                        </div>
+                                    }
+                                </div>
                             </div>
-                            }
-                        </div>
-                    </div>
-                </li>
-            }
-            @if(Model.Count() % 3 == 1)
-            {
-                <li class="results-item"></li>
-                <li class="results-item"></li>
-            }
-            @if (Model.Count() % 3 == 2)
-            {
-                <li class="results-item"></li>
-            }
-        </ul>
+                        </li>
+                    }
+                }
+                @if (Model.Count() % 3 == 1)
+                {
+                    <li class="results-item"></li>
+                        <li class="results-item"></li>
+                }
+                @if (Model.Count() % 3 == 2)
+                {
+                    <li class="results-item"></li>
+                }
+            </ul>
+        </div>
     </div>
 </div>
