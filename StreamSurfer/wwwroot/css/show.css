@@ -9,6 +9,10 @@
     padding-right: 10px;
 }
 
+#greenDiv {
+    position: relative;
+}
+
 #mobileListWrapper {
     display: none;
 }
@@ -99,6 +103,9 @@
     margin-right: 200px;
     height: 75px;
     background-color: #7BA8A2;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 #showTitleDiv h1 {
