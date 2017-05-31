@@ -3,6 +3,10 @@
     ViewData["Title"] = "Shows";
 }
 
+@section Scripts{
+    <script src="~/js/browse.js"></script>
+}
+
 <div id="browseDiv">
     <div id="browseTopDiv">
         <h2 id="browseTitle">CATEGORIES</h2>
@@ -13,7 +17,7 @@
             foreach (var item in Model)
             {
                 <h3 class="browseGenreName">@Html.DisplayFor(modelItem => item.Key)</h3>
-                <div class="browseGenreDiv">
+                <div id="browseScrollDiv" class="browseGenreDiv">
                     @foreach (var value in item.Value)
                     {
                         <a href="/show/detail/@Html.DisplayFor(modelItem => value.ID)">

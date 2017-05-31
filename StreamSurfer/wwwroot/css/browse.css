@@ -1,5 +1,5 @@
 ﻿.browseGenreDiv {
-    overflow-x: auto;
+    overflow-x: scroll;
     white-space: nowrap;
     padding-bottom: 20px;
 }

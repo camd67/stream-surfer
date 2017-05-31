@@ -52,6 +52,7 @@
 
 #showDetailsDiv {
     display: block;
+    min-height: 260px;
 }
 
 #showDetailsDiv ul {
@@ -146,6 +147,10 @@
 
     #showDetailsBox p {
         line-height: 30px;
+    }
+
+    #showDetailsDiv {
+        min-height: 0px;
     }
 
     #showPictureDiv {
