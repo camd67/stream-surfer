@@ -28,6 +28,7 @@
     <Content Include="wwwroot\images\logo.png" />
     <Content Include="wwwroot\images\register-background.jpeg" />
     <Content Include="wwwroot\images\search-background.jpg" />
+    <Content Include="wwwroot\js\browse.js" />
     <Content Include="wwwroot\js\home.js" />
     <Content Include="wwwroot\js\register.js" />
     <Content Include="wwwroot\js\settings.js" />

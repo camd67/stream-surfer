@@ -65,6 +65,11 @@ namespace StreamSurfer.Services
             return BuildQuery("sources", null);
         }
 
+        public string GetGenres()
+        {
+            return BuildQuery("genres", null);
+        }
+
         public string ConvertToMovieImage(int id)
         {
             return BuildQuery("movies/" + id + "/images", null);

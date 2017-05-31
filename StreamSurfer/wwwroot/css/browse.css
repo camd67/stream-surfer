@@ -1,30 +1,67 @@
-﻿.genreDiv {
+﻿.browseGenreDiv {
     overflow-x: auto;
     white-space: nowrap;
-    
+    padding-bottom: 20px;
 }
 
-.genreName {
+.browseGenreName, .browseServiceName {
     color: #FF5F41;
     letter-spacing: 2.5px;
+    font-weight: bold;
+    margin-bottom: 15px;
 }
 
-.genrePic {
-    width: 371.65px;
-    height: 209.26px;
+.browseGenrePic {
+    width: 304px;
+    height: 171px;
     margin-right: 10px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+.browsePoster {
+    display: none;
+}
+
+.browseGenrePic, .browsePoster {
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
 }
 
 #browseDiv {
-    margin-top: 70px;
-    margin-left: 20px;
-    margin-right: 20px;
+    padding-top: 70px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #F3F3EB;
 }
 
-#topDiv {
+#browseTitle {
+    font-weight: bold;
+    font-family: MuseoSans;
+    margin-bottom: 20px;
+    letter-spacing: 2.5px;
+}
+
+#browseTopDiv {
     margin-top: 2em;
 }
 
-#topDiv, #genreName {
+#browseTopDiv, #genreName {
     font-family: "Oswald";
+}
+
+@media only screen and (max-width: 1024px) {
+    .browsePoster {
+        width: 120px;
+        height: 171px;
+        margin-right: 10px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        display: inline-block;
+        background-size: contain;
+    }
+
+    .browseGenrePic {
+        display: none;
+    }
 }

@@ -4,33 +4,36 @@
 }
 
 <div id="browseDiv">
-    <div id="topDiv">
-        <h2>CATEGORIES</h2>
+    <div id="browseTopDiv">
+        <h2 id="browseTitle">CATEGORIES</h2>
     </div>
 
     <div>
         @{
             foreach (var item in Model)
             {
-                <h3 class="genreName">@Html.DisplayFor(modelItem => item.Key)</h3>
-                <div class="genreDiv">
+                <h3 class="browseServiceName">
+                    @Html.DisplayFor(modelItem => item.Key)
+                </h3>
+                <div class="browseGenreDiv">
                     @foreach (var value in item.Value)
                     {
                         if (value is Show)
                         {
                             Show show = (Show)value;
                             <a href="/show/detail/@Html.DisplayFor(modelItem => show.ID)">
-                                <img class="genrePic" src="@Html.DisplayFor(modelItem => show.Artwork)" />
+                                <div class="browseGenrePic" style="background-image: url(@Html.DisplayFor(modelItem => show.Artwork));"></div>
+                                <div class="browsePoster" style="background-image: url(@Html.DisplayFor(modelItem => show.Poster));"></div>
                             </a>
                         }
                         else if (value is Movie)
                         {
                             Movie movie = (Movie)value;
                             <a href="/movie/detail/@Html.DisplayFor(modelItem => movie.ID)">
-                                <img class="genrePic" src="@Html.DisplayFor(modelItem => movie.Artwork)" />
+                                <div class="browseGenrePic" style="background-image: url(@Html.DisplayFor(modelItem => movie.Artwork));"></div>
+                                <div class="browsePoster" style="background-image: url(@Html.DisplayFor(modelItem => movie.Poster));"></div>
                             </a>
                         }
-
                     }
                 </div>
             }

@@ -16,6 +16,7 @@ namespace StreamSurfer.Services
         string GetShows(int limit);
         string GetEpisodes(int id, int limit, int offset);
         string GetSources();
+        string GetGenres();
         string ConvertToMovieImage(int id);
         Task<Show> GetShowDetails(int? id, PostgresDataContext _context, IWebRequestHandler webRequest);
         Task<Movie> GetMovieDetails(int? id, PostgresDataContext _context, IWebRequestHandler webRequest);

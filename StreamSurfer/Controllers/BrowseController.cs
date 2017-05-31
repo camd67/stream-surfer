@@ -30,39 +30,7 @@ namespace StreamSurfer.Controllers
         }
 
         public async Task<IActionResult> Shows()
-        {
-            //get all sources
-            
-            var sources = await webRequest.Get(showService.GetSources());
-            if (!sources.IsSuccessStatusCode)
-            {
-                return NotFound();
-            }
-            var sourceContent = await sources.Content.ReadAsStringAsync();
-            var sourceJson = JObject.Parse(sourceContent);
-            List<Service> serviceList = sourceJson["results"]
-                .Children()
-                .Select(x => new Service()
-                {
-                    ID = (int)JObject.Parse(x.ToString())["id"],
-                    Name = (string)JObject.Parse(x.ToString())["display_name"],
-                    Source = (string)JObject.Parse(x.ToString())["source"],
-                    Link = (string)JObject.Parse(x.ToString())["info"]
-                })
-                .ToList();
-
-            foreach (var ser in serviceList)
-            {
-                Service getService = _context.Services.SingleOrDefault(s => s.ID == ser.ID);
-                if (getService == null)
-                {
-                    _context.Add(ser);
-                }
-            }
-
-            _context.SaveChanges();
-            
-            
+        {            
             var getShowGenre = await _context.ShowGenre
                 .Include(m => m.Genre)
                 .Include(m => m.Show)
@@ -97,6 +65,72 @@ namespace StreamSurfer.Controllers
                 .Include(m => m.Service)
                 .Include(m => m.Movie)
                 .ToListAsync();
+            var getServices = await _context.Services
+                .ToListAsync();
+            var getGenres = await _context.Genres
+                .ToListAsync();
+
+            if (getServices.Count == 0)
+            {
+                //get all sources
+                var sources = await webRequest.Get(showService.GetSources());
+                if (!sources.IsSuccessStatusCode)
+                {
+                    return NotFound();
+                }
+                var sourceContent = await sources.Content.ReadAsStringAsync();
+                var sourceJson = JObject.Parse(sourceContent);
+                List<Service> serviceList = sourceJson["results"]
+                    .Children()
+                    .Select(x => new Service()
+                    {
+                        ID = (int)JObject.Parse(x.ToString())["id"],
+                        Name = (string)JObject.Parse(x.ToString())["display_name"],
+                        Source = (string)JObject.Parse(x.ToString())["source"],
+                        Link = (string)JObject.Parse(x.ToString())["info"]
+                    })
+                    .ToList();
+
+                foreach (var ser in serviceList)
+                {
+                    Service getService = _context.Services.SingleOrDefault(s => s.ID == ser.ID);
+                    if (getService == null)
+                    {
+                        _context.Add(ser);
+                    }
+                }
+                _context.SaveChanges();
+            }
+
+            if (getGenres.Count == 0)
+            {
+                var genres = await webRequest.Get(showService.GetGenres());
+                if (!genres.IsSuccessStatusCode)
+                {
+                    return NotFound();
+                }
+                var genreContent = await genres.Content.ReadAsStringAsync();
+                var genreJson = JObject.Parse(genreContent);
+
+                List<Genre> genreList = genreJson["results"]
+                    .Children()
+                    .Select(x => new Genre()
+                    {
+                        ID = (int)JObject.Parse(x.ToString())["id"],
+                        Title = (string)JObject.Parse(x.ToString())["genre"]
+                    })
+                    .ToList();
+                foreach (var gen in genreList)
+                {
+                    Genre getGenre = _context.Genres.SingleOrDefault(s => s.ID == gen.ID);
+                    if (getGenre == null)
+                    {
+                        _context.Add(gen);
+                    }
+                }
+                _context.SaveChanges();
+            }
+
             SortedDictionary<String, HashSet<Object>> serviceDictionary = new SortedDictionary<String, HashSet<Object>>();
             foreach (var ser in getShowService)
             {
