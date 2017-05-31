@@ -46,7 +46,8 @@ namespace StreamSurfer.Controllers
                 {
                     ID = (int)JObject.Parse(x.ToString())["id"],
                     Name = (string)JObject.Parse(x.ToString())["display_name"],
-                    Source = (string)JObject.Parse(x.ToString())["source"]
+                    Source = (string)JObject.Parse(x.ToString())["source"],
+                    Link = (string)JObject.Parse(x.ToString())["info"]
                 })
                 .ToList();
 
@@ -60,8 +61,8 @@ namespace StreamSurfer.Controllers
             }
 
             _context.SaveChanges();
-            
             */
+            
             var getShowGenre = await _context.ShowGenre
                 .Include(m => m.Genre)
                 .Include(m => m.Show)

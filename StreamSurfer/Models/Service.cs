@@ -12,6 +12,7 @@ namespace StreamSurfer.Models
         public string Price { get; set; }
         public string Picture { get; set; }
         public string Source { get; set; }
+        public string Link { get; set; }
 
         public List<ShowService> ShowService { get; set; }
         public List<MovieService> MovieService { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StreamSurfer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,5 +16,6 @@ namespace StreamSurfer.Services
         string GetShows(int limit);
         string GetEpisodes(int id, int limit, int offset);
         string GetSources();
+        Task<Show> GetShowDetails(int? id, PostgresDataContext _context, IWebRequestHandler webRequest);
     }
 }
