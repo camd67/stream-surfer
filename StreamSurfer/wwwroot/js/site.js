@@ -7,7 +7,7 @@
     });
 
     // note this selects a lot of buttons
-    $(".add-button").click(function (e) {
+    $(".add-button").on("click", function (e) {
         var button = $(this);
         var selectedId = button.data("id");
         var selectedType = $(this).data("type");
@@ -25,11 +25,13 @@
             $(".list-change-group").fadeIn();
         });
     });
-    $("#list-save-changes").click(function () {
-        var rating = $("#list-rating");
-        var status = $("#list-status");
-        var selectedId = $(this).data("id");
-        var selectedType = $(this).data("type");
+    $(".list-save-changes-button").click(function (e) {
+        var select = $(this);
+        var parent = select.parent();
+        var rating = parent.find(".list-rating");
+        var status = parent.find(".list-status");
+        var selectedId = select.data("id");
+        var selectedType = select.data("type");
         $.ajax({
             method: "POST",
             url: "/Profile/UpdateList",
@@ -40,12 +42,12 @@
                 id: selectedId
             }
         })
-            .done(function (data) {
-                console.log(data);
+        .done(function (data) {
+            console.log(data);
             if (data.startsWith("ERROR")) {
                 console.error(data);
             }
-        })
+        });
         $(".list-save-notification")
             .animate({ opacity: 1 }, 750,
             function () {

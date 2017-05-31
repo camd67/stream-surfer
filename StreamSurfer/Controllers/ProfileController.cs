@@ -24,6 +24,8 @@ namespace StreamSurfer.Controllers
         private readonly IMessageService _messageSender;
         private readonly ILogger _logger;
         private readonly PostgresDataContext _context;
+        public readonly IShowService _serviceHandler;
+        public readonly IWebRequestHandler _webRequest;
 
         public ProfileController(
           PostgresDataContext context,
@@ -31,9 +33,13 @@ namespace StreamSurfer.Controllers
           SignInManager<AppUser> signInManager,
           IOptions<IdentityCookieOptions> identityCookieOptions,
           IMessageService messageSender,
-          ILoggerFactory loggerFactory)
+          ILoggerFactory loggerFactory,
+          IShowService service,
+          IWebRequestHandler webRequest)
         {
             _context = context;
+            _webRequest = webRequest;
+            _serviceHandler = service;
             _userManager = userManager;
             _signInManager = signInManager;
             _externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
@@ -52,12 +58,12 @@ namespace StreamSurfer.Controllers
         public async Task<IActionResult> Overview(string id)
         {
             bool isPersonal = true;
-            var user = await GetCurrentUserAsync();
-            if ((id == null || id == "") && user == null)
+            AppUser user = null;
+            if ((id == null || id == ""))
             {
-                return RedirectToAction("Error", "Home", new { id = 404 });
+                user = await GetCurrentUserAsync();
             }
-            if (user == null)
+            else
             {
                 isPersonal = false;
                 user = await _context.Users
@@ -124,12 +130,12 @@ namespace StreamSurfer.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> List(string id)
         {
-            var user = await GetCurrentUserAsync();
-            if ((id == null || id == "") && user == null)
+            AppUser user = null;
+            if ((id == null || id == ""))
             {
-                return RedirectToAction("Error", "Home", new { id = 404 });
+                user = await GetCurrentUserAsync();
             }
-            if (user == null)
+            else
             {
                 user = await _context.Users
                     .SingleOrDefaultAsync(x => x.NormalizedUserName == id.ToUpper());
@@ -190,10 +196,18 @@ namespace StreamSurfer.Controllers
             if(type == "show")
             {
                 show = _context.Shows.SingleOrDefault(x => x.ID == id);
+                if(show == null)
+                {
+                    show = await _serviceHandler.GetShowDetails(id, _context, _webRequest);
+                }
             }
             else if (type == "movie")
             {
                 movie = _context.Movies.SingleOrDefault(x => x.ID == id);
+                if (movie == null)
+                {
+                    movie = await _serviceHandler.GetMovieDetails(id, _context, _webRequest);
+                }
             }
             else
             {

@@ -51,14 +51,14 @@
                             <div class="results-footer-right">
                                 @if (s.IsInList)
                                 {
-                                    <button class="btn add-button" data-id="@s.SafeGetId()" disabled>
+                                    <button class="btn add-button" data-id="@s.SafeGetId()" data-type="@s.GetTypeString()" disabled>
                                         <i class="glyphicon glyphicon-ok"></i>
                                         <span class="add-button-text">Added to My List</span>
                                     </button>
                                 }
                                 else
                                 {
-                                    <button class="btn add-button" data-id="@s.SafeGetId()">
+                                    <button class="btn add-button" data-id="@s.SafeGetId()" data-type="@s.GetTypeString()">
                                         <i class="glyphicon glyphicon-plus"></i>
                                         <span class="add-button-text">Add to My List</span>
                                     </button>

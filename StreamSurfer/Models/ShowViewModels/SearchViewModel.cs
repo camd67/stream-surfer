@@ -51,5 +51,17 @@ namespace StreamSurfer.Models.ShowViewModels
         {
             return type == "show" ? Show.ID == id : Movie.ID == id;
         }
+        public string GetTypeString()
+        {
+            return IsMovie() ? "movie" : "show";
+        }
+        public bool IsMovie()
+        {
+            return Movie != null;
+        }
+        public bool IsShow()
+        {
+            return Show != null;
+        }
     }
 }

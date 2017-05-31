@@ -37,17 +37,17 @@
                         <div style="@(Model.IsInList ? " " : "display: none;")" class="list-change-group">
                             <div class="form-group">
                                 <span>Rating:</span>
-                                <select id="list-rating"
+                                <select class="list-rating"
                                         asp-for="MyListShow.Rating"
                                         asp-items="Html.GetEnumSelectList<ShowRating>()"></select>
                             </div>
                             <div class="form-group">
                                 <span>Status:</span>
-                                <select id="list-status"
+                                <select class="list-status"
                                         asp-for="MyListShow.Status"
                                         asp-items="Html.GetEnumSelectList<ShowStatus>()"></select>
                             </div>
-                            <button id="list-save-changes" data-id="@Model.Show.ID" data-type="show" class="btn green-background drop-shadow">Save Changes</button>
+                            <button data-id="@Model.Show.ID" data-type="show" class="btn green-background drop-shadow list-save-changes-button">Save Changes</button>
                             <p class="list-save-notification"><i class="glyphicon glyphicon-ok"></i> Changes Saved!</p>
                         </div>
                     </div>
@@ -75,17 +75,17 @@
                         <div style="@(Model.IsInList ? " " : "display: none;")" class="list-change-group">
                             <div class="form-group">
                                 <span>Rating:</span>
-                                <select id="list-rating"
+                                <select class="list-rating"
                                         asp-for="MyListShow.Rating"
                                         asp-items="Html.GetEnumSelectList<ShowRating>()"></select>
                             </div>
                             <div class="form-group">
                                 <span>Status:</span>
-                                <select id="list-status"
+                                <select class="list-status"
                                         asp-for="MyListShow.Status"
                                         asp-items="Html.GetEnumSelectList<ShowStatus>()"></select>
                             </div>
-                            <button id="list-save-changes" data-id="@Model.Show.ID" data-type="show" class="btn green-background drop-shadow">Save Changes</button>
+                            <button data-id="@Model.Show.ID" data-type="show" class="btn green-background drop-shadow list-save-changes-button">Save Changes</button>
                             <p class="list-save-notification"><i class="glyphicon glyphicon-ok"></i> Changes Saved!</p>
                         </div>
                     </div>

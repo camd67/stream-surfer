@@ -20,6 +20,13 @@
                         </a>
                     </li>
                 }
+                @if(Model.Watching.Count == 0)
+                {
+                    <li class="profile-list-item">
+                        No waves here!
+                    </li>
+
+                }
             </ul>
         </div>
     </div>
@@ -40,6 +47,13 @@
                             <img class="drop-shadow" src="@s.SafeGetArtwork()" alt="Image for @s.SafeGetTitle()" width="175" height="100" />
                         </a>
                     </li>
+                }
+                @if (Model.Complete.Count == 0)
+                {
+                    <li class="profile-list-item">
+                        No waves here!
+                    </li>
+
                 }
             </ul>
         </div>
@@ -62,6 +76,13 @@
                             <img class="drop-shadow" src="@s.SafeGetArtwork()" alt="Image for @s.SafeGetTitle()" width="175" height="100" />
                         </a>
                     </li>
+                }
+                @if (Model.WantToWatch.Count == 0)
+                {
+                    <li class="profile-list-item">
+                        No waves here!
+                    </li>
+
                 }
             </ul>
         </div>
