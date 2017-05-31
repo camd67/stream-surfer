@@ -149,7 +149,7 @@ namespace StreamSurfer.Controllers
                 Movie movieResult = r.ToObject<Movie>();
                 try
                 {
-                    movieResult.Aired = DateTime.ParseExact(r["release_date"].ToString(), "yyyy-m-d", null).ToString("y");
+                    movieResult.Aired = DateTime.ParseExact(r["release_date"].ToString(), "yyyy-M-d", null).ToString("y");
                 }
                 catch (FormatException)
                 {
@@ -191,7 +191,7 @@ namespace StreamSurfer.Controllers
                 Show showResult = r.ToObject<Show>();
                 try
                 {
-                    showResult.Started = DateTime.ParseExact(r["first_aired"].ToString(), "yyyy-m-d", null).ToString("y");
+                    showResult.Started = DateTime.ParseExact(r["first_aired"].ToString(), "yyyy-M-d", null).ToString("y");
                 }
                 catch (FormatException)
                 {
