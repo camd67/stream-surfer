@@ -7,21 +7,19 @@
 }
 
 <div id="showDetail" class="background-image"></div>
-<div id="pageDiv">
-    <div id="titleDiv">
-        <h1 class="green-tip">@title</h1>
+<div id="showPageDiv">
+    <div id="showTitleDiv">
+        <h1 id="showTitleText" class="green-tip">@title</h1>
     </div>
 
-    <div id="contentDiv">
-        <div id="wrapperDiv">
-            <div id="pictureDiv">
+    <div id="showContentDiv">
+        <div id="showWrapperDiv">
+            <div id="showPictureDiv">
                 <img src="@Html.DisplayFor(model => model.Show.Poster)" />
-            </div>
-            
-            <div id="detailsDiv">
+
                 @if (Model.IsLoggedIn)
                 {
-                    <div class="list-wrapper">
+                    <div id="mobileListWrapper" class="list-wrapper">
                         @if (Model.IsInList)
                         {
                             <button class="btn add-button" data-id="@Model.Show.ID" data-type="show" disabled>
@@ -41,29 +39,65 @@
                                 <span>Rating:</span>
                                 <select id="list-rating"
                                         asp-for="MyListShow.Rating"
-                                        asp-items="Html.GetEnumSelectList<ShowRating>()"
-                                        ></select>
+                                        asp-items="Html.GetEnumSelectList<ShowRating>()"></select>
                             </div>
                             <div class="form-group">
                                 <span>Status:</span>
                                 <select id="list-status"
                                         asp-for="MyListShow.Status"
-                                        asp-items="Html.GetEnumSelectList<ShowStatus>()"
-                                        ></select>
+                                        asp-items="Html.GetEnumSelectList<ShowStatus>()"></select>
                             </div>
                             <button id="list-save-changes" data-id="@Model.Show.ID" data-type="show" class="btn green-background drop-shadow">Save Changes</button>
                             <p class="list-save-notification"><i class="glyphicon glyphicon-ok"></i> Changes Saved!</p>
                         </div>
                     </div>
                 }
-                <div id="topDetails">
-                    <div id="detailsBox">
+            </div>
+            
+            <div id="showDetailsDiv">
+                @if (Model.IsLoggedIn)
+                {
+                    <div id="desktopListWrapper" class="list-wrapper">
+                        @if (Model.IsInList)
+                        {
+                            <button class="btn add-button" data-id="@Model.Show.ID" data-type="show" disabled>
+                                <i class="glyphicon glyphicon-ok"></i>
+                                <span class="add-button-text">Added to My List</span>
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn add-button" data-id="@Model.Show.ID" data-type="show">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                <span class="add-button-text">Add to My List</span>
+                            </button>
+                        }
+                        <div style="@(Model.IsInList ? " " : "display: none;")" class="list-change-group">
+                            <div class="form-group">
+                                <span>Rating:</span>
+                                <select id="list-rating"
+                                        asp-for="MyListShow.Rating"
+                                        asp-items="Html.GetEnumSelectList<ShowRating>()"></select>
+                            </div>
+                            <div class="form-group">
+                                <span>Status:</span>
+                                <select id="list-status"
+                                        asp-for="MyListShow.Status"
+                                        asp-items="Html.GetEnumSelectList<ShowStatus>()"></select>
+                            </div>
+                            <button id="list-save-changes" data-id="@Model.Show.ID" data-type="show" class="btn green-background drop-shadow">Save Changes</button>
+                            <p class="list-save-notification"><i class="glyphicon glyphicon-ok"></i> Changes Saved!</p>
+                        </div>
+                    </div>
+                }
+                <div id="showTopDetails">
+                    <div id="showDetailsBox">
                         <p>DETAILS</p>
                     </div>
                 </div> 
-                <table>
+                <table id="showTable">
                     <tr>
-                        <td class="title">STARRING</td>
+                        <td class="showTableTitle">STARRING</td>
                         @{
                             string list = "";
                             for (var i = 0; i < castList.Length - 1; i++)
@@ -75,7 +109,7 @@
                         }
                     </tr>
                     <tr>
-                        <td class="title">GENRE</td>
+                        <td class="showTableTitle">GENRE</td>
                         @{
                             if (Model.Show.ShowGenre.Count > 0)
                             {
@@ -94,7 +128,7 @@
                         }
                     </tr>
                     <tr>
-                        <td class="title">RATING</td>
+                        <td class="showTableTitle">RATING</td>
                         @{ 
                             if (Model.Show.Rating == null)
                             {
@@ -109,10 +143,10 @@
                 </table>
             </div>
 
-            <div id="descDiv">
+            <div id="showDescDiv">
                 <h2>SYNOPSIS</h2>
                 @{
-                    if (Model.Show.Desc == null)
+                    if (Model.Show.Desc == "")
                     {
                         <p>No synopsis available.</p>
                     }
@@ -123,13 +157,13 @@
                 }
             </div>
 
-            <div id="servicesDiv">
+            <div id="showServicesDiv">
                 <h2>AVAILABLE ON:</h2>
                 @{
                     if (Model.Show.ShowService.Count == 0)
                     {
                         <div class="col-xs-4">
-                            <div class="serviceInfo">
+                            <div class="showServiceInfo">
                                 <p>No services available.</p>
                             </div>
                         </div>
@@ -141,7 +175,7 @@
                             if (ss.EpisodeLink != "")
                             {
                                 <div class="col-xs-4">
-                                    <div class="serviceInfo">
+                                    <div class="showServiceInfo">
                                         <a href="@Html.DisplayFor(link => ss.EpisodeLink)" target="_blank">@Html.DisplayFor(name => ss.Service.Name)</a>
                                     </div>
                                 </div>
@@ -149,7 +183,7 @@
                             else
                             {
                                 <div class="col-xs-4">
-                                    <div class="serviceInfo">
+                                    <div class="showServiceInfo">
                                         <p>@Html.DisplayFor(name => ss.Service.Name)</p>
                                     </div>
                                 </div>

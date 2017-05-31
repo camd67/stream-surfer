@@ -373,12 +373,16 @@ namespace StreamSurfer.Services
                 var movieContent = await movieResponse.Content.ReadAsStringAsync();
                 var movieJson = JObject.Parse(movieContent);
 
-                JToken thumbnails = movieJson["results"]["thumbnails"];
-                if (thumbnails != null)
+                JToken results = movieJson["results"];
+                if (results.Count() > 0)
                 {
-                    var artworkToken = thumbnails.First;
-                    artwork = artworkToken["medium"]["url"].ToString();
-                    artwork.Replace("http://", "https://");
+                    JToken thumbnails = results["thumbnails"];
+                    if (thumbnails.Count() > 0)
+                    {
+                        var artworkToken = thumbnails.First;
+                        artwork = artworkToken["medium"]["url"].ToString();
+                        artwork.Replace("http://", "https://");
+                    }
                 }
 
                 movie = new Movie()

@@ -56,7 +56,7 @@ namespace StreamSurfer.Controllers
                 isInList = myListShow == null ? false : true;
             }
 
-            var vm = new DetailShowViewModel()
+            var vm = new DetailMovieViewModel()
             {
                 Movie = movie,
                 MyListShow = myListShow,

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StreamSurfer.Models.MovieViewModels
 {
-    public class DetailShowViewModel
+    public class DetailMovieViewModel
     {
         public Movie Movie { get; set; }
         public MyListShows MyListShow { get; set; }

@@ -1,45 +1,40 @@
-﻿body {
-    font-family: MuseoSans, sans-serif;
-}
-
-h1 {
-    font-size: 30px;
-    margin-top: 0px;
-    position: relative;
-}
-
-table {
-    margin-left: 210px;
-}
-
-td {
+﻿td {
     padding-top: 10px;
 }
 
-.title {
+.showTableTitle {
     text-align: right;
     vertical-align: top;
     font-weight: bold;
     padding-right: 10px;
 }
 
-#contentDiv {
+#mobileListWrapper {
+    display: none;
+}
+
+#showContentDiv {
     margin-left: 200px;
     margin-right: 200px;
     background-color: white;
     height: inherit;
 }
 
-#descDiv {
+#showDescDiv {
     margin-top: 15px;
 }
 
-#detailsBox {
+#showDetail {
+    background: url("../images/search-background.jpg") no-repeat top center;
+    background-size: cover;
+}
+
+#showDetailsBox {
     height: 50px;
     background-color: #FF5F41;
 }
 
-#detailsBox p {
+#showDetailsBox p {
     text-align: center;
     vertical-align: middle;
     line-height: 50px;
@@ -51,61 +46,62 @@ td {
     font-weight: bold;
 }
 
-#detailsDiv {
-    height: 260px;
+#showDetailsDiv {
+    display: block;
 }
 
-#detailsDiv ul {
+#showDetailsDiv ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
-#detailsDiv ul li {
+#showDetailsDiv ul li {
     display: inline-block;
 }
 
-#imgDiv {
-    margin-top: 60px;
-    margin-left: 60px;
-}
 
-#pageDiv {
+#showPageDiv {
     padding-top: 75px;
     min-height: 100vh;
 }
 
-#pictureDiv {
+#showPictureDiv {
     float: left;
 }
 
-#pictureDiv img {
+#showPictureDiv img {
     height: 260px;
 }
 
-#servicesDiv {
+#showServicesDiv {
     margin-bottom: 100px;
 }
 
-#servicesDiv h2, #descDiv h2 {
+#showServicesDiv h2, #showDescDiv h2 {
     color: #FF5F41;
     font-weight: bold;
     font-size: 26px;
 }
 
-#showDetail {
-    background: url("../images/search-background.jpg") no-repeat top center;
-    background-size: cover;
+#showTable {
+    margin-left: 200px;
 }
 
-#titleDiv {
+#showTitleText {
+    font-size: 30px;
+    margin-top: 0px;
+    position: relative;
+}
+
+#showTitleDiv {
     margin-left: 200px;
     margin-right: 200px;
     height: 75px;
     background-color: #7BA8A2;
 }
 
-#titleDiv h1 {
+#showTitleDiv h1 {
     vertical-align: middle;
     text-align: center;
     color: #E7E6D6;
@@ -113,11 +109,62 @@ td {
     font-weight: bold;
 }
 
-#topDetails div {
+#showTopDetails div {
     display: inline-block;
 }
 
-#wrapperDiv {
+#showWrapperDiv {
     padding: 30px;
     background-color: #F3F3EB;
+}
+
+@media only screen and (max-width: 768px) {
+    #desktopListWrapper {
+        display: none;
+    }
+
+    #mobileListWrapper {
+        display: block;
+    }
+    
+    #showContentDiv, #showTitleDiv {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #showDetailsBox {
+        width: 140.35px;
+        height: 30px;
+    }
+
+    #showDetailsBox p {
+        line-height: 30px;
+    }
+
+    #showPictureDiv {
+        float: none;
+    }
+
+    #showPictureDiv img {
+        height: 200px
+    }
+
+    #showTable {
+        margin-left: 15px;
+    }
+
+    #showWrapperDiv {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+@media screen and (max-width: 359px) {
+    #showPictureDiv img {
+        height: 150px
+    }
+
+    #showDetailsBox {
+        width: 105.26px;
+    }
 }
