@@ -44,6 +44,10 @@ namespace StreamSurfer.Controllers
 
         public async Task<IActionResult> Search(string query, string offline)
         {
+            if (query == null || query.Trim() == "")
+            {
+                return View(new List<SearchViewModel>());
+            }
             // ugly string sanitize... at least the query is usually short
             query = query.Replace("<", "").Replace(">", "");
             ViewData["search_query"] = query.ToUpper();
