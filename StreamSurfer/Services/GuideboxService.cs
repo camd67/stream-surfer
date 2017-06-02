@@ -377,7 +377,7 @@ namespace StreamSurfer.Services
                 if (results.Count() > 0)
                 {
                     JToken thumbnails = results["thumbnails"];
-                    if (thumbnails.Count() > 0)
+                    if (thumbnails != null)
                     {
                         var artworkToken = thumbnails.First;
                         artwork = artworkToken["medium"]["url"].ToString();
