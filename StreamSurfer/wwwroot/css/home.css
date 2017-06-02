@@ -387,6 +387,7 @@
 .about-wrapper {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
 }
 @media (min-width:786px){
     .about-wrapper {
