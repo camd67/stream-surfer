@@ -21,10 +21,3 @@ StreamSurfer is a search engine for users who often stream entertainment online,
 * Postgres: Database management system
 * Reasons for choosing this stack: We chose this stack by having 3 main considerations: ease of use, existing knowledge, and low cost. Digital ocean gave us a virtual server at a low cost, along with ASP .NET Core and Postgres as they are both free. This let us get up and running with very little monetary investment. We have had experience developing on Digital Ocean web servers before, so working with it on this project would be relatively easy. In addition to this, anyone who wishes to work with StreamSurfer will be able to quickly and easily setup a similar system. Our team also had a good amount of existing knowledge about these systems, easing development. Since our stack is fully open source, other developers have few barries towards learning from or working on StreamSurfer.
 
-## Contact
-* Website URL - [streamsurfer.info](https://streamsurfer.info/)
-* StreamSurfer Support - streamsurferinfo@gmail.com
-* Cameron D. - camdoane@uw.edu
-* Isabelle T. - itran94@uw.edu
-* Jack W. - jackw117@uw.edu
-* Alison W. - aliwong@uw.edu
